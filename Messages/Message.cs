@@ -23,24 +23,22 @@ namespace Messages
      // Also need decorator
      // Tweak however works
 
+    //Base-concrete message class
     public class Message{
-        static Message() { }
 
-        int MsgId;
+        public virtual int MsgId { get; set; }
+        public virtual int ConvId { get; set; }
 
-        int ConvId;
 
-        public byte[] Encode()
+        public virtual byte[] Encode()
         {
-            return;
+            return null;
         }
 
-        public void Decode()
+        public virtual void Decode()
         {
 
         }
 
     }
 }
-
-//test comment to test my branch push
