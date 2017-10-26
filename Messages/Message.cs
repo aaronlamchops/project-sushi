@@ -35,7 +35,7 @@ namespace Messages
             return null;
         }
 
-        public virtual void Decode()
+        public virtual void Decode(byte[] message)
         {
 
         }

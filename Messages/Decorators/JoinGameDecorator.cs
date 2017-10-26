@@ -13,17 +13,17 @@ namespace Messages.Decorators
 
         public override byte[] Encode()
         {
-            /*
-             * This class can implement its own version of encode if needed
-             */
-            return null;
+            Encoder buffer = new Encoder();
+            buffer.Add(GameID);
+            buffer.Add(PlayerID);
+            return buffer.getBytes();
         }
 
-        public override void Decode()
+        public override void Decode(byte[] message)
         {
-            /*
-             * This class can implement its own version of decode if needed
-             */
+            Decoder buffer = new Decoder(message);
+            GameID = buffer.readInt();
+            PlayerID = buffer.readInt();
         }
     }
 }
