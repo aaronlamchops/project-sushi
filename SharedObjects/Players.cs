@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharedObjects
 {
-    class Player
+    public class Player
     {
         int id;
         //hand

@@ -9,7 +9,7 @@ namespace SharedObjects
     class Deck
     {
         //Cards
-        public void shuffleDeck()
+        public void ShuffleDeck()
         {
 
         }

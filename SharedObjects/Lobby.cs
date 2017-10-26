@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SharedObjects
 {
-    class Lobby
+    public class Lobby
     {
         //list of games
     }
 
-    class Game
+    public class Game
     {
         int gameId;
         // list players;
