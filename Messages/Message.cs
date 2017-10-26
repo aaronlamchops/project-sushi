@@ -37,7 +37,9 @@ namespace Messages
 
         public virtual void Decode(byte[] message)
         {
-
+            Decoder buffer = new Decoder(message);
+            MsgId = buffer.readInt();
+            ConvId = buffer.readInt();
         }
 
     }
