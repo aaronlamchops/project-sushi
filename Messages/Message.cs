@@ -35,9 +35,11 @@ namespace Messages
             return null;
         }
 
-        public virtual void Decode()
+        public virtual void Decode(byte[] message)
         {
-
+            Decoder buffer = new Decoder(message);
+            MsgId = buffer.readInt();
+            ConvId = buffer.readInt();
         }
 
     }
