@@ -7,6 +7,17 @@ namespace Messages
 {
     public class CreateGameDecorator : MessageDecorator
     {
+        public CreateGameDecorator(int min_players, int max_players)
+        {
+            MinPlayers = min_players;
+            MaxPlayers = max_players;
+        }
+
+        //This should only be used if a 
+        /*public CreateGameDecorator()
+        {
+            Decode(byteMessage);
+        }*/
         /*
          * This class can implement its own member variables 
          * or override existing member variables if needed
@@ -18,6 +29,7 @@ namespace Messages
         public override byte[] Encode()
         {
             Encoder buffer = new Encoder();
+            EncodeHeader(buffer);
             buffer.Add(MinPlayers);
             buffer.Add(MaxPlayers);
             return buffer.getBytes();
@@ -26,6 +38,7 @@ namespace Messages
         public override void Decode(byte[] message)
         {
             Decoder buffer = new Decoder(message);
+            SkipDecodeHeader(buffer);
             MinPlayers = buffer.readInt();
             MaxPlayers = buffer.readInt();
         }

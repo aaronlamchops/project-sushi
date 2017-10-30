@@ -25,14 +25,29 @@ namespace Messages
 
     //Base-concrete message class
     public class Message{
+        //creating send message
+        Message(int msgId, int convId) {
+            MsgId = msgId;
+            ConvId = convId;
+        }
 
+        //received message
+        Message(byte[] message)
+        {
+            Decode(message);
+        }
+
+        public byte[] byteMessage { get; set; }
         public virtual int MsgId { get; set; }
         public virtual int ConvId { get; set; }
 
 
         public virtual byte[] Encode()
         {
-            return null;
+            Encoder buffer = new Encoder();
+            buffer.Add(MsgId);
+            buffer.Add(ConvId);
+            return buffer.getBytes();
         }
 
         public virtual void Decode(byte[] message)
@@ -40,7 +55,19 @@ namespace Messages
             Decoder buffer = new Decoder(message);
             MsgId = buffer.readInt();
             ConvId = buffer.readInt();
+            byteMessage = message;
         }
 
+        protected void SkipDecodeHeader(Decoder buffer)
+        {
+            buffer.readInt();
+            buffer.readInt();
+        }
+
+        protected void EncodeHeader(Encoder buffer)
+        {
+            buffer.Add(MsgId);
+            buffer.Add(ConvId);
+        }
     }
 }
