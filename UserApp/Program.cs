@@ -6,6 +6,10 @@ using System.Windows.Forms;
 
 namespace UserApp
 {
+    /*
+     * THIS SHOULD BE OUR ONLY PROGRAM THAT HAS MAIN()
+     * This is the top GUI layer in which this layer references all other layers
+     */
     static class Program
     {
         /// <summary>
