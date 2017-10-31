@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Messages.Decorators
 {
     public class StartNewRoundDecorator : MessageDecorator
@@ -9,7 +11,7 @@ namespace Messages.Decorators
          */
 
         //not quite sure what to do for Link List?
-
+        public LinkedList<string> Hand { get; set; }
 
         //TCP
 
