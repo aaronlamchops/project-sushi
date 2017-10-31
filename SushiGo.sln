@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationSubsystem", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserApp", "UserApp\UserApp.csproj", "{EEB75A52-775C-47FC-9C2B-21210F0DFB1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageTest", "MessageTest\MessageTest.csproj", "{0073598B-480A-4B66-B7B4-507F101EEAD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{EEB75A52-775C-47FC-9C2B-21210F0DFB1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEB75A52-775C-47FC-9C2B-21210F0DFB1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEB75A52-775C-47FC-9C2B-21210F0DFB1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0073598B-480A-4B66-B7B4-507F101EEAD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0073598B-480A-4B66-B7B4-507F101EEAD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0073598B-480A-4B66-B7B4-507F101EEAD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0073598B-480A-4B66-B7B4-507F101EEAD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

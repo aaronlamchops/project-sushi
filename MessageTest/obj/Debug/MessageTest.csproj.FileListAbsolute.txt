@@ -1,0 +1,16 @@
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\obj\Debug\MessageTest.csprojResolveAssemblyReference.cache
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\obj\Debug\MessageTest.csproj.CoreCompileInputs.cache
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\MessageTest.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\MessageTest.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Messages.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Messages.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Messages.dll.config
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\obj\Debug\MessageTest.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\obj\Debug\MessageTest.pdb

@@ -14,7 +14,7 @@ namespace Messages.Decorators
         //TCP
 
 
-        public override byte[] Encode()
+        /*public override byte[] Encode()
         {
             Encoder buffer = new Encoder();
             //add custom stuff
@@ -25,6 +25,6 @@ namespace Messages.Decorators
         {
             Decoder buffer = new Decoder(message);
             //custom stuff
-        }
+        }*/
     }
 }

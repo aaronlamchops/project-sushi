@@ -13,20 +13,21 @@ namespace Messages.Decorators
         //not quite sure what to do for Link List?
         public LinkedList<string> Hand { get; set; }
 
-    //TCP
+        //TCP
 
 
-    public override byte[] Encode()
-        {
-            Encoder buffer = new Encoder();
-            //Add needed variables
-            return buffer.getBytes();
-        }
+        /*public override byte[] Encode()
+            {
+                Encoder buffer = new Encoder();
+                //Add needed variables
+                return buffer.getBytes();
+            }
 
-        public override void Decode(byte[] message)
-        {
-            Decoder buffer = new Decoder(message);
-            //custom decode
-        }
+            public override void Decode(byte[] message)
+            {
+                Decoder buffer = new Decoder(message);
+                //custom decode
+            }
+        }*/
     }
 }

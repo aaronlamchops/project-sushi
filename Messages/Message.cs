@@ -1,45 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Messages
 {
-    //Need messages for:
-    /*
-     * Create Game
-     * Join Game
-     * Start Game
-     * Exit Game
-     * Send User Info
-     * Select Card - TCP?
-     * Update Game State - TCP?
-     * Update Chat
-     * Pass Cards - TCP?
-     * Start New Round - TCP?
-     * Heartbeat
-     */
-     // Also need decorator
-     // Tweak however works
-
-    //Base-concrete message class
+    [Serializable]
     public class Message{
+
+        static Message(){}
 
         public virtual int MsgId { get; set; }
         public virtual int ConvId { get; set; }
 
-
-        public virtual byte[] Encode()
+        public byte[] Encode()
         {
-            return null;
+            IFormatter formatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+            formatter.Serialize(stream, this);
+            return stream.ToArray();
         }
 
-        public virtual void Decode(byte[] message)
+        public static Message Decode(byte[] message)
         {
-            Decoder buffer = new Decoder(message);
-            MsgId = buffer.readInt();
-            ConvId = buffer.readInt();
+            Message result = null;
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new MemoryStream(message);
+
+            result = (Message) formatter.Deserialize(stream);
+
+            return result;
         }
 
     }

@@ -11,7 +11,7 @@ namespace Messages.Decorators
         public int PlayerID { get; set; }
 
 
-        public override byte[] Encode()
+        /*public override byte[] Encode()
         {
             Encoder buffer = new Encoder();
             buffer.Add(GameID);
@@ -24,6 +24,6 @@ namespace Messages.Decorators
             Decoder buffer = new Decoder(message);
             GameID = buffer.readInt();
             PlayerID = buffer.readInt();
-        }
+        }*/
     }
 }

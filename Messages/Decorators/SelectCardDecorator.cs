@@ -14,7 +14,7 @@ namespace Messages.Decorators
         //TCP
 
 
-        public override byte[] Encode()
+        /*public override byte[] Encode()
         {
             Encoder buffer = new Encoder();
             buffer.Add(CardID);
@@ -27,6 +27,6 @@ namespace Messages.Decorators
             Decoder buffer = new Decoder(message);
             CardID = buffer.readInt();
             PlayerID = buffer.readInt();
-        }
+        }*/
     }
 }

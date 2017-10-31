@@ -1,0 +1,6 @@
+C:\Users\Kylie\Documents\Class\project-sushi\Messages\obj\Debug\Messages.csproj.CoreCompileInputs.cache
+C:\Users\Kylie\Documents\Class\project-sushi\Messages\bin\Debug\Messages.dll.config
+C:\Users\Kylie\Documents\Class\project-sushi\Messages\bin\Debug\Messages.dll
+C:\Users\Kylie\Documents\Class\project-sushi\Messages\bin\Debug\Messages.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\Messages\obj\Debug\Messages.dll
+C:\Users\Kylie\Documents\Class\project-sushi\Messages\obj\Debug\Messages.pdb
