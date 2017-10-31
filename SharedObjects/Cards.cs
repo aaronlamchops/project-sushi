@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace SharedObjects
 {
-    public class Cards
+    public class Cards //not sure what this class is for
     {
-        //list of Card
+        //List of card
+        
     }
-
     public class Card
     {
-        string CardName;
-        int CardId;
+        public string CardName { get; set; }
+        public int CardId { get; set; }
     }
 }
