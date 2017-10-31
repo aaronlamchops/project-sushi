@@ -11,9 +11,26 @@ namespace CommunicationSubsystem
     //Implementation from Dr.Clydes exmaple code, using Message instead of ControlMessage
     public class Envelope
     {
-        /*
-         * Must contain IPEndPoints for incoming and outgoing messages
-         */
+        //Possible types of messages
+        public enum TypeOfMessage
+        {
+            NotSet,//Type of message that isnt set yet when creating the Envelope
+            CreateGame,
+            ExitGame,
+            HeartBeat,
+            JoinGame,
+            PassCard,
+            SelectCard,
+            StartGame,
+            StartNewRound,
+            UpdateChate,
+            UpdateState,
+            UserInfo
+        };
+
+        //Lets us know what type of message is inside of the envelope
+        public TypeOfMessage MessageTypeInEnvelope { get; protected set; } = TypeOfMessage.NotSet;
+
         public Message MessageToBeSent { get; set; }
 
         public PublicEndPoint EndPoint { get; set; }
@@ -44,6 +61,5 @@ namespace CommunicationSubsystem
                                       EndPoint != null &&
                                       EndPoint.Host != "0.0.0.0" &&
                                       EndPoint.Port != 0);
-
     }
 }

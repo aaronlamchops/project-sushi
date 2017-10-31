@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
+
 
 using SharedObjects;
 
@@ -18,8 +20,9 @@ namespace CommunicationSubsystem
          */
 
         //Holds all conversations in the sub system
-        private readonly Dictionary<MessageId, Conversation> _ConversationDictionary = new Dictionary<MessageId, Conversation>();
+        private readonly ConcurrentDictionary<MessageId, ConversationQueue> _ConversationDictionary = new ConcurrentDictionary<MessageId, ConversationQueue>(new MessageId.MessageIdComparer());
 
+        public ConversationQueue 
         
     }
 }
