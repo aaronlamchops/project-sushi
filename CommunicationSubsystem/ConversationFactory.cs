@@ -36,9 +36,10 @@ namespace CommunicationSubsystem
             }
         }
 
-        public void CreateConversation(string conversationType)
+        //creates a conversation with an envelope parameter
+        public void CreateConversation(Envelope envelope)
         {
-            if (string.IsNullOrWhiteSpace(conversationType)) return;
+            
 
 
         }

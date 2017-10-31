@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SharedObjects;
 
 namespace CommunicationSubsystem
 {
@@ -17,26 +18,8 @@ namespace CommunicationSubsystem
          */
 
         //Holds all conversations in the sub system
-        private readonly Dictionary<int, Conversation> _ConversationDictionary = new Dictionary<int, Conversation>();
+        private readonly Dictionary<MessageId, Conversation> _ConversationDictionary = new Dictionary<MessageId, Conversation>();
 
-        //get the conversation you are looking for. 
-        /*
-         * Alittle fuzzy on if we need this method or to make this method better... This is why we might need to make it a Flyweight
-         */
-        public Conversation GetConversation(int id)
-        {
-            Conversation conv;
-
-            if(_ConversationDictionary.ContainsKey(id))
-            {
-                conv = _ConversationDictionary[id];
-            }
-            else
-            {
-                conv = new Conversation();
-
-            }
-            return conv;
-        }
+        
     }
 }

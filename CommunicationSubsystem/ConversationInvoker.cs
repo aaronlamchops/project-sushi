@@ -9,29 +9,47 @@ namespace CommunicationSubsystem
     {
 
         private Thread _worker;
-        private bool _keepRunning;
+        private bool _keepGoing;
 
-        private readonly ConcurrentQueue<Conversation> _todoQueue = new ConcurrentQueue<Conversation>();
+        private readonly ConcurrentQueue<Envelope> _todoQueue = new ConcurrentQueue<Envelope>();    //Envelope Queue
         private readonly AutoResetEvent _enqueueOccurred = new AutoResetEvent(false);
 
 
         public void Start()
         {
-            _keepRunning = true;
+            _keepGoing = true;
             _worker = new Thread(Run);
             _worker.Start();
         }
 
         public void Stop()
         {
-            _keepRunning = false;
+            _keepGoing = false;
         }
 
-        private void Run()
+        public void EnqueueEnvelopeForExecution(Envelope envelope)
         {
-            while(_keepRunning)
+            if (envelope != null)
             {
-                
+                _todoQueue.Enqueue(envelope);
+                _enqueueOccurred.Set();
+            }
+        }
+
+        public void Run()
+        {
+            while (_keepGoing)
+            {
+                Envelope env;
+                if(_todoQueue.TryDequeue(out env))
+                {
+                    //need implementation of Initiator Conversation
+                    //and
+                    //Responder Conversation
+
+                    //we need to decipher whether the message is out-going or incoming
+                    //then determine what to do
+                }
             }
         }
     }
