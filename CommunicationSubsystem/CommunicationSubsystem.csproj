@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communicator.cs" />
+    <Compile Include="ConversationQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Envelope.cs" />
     <Compile Include="Conversation.cs" />
@@ -60,6 +61,10 @@
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{CAA634E0-C3B0-4609-A647-9904500C2332}</Project>
       <Name>Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedObjects\SharedObjects.csproj">
+      <Project>{5196b706-880e-4b82-b245-1cd20ddf453d}</Project>
+      <Name>SharedObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
