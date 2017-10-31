@@ -1,15 +1,14 @@
 ﻿<Properties StartupConfiguration="{E210A05B-5032-4696-8B2C-9336D4740BE2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Messages/Decorators/StartNewRoundDecorator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CommunicationSubsystem/ConversationFactory.cs">
     <Files>
-      <File FileName="Messages/Decorators/SelectCardDecorator.cs" Line="13" Column="9" />
-      <File FileName="Messages/Decorators/UpdateStateDecorator.cs" Line="7" Column="40" />
-      <File FileName="Messages/Decorators/UpdateChatDecorator.cs" Line="12" Column="9" />
-      <File FileName="Messages/Decorators/PassCardDecorator.cs" Line="16" Column="9" />
-      <File FileName="Messages/Decorators/StartNewRoundDecorator.cs" Line="17" Column="40" />
-      <File FileName="Messages/Decorators/HeartbeatDecorator.cs" Line="1" Column="1" />
-      <File FileName="Messages/Message.cs" Line="20" Column="30" NotebookId="1" />
-      <File FileName="Messages/MessageDecorator.cs" Line="20" Column="1" NotebookId="1" />
-      <File FileName="SharedObjects/Cards.cs" Line="10" Column="6" NotebookId="1" />
+      <File FileName="CommunicationSubsystem/Communicator.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/Envelope.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/Conversation.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/ConversationFactory.cs" Line="35" Column="40" />
+      <File FileName="CommunicationSubsystem/ConversationDictionary.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/ConversationInvoker.cs" Line="1" Column="1" />
+      <File FileName="Messages/Decorators/CreateGameDecorator.cs" Line="18" Column="40" />
+      <File FileName="Messages/Message.cs" Line="33" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
