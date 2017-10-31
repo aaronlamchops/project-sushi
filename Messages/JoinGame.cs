@@ -1,8 +1,8 @@
 ﻿using System;
-namespace Messages.Decorators
+namespace Messages
 {
     [Serializable]
-    public class ExitGame : Message
+    public class JoinGame : Message
     {
         public int GameID { get; set; }
         public int PlayerID { get; set; }

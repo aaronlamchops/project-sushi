@@ -14,3 +14,6 @@ C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.Vis
 C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\obj\Debug\MessageTest.dll
 C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\obj\Debug\MessageTest.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\SharedObjects.dll
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\SharedObjects.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\MessageTest\bin\Debug\SharedObjects.dll.config

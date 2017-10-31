@@ -59,6 +59,10 @@
       <Project>{caa634e0-c3b0-4609-a647-9904500c2332}</Project>
       <Name>Messages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SharedObjects\SharedObjects.csproj">
+      <Project>{5196b706-880e-4b82-b245-1cd20ddf453d}</Project>
+      <Name>SharedObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
