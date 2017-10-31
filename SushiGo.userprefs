@@ -1,14 +1,14 @@
 ﻿<Properties StartupConfiguration="{E210A05B-5032-4696-8B2C-9336D4740BE2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Messages/Message.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CommunicationSubsystem/ConversationFactory.cs">
     <Files>
-      <File FileName="CommunicationSubsystem/Communicator.cs" Line="11" Column="9" />
-      <File FileName="CommunicationSubsystem/Envelope.cs" Line="13" Column="2" />
-      <File FileName="CommunicationSubsystem/Conversation.cs" Line="7" Column="10" />
-      <File FileName="CommunicationSubsystem/ConversationFactory.cs" Line="43" Column="13" />
-      <File FileName="CommunicationSubsystem/ConversationDictionary.cs" Line="16" Column="67" />
-      <File FileName="CommunicationSubsystem/ConversationInvoker.cs" Line="34" Column="17" />
+      <File FileName="CommunicationSubsystem/Communicator.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/Envelope.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/Conversation.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/ConversationFactory.cs" Line="35" Column="40" />
+      <File FileName="CommunicationSubsystem/ConversationDictionary.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/ConversationInvoker.cs" Line="1" Column="1" />
       <File FileName="Messages/Decorators/CreateGameDecorator.cs" Line="18" Column="40" />
-      <File FileName="Messages/Message.cs" Line="32" Column="9" />
+      <File FileName="Messages/Message.cs" Line="33" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
