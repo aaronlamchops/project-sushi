@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Messages.Decorators
 {
     public class PassCardDecorator : MessageDecorator
@@ -9,12 +11,12 @@ namespace Messages.Decorators
          */
 
         //not quite sure what to do for Link List?
+        public LinkedList<string> Hand { get; set; }
+
+    //TCP
 
 
-        //TCP
-
-
-        public override byte[] Encode()
+    public override byte[] Encode()
         {
             Encoder buffer = new Encoder();
             //Add needed variables
