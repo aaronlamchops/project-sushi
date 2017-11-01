@@ -23,7 +23,8 @@ namespace SharedObjects
     class Deck
     {
         private List<Card> Cards;
-        
+        private static Random rng = new Random();
+
         public Deck()
         {
             this.ResetDeck();
@@ -56,7 +57,15 @@ namespace SharedObjects
         }
         public void ShuffleDeck()
         {
-
+            int n = Cards.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                Card tmp = Cards[k];
+                Cards[k] = Cards[n];
+                Cards[n] = tmp;
+            }
         }
     }
 }
