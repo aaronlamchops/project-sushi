@@ -1,0 +1,7 @@
+C:\Users\Kylie\Documents\Class\project-sushi\CommunicationSubsystem\bin\Debug\CommunicationSubsystem.exe.config
+C:\Users\Kylie\Documents\Class\project-sushi\CommunicationSubsystem\bin\Debug\CommunicationSubsystem.exe
+C:\Users\Kylie\Documents\Class\project-sushi\CommunicationSubsystem\bin\Debug\CommunicationSubsystem.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\CommunicationSubsystem\obj\Debug\CommunicationSubsystem.csproj.CoreCompileInputs.cache
+C:\Users\Kylie\Documents\Class\project-sushi\CommunicationSubsystem\obj\Debug\CommunicationSubsystem.exe
+C:\Users\Kylie\Documents\Class\project-sushi\CommunicationSubsystem\obj\Debug\CommunicationSubsystem.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\CommunicationSubsystem\obj\Debug\CommunicationSubsystem.csprojResolveAssemblyReference.cache

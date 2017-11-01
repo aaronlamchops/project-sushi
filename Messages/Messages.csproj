@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CAA634E0-C3B0-4609-A647-9904500C2332}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Messages</RootNamespace>
     <AssemblyName>Messages</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,20 +48,25 @@
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageDecorator.cs" />
-    <Compile Include="Decorators\CreateGameDecorator.cs" />
-    <Compile Include="Decorators\JoinGameDecorator.cs" />
-    <Compile Include="Decorators\StartGameDecorator.cs" />
-    <Compile Include="Decorators\ExitGameDecorator.cs" />
-    <Compile Include="Decorators\UserInfoDecorator.cs" />
-    <Compile Include="Decorators\UpdateStateDecorator.cs" />
-    <Compile Include="Decorators\SelectCardDecorator.cs" />
-    <Compile Include="Decorators\UpdateChatDecorator.cs" />
-    <Compile Include="Decorators\PassCardDecorator.cs" />
-    <Compile Include="Decorators\StartNewRoundDecorator.cs" />
-    <Compile Include="Decorators\HeartbeatDecorator.cs" />
+    <Compile Include="CreateGame.cs" />
+    <Compile Include="JoinGame.cs" />
+    <Compile Include="StartGame.cs" />
+    <Compile Include="ExitGame.cs" />
+    <Compile Include="UserInfo.cs" />
+    <Compile Include="UpdateState.cs" />
+    <Compile Include="SelectCard.cs" />
+    <Compile Include="UpdateChat.cs" />
+    <Compile Include="PassCard.cs" />
+    <Compile Include="Heartbeat.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedObjects\SharedObjects.csproj">
+      <Project>{5196b706-880e-4b82-b245-1cd20ddf453d}</Project>
+      <Name>SharedObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Decorators\" />

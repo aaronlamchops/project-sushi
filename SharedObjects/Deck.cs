@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharedObjects
 {
-    enum CardTypes
+    public enum CardTypes
     {
         Wasabi,
         EggNigiri,
