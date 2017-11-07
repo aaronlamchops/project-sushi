@@ -1,0 +1,7 @@
+C:\Users\Kylie\Documents\Class\project-sushi\ConsoleApp1\obj\Debug\Utils.csproj.CoreCompileInputs.cache
+C:\Users\Kylie\Documents\Class\project-sushi\ConsoleApp1\bin\Debug\ConsoleApp1.dll.config
+C:\Users\Kylie\Documents\Class\project-sushi\ConsoleApp1\bin\Debug\ConsoleApp1.dll
+C:\Users\Kylie\Documents\Class\project-sushi\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\ConsoleApp1\obj\Debug\ConsoleApp1.dll
+C:\Users\Kylie\Documents\Class\project-sushi\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
+C:\Users\Kylie\Documents\Class\project-sushi\ConsoleApp1\obj\Debug\Utils.csprojResolveAssemblyReference.cache
