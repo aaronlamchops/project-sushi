@@ -1,47 +1,78 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace CommunicationSubsystem
 {
-    public class ConversationFactory
+    public abstract class ConversationFactory
     {
-        //This `_SingleInstance` is the ONLY instance of a ConversationFactory
-        private static ConversationFactory _SingleInstance;
+        private readonly Dictionary<Type, Type> _typeMappings = new Dictionary<Type, Type>();
 
-        //A lock so that this class is thread safe
-        private static readonly object MyLock = new object();
+        public CommSubSystem ManagingSubSystem { get; set; }
 
-        //Private constructor to help further the idea of a Singleton ConversationFactory
-        private ConversationFactory() { }
+        public int DefaultMaxRetries { get; set; }
+        public int DefaultTimeout { get; set; }
 
+        public Conversation.ActionHandler PreExecuteAciton { get; set; }
+        public Conversation.ActionHandler PostExecuteAciton { get; set; }
 
-        /*
-         * A Singleton is a class that is super unique in the fact that there is ONLY ONE instance of this class
-         * A Singleton prevents other classes from making multiple instances of this classs.
-         * This is super helpful in making our conversation creation Thread Safe and that we aren't creating multiple copies
-         */
-
-
-        //Method to access the ConversationFactory 
-        public static ConversationFactory SingleInstance
+        public bool IncomingMessageCanStartConversation(Type messageType)
         {
-            get
+            return _typeMappings.ContainsKey(messageType);
+        }
+
+        public virtual Conversation CreateFromMessage(Envelope envelope)
+        {
+            Conversation conversation = null;
+            Type messageType = envelope?.MessageToBeSent?.GetType();
+
+            if(messageType != null && _typeMappings.ContainsKey(messageType))
             {
-                lock (MyLock)
-                {
-                    if(_SingleInstance == null)
-                    {
-                        _SingleInstance = new ConversationFactory();
-                    }
-                }
-                return _SingleInstance;
+                conversation = CreateResponderConversation(_typeMappings[messageType], envelope);
+            }
+
+            return conversation;
+        }
+
+        public virtual T CreateFromConversationType<T>() where T : Conversation, new()
+        {
+            T conversation = new T()
+            {
+                CommSubSystem = ManagingSubSystem,
+                MaxRetries = DefaultMaxRetries,
+                Timeout = DefaultTimeout,
+                PreExecuteAction = PreExecuteAciton,
+                PostExecuteAction = PostExecuteAciton
+            };
+            return conversation;
+        }
+
+        public abstract void Initialize();
+
+        protected void Add(Type messageType, Type converationType)
+        {
+            if (messageType != null && converationType != null && !_typeMappings.ContainsKey(messageType))
+            {
+                _typeMappings.Add(messageType, converationType);
             }
         }
 
-        //creates a conversation with an envelope parameter
-        public void CreateConversation(Envelope envelope)
+        protected virtual ResponderConversation CreateResponderConversation(Type conversationType, Envelope envelope = null)
         {
-            
+            ResponderConversation conversation = null;
 
-
+            if(conversation != null)
+            {
+                conversation = Activator.CreateInstance(conversationType) as ResponderConversation;
+                if(conversation != null)
+                {
+                    conversation.CommSubSystem = ManagingSubSystem;
+                    conversation.MaxRetries = DefaultMaxRetries;
+                    conversation.Timeout = DefaultTimeout;
+                    conversation.PreExecuteAction = PreExecuteAciton;
+                    conversation.PostExecuteAction = PostExecuteAciton;
+                }
+            }
+            return conversation;
         }
     }
 }

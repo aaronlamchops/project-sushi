@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine">
+      <HintPath>..\..\cs5200f17-shared\examples\Gadget Manufactoring Simulator\GadgetManufacturing\3rdParty\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,19 +48,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Communicator.cs" />
+    <Compile Include="CommProcess.cs" />
+    <Compile Include="CommProcessState.cs" />
+    <Compile Include="CommSubSystem.cs" />
+    <Compile Include="InitiatorConversation.cs" />
+    <Compile Include="InitiatorRRConversation.cs" />
+    <Compile Include="ResponderConversation.cs" />
+    <Compile Include="RuntimeOptions.cs" />
+    <Compile Include="StateChange.cs" />
+    <Compile Include="UDPCommunicator.cs" />
     <Compile Include="ConversationQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Envelope.cs" />
     <Compile Include="Conversation.cs" />
     <Compile Include="ConversationFactory.cs" />
     <Compile Include="ConversationDictionary.cs" />
-    <Compile Include="ConversationInvoker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleApp1\Utils.csproj">
+      <Project>{e210a05b-5032-4696-8b2c-9336d4740be2}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{CAA634E0-C3B0-4609-A647-9904500C2332}</Project>
       <Name>Messages</Name>
@@ -66,6 +80,9 @@
       <Project>{5196b706-880e-4b82-b245-1cd20ddf453d}</Project>
       <Name>SharedObjects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
