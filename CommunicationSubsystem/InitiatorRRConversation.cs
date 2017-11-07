@@ -13,15 +13,15 @@ namespace CommunicationSubsystem
     {
         protected override void ExecuteDetails(object context)
         {
-            Envelope env = ReliableSend(FirstEnvelope, ExpectedReplyType, typeof(HeartbeatMessage));
+            Envelope env = ReliableSend(FirstEnvelope, ExpectedReplyType, typeof(Heartbeat));
 
             if(env == null)
             {
                 Error = new Error() { Text = $"No Response received" };
             }
-            else if(env.MessageToBeSent is HeartbeatMessage)
+            else if(env.MessageToBeSent is Heartbeat)
             {
-                Error = ((HeartbeatMessage)env.MessageToBeSent).Error;
+                Error = ((Heartbeat)env.MessageToBeSent).Error;
             }
             else{
                 ProcessValidResponse(env);
