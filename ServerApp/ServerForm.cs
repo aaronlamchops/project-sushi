@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UserApp
+namespace ServerApp
 {
-    public partial class Form1 : Form
+    public partial class ServerForm : Form
     {
-        public Form1()
+        public ServerForm()
         {
             InitializeComponent();
+        }
+
+        private void SetAddressPortButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
