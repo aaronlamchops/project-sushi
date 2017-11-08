@@ -1,17 +1,5 @@
 ﻿<Properties StartupConfiguration="{EEB75A52-775C-47FC-9C2B-21210F0DFB1E}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="CommunicationSubsystem/Envelope.cs">
-    <Files>
-      <File FileName="CommunicationSubsystem/Communicator.cs" Line="1" Column="1" />
-      <File FileName="CommunicationSubsystem/Conversation.cs" Line="1" Column="1" />
-      <File FileName="CommunicationSubsystem/ConversationFactory.cs" Line="42" Column="13" />
-      <File FileName="CommunicationSubsystem/ConversationQueue.cs" Line="1" Column="1" />
-      <File FileName="CommunicationSubsystem/ConversationDictionary.cs" Line="11" Column="33" />
-      <File FileName="CommunicationSubsystem/ConversationInvoker.cs" Line="1" Column="1" />
-      <File FileName="CommunicationSubsystem/Envelope.cs" Line="46" Column="58" />
-      <File FileName="Messages/Message.cs" Line="30" Column="48" />
-      <File FileName="Messages/Decorators/CreateGameDecorator.cs" Line="22" Column="36" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
