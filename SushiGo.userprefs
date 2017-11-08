@@ -1,15 +1,15 @@
-﻿<Properties StartupConfiguration="{E210A05B-5032-4696-8B2C-9336D4740BE2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Messages/Decorators/StartNewRoundDecorator.cs">
+﻿<Properties StartupConfiguration="{EEB75A52-775C-47FC-9C2B-21210F0DFB1E}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CommunicationSubsystem/Envelope.cs">
     <Files>
-      <File FileName="Messages/Decorators/SelectCardDecorator.cs" Line="13" Column="9" />
-      <File FileName="Messages/Decorators/UpdateStateDecorator.cs" Line="7" Column="40" />
-      <File FileName="Messages/Decorators/UpdateChatDecorator.cs" Line="12" Column="9" />
-      <File FileName="Messages/Decorators/PassCardDecorator.cs" Line="16" Column="9" />
-      <File FileName="Messages/Decorators/StartNewRoundDecorator.cs" Line="17" Column="40" />
-      <File FileName="Messages/Decorators/HeartbeatDecorator.cs" Line="1" Column="1" />
-      <File FileName="Messages/Message.cs" Line="20" Column="30" NotebookId="1" />
-      <File FileName="Messages/MessageDecorator.cs" Line="20" Column="1" NotebookId="1" />
-      <File FileName="SharedObjects/Cards.cs" Line="10" Column="6" NotebookId="1" />
+      <File FileName="CommunicationSubsystem/Communicator.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/Conversation.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/ConversationFactory.cs" Line="42" Column="13" />
+      <File FileName="CommunicationSubsystem/ConversationQueue.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/ConversationDictionary.cs" Line="11" Column="33" />
+      <File FileName="CommunicationSubsystem/ConversationInvoker.cs" Line="1" Column="1" />
+      <File FileName="CommunicationSubsystem/Envelope.cs" Line="46" Column="58" />
+      <File FileName="Messages/Message.cs" Line="30" Column="48" />
+      <File FileName="Messages/Decorators/CreateGameDecorator.cs" Line="22" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -17,6 +17,7 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.UserApp PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.Utils PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
