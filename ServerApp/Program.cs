@@ -4,12 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UserApp
+namespace ServerApp
 {
-    /*
-     * THIS SHOULD BE OUR ONLY PROGRAM THAT HAS MAIN()
-     * This is the top GUI layer in which this layer references all other layers
-     */
     static class Program
     {
         /// <summary>
@@ -20,7 +16,7 @@ namespace UserApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ClientForm());
+            Application.Run(new ServerForm());
         }
     }
 }
