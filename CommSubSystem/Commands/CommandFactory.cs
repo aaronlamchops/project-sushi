@@ -27,6 +27,8 @@ namespace CommSubSystem.Commands
             }
         }
 
+        //CommandFactory.Instance.CreateAndExcute('SEND')
+
         public ControlHub TargetControl { get; set; }
         public SendInvoker SendInvoker { get; set; }
 
@@ -47,7 +49,7 @@ namespace CommSubSystem.Commands
             switch(commandType.Trim().ToUpper())
             {
                 case "SEND":
-                    //command = new SendCommand();
+                    command = new SendCommand();
                     break;
             }
 
