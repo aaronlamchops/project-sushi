@@ -23,7 +23,8 @@ namespace SharedObjects
     class Deck
     {
         private List<Card> Cards;
-        
+        private static Random rng = new Random();
+
         public Deck()
         {
             this.ResetDeck();
@@ -34,16 +35,19 @@ namespace SharedObjects
             foreach (CardTypes card in Enum.GetValues(typeof(CardTypes)))
             {
                 int max = 0;
-                if (card.ToString() == "Wasabi") { max = 6; }
-                else if (card.ToString() == "EggNigiri") { max = 5; }
-                else if (card.ToString() == "SalmonNigiri") { max = 10; }
-                else if (card.ToString() == "SquidNigiri") { max = 5; }
-                else if (card.ToString() == "Sashimi") { max = 14; }
-                else if (card.ToString() == "Tempura") { max = 14; }
-                else if (card.ToString() == "Dumpling") { max = 14; }
-                else if (card.ToString() == "MakiRoll") { max = 26; }
-                else if (card.ToString() == "Pudding") { max = 10; }
-                else if (card.ToString() == "Chopsticks") { max = 4; }
+                switch (card.ToString())
+                {
+                    case "Wasabi": max = 6; break;
+                    case "EggNigiri": max = 5; break;
+                    case "SalmonNigiri": max = 10; break;
+                    case "SquidNigiri": max = 5; break;
+                    case "Sashimi": max = 14; break;
+                    case "Tempura": max = 14; break;
+                    case "Dumpling": max = 14; break;
+                    case "MakiRoll": max = 26; break;
+                    case "Pudding": max = 10; break;
+                    case "Chopsticks": max = 4; break;
+                }
 
                 for (int y = 0; y < max; y++)
                 {
@@ -53,7 +57,15 @@ namespace SharedObjects
         }
         public void ShuffleDeck()
         {
-
+            int n = Cards.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                Card tmp = Cards[k];
+                Cards[k] = Cards[n];
+                Cards[n] = tmp;
+            }
         }
     }
 }
