@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommunicationSubsystem
+namespace SharedObjects
 {
-    class Program
+    public enum ProcessType
     {
-        static void Main(string[] args)
-        {
-        }
+        //needs implementations
     }
 }
