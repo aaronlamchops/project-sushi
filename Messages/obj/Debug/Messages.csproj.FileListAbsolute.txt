@@ -8,3 +8,13 @@ C:\Users\Kylie\Documents\Class\project-sushi\Messages\bin\Debug\SharedObjects.dl
 C:\Users\Kylie\Documents\Class\project-sushi\Messages\bin\Debug\SharedObjects.pdb
 C:\Users\Kylie\Documents\Class\project-sushi\Messages\bin\Debug\SharedObjects.dll.config
 C:\Users\Kylie\Documents\Class\project-sushi\Messages\obj\Debug\Messages.csprojResolveAssemblyReference.cache
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\bin\Debug\Messages.dll.config
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\bin\Debug\Messages.dll
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\bin\Debug\Messages.pdb
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\bin\Debug\SharedObjects.dll
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\bin\Debug\SharedObjects.pdb
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\bin\Debug\SharedObjects.dll.config
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\obj\Debug\Messages.csprojResolveAssemblyReference.cache
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\obj\Debug\Messages.csproj.CoreCompileInputs.cache
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\obj\Debug\Messages.dll
+C:\Users\Aaron\Desktop\CS5200\project-sushi\Messages\obj\Debug\Messages.pdb
