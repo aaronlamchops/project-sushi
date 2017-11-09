@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using Messages; // Class Library Messages
 using SharedObjects;
 
 namespace CommunicationSubsystem
 {
-
-    //Implementation from Dr.Clydes exmaple code, using Message instead of ControlMessage
+    [Serializable]
     public class Envelope
     {
         //Possible types of messages
@@ -61,5 +63,15 @@ namespace CommunicationSubsystem
                                       EndPoint != null &&
                                       EndPoint.Host != "0.0.0.0" &&
                                       EndPoint.Port != 0);
+
+        public byte[] Encode()
+        {
+            IFormatter formatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+
+            formatter.Serialize(stream, this);
+            return stream.ToArray();
+        }
+
     }
 }

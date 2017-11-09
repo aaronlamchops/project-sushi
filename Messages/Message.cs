@@ -4,6 +4,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
+using SharedObjects;
+
 namespace Messages
 {
     [Serializable]
@@ -11,8 +13,8 @@ namespace Messages
 
         static Message(){}
 
-        public virtual int MsgId { get; set; }
-        public virtual int ConvId { get; set; }
+        public virtual MessageId MsgId { get; set; }
+        public virtual MessageId ConvId { get; set; }
 
         public byte[] Encode()
         {

@@ -1,4 +1,6 @@
-﻿namespace UserApp
+﻿using System;
+
+namespace UserApp
 {
     partial class ClientForm
     {
@@ -36,6 +38,10 @@
             this.ReceivingListView = new System.Windows.Forms.ListView();
             this.ReceivingLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
             // AddressLabel
             // 
@@ -108,12 +114,15 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.AddressTextBox);
             this.Controls.Add(this.AddressLabel);
+            this.Load += new System.EventHandler(this.ClientForm_Load);
             this.Name = "ClientForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+
 
         #endregion
 
@@ -124,6 +133,7 @@
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.ListView ReceivingListView;
         private System.Windows.Forms.Label ReceivingLabel;
+        private System.Windows.Forms.Timer refreshTimer;
     }
 }
 

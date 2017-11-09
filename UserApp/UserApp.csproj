@@ -78,5 +78,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Messages\Messages.csproj">
+      <Project>{CAA634E0-C3B0-4609-A647-9904500C2332}</Project>
+      <Name>Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommSubSystem\CommSubSystem.csproj">
+      <Project>{0C4A9679-4135-472B-9CF9-FDB57F0B54F1}</Project>
+      <Name>CommSubSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedObjects\SharedObjects.csproj">
+      <Project>{5196B706-880E-4B82-B245-1CD20DDF453D}</Project>
+      <Name>SharedObjects</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

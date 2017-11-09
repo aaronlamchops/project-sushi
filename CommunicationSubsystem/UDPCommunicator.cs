@@ -159,7 +159,7 @@ namespace CommunicationSubsystem
             return result;
         }
 
-        private byte[] ReceiveBytes(int timeout, out IPEndPoint ep)
+        public byte[] ReceiveBytes(int timeout, out IPEndPoint ep)
         {
             byte[] receivedBytes = null;
             ep = null;

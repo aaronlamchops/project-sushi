@@ -21,7 +21,7 @@ namespace CommunicationSubsystem
             }
             else if(env.MessageToBeSent is Heartbeat)
             {
-                Error = ((Heartbeat)env.MessageToBeSent).Error;
+                //Error = ((Heartbeat)env.MessageToBeSent).Error;
             }
             else{
                 ProcessValidResponse(env);
