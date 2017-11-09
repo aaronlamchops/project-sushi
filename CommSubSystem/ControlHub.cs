@@ -13,7 +13,6 @@ namespace CommSubSystem
     public class ControlHub
     {
         private readonly ConversationDictionary _queueDictionary = new ConversationDictionary();
-        
 
 
         //add conversations to the dictionary
@@ -22,10 +21,21 @@ namespace CommSubSystem
             return _queueDictionary.CreateQueue(convId);
         }
 
+        public ConversationQueue Lookup(MessageId convId)
+        {
+            return _queueDictionary.Lookup(convId);
+        }
+
         //close/complete conversation
         public void CloseConversationQueue(MessageId convId)
         {
             _queueDictionary.CloseQueue(convId);
+        }
+
+        //clear everything
+        public void ClearAllQueues()
+        {
+            _queueDictionary.ClearAllQueues();
         }
 
 

@@ -27,8 +27,6 @@ namespace CommSubSystem.Commands
             }
         }
 
-        //CommandFactory.Instance.CreateAndExcute('SEND')
-
         public ControlHub TargetControl { get; set; }
         public SendInvoker SendInvoker { get; set; }
 

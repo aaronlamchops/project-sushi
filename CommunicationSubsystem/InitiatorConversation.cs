@@ -24,7 +24,7 @@ namespace CommunicationSubsystem
             Message msg = CreateFirstMessage();
             if(msg != null)
             {
-                msg.SetMessageAndConversationIds(ConvId); // need to either implement this function or se the ids manually
+                //msg.SetMessageAndConversationIds(ConvId); // need to either implement this function or se the ids manually
                 FirstEnvelope = new Envelope() { MessageToBeSent = msg, EndPoint = RemoteEndPoint };
             }
 

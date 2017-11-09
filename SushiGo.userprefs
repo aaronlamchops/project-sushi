@@ -1,17 +1,14 @@
 ﻿<Properties StartupConfiguration="{EEB75A52-775C-47FC-9C2B-21210F0DFB1E}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="CommunicationSubsystem/InitiatorRRConversation.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CommSubSystem/Commands/CommandFactory.cs">
     <Files>
-      <File FileName="CommunicationSubsystem/ConversationFactory.cs" Line="12" Column="51" />
-      <File FileName="CommunicationSubsystem/ConversationQueue.cs" Line="1" Column="1" />
-      <File FileName="CommunicationSubsystem/ConversationDictionary.cs" Line="1" Column="1" />
-      <File FileName="CommunicationSubsystem/Envelope.cs" Line="20" Column="23" />
-      <File FileName="CommunicationSubsystem/InitiatorConversation.cs" Line="1" Column="1" />
-      <File FileName="CommunicationSubsystem/InitiatorRRConversation.cs" Line="18" Column="28" />
-      <File FileName="CommunicationSubsystem/UDPCommunicator.cs" Line="87" Column="13" />
-      <File FileName="CommunicationSubsystem/CommSubSystem.cs" Line="98" Column="32" />
-      <File FileName="CommunicationSubsystem/CommProcess.cs" Line="14" Column="49" />
-      <File FileName="Messages/Message.cs" Line="18" Column="9" />
-      <File FileName="SharedObjects/MessageID.cs" Line="1" Column="1" />
+      <File FileName="CommSubSystem/Commands/SendCommand.cs" Line="25" Column="9" />
+      <File FileName="CommSubSystem/Commands/CommandFactory.cs" Line="21" Column="40" />
+      <File FileName="CommSubSystem/Commands/SendInvoker.cs" Line="10" Column="2" />
+      <File FileName="CommSubSystem/ControlHub.cs" Line="8" Column="21" />
+      <File FileName="CommSubSystem/ConversationDictionary.cs" Line="12" Column="2" />
+      <File FileName="CommSubSystem/ConversationQueue.cs" Line="1" Column="1" />
+      <File FileName="UserApp/ClientForm.cs" Line="23" Column="28" NotebookId="1" />
+      <File FileName="UserApp/ClientForm.Designer.cs" Line="125" Column="9" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
