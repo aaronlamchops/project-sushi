@@ -47,10 +47,10 @@ namespace CommSubSystem.Commands
             switch(commandType.Trim().ToUpper())
             {
                 case "SEND":
-                    command = new SendCommand();
+                    command = new SendCommand(commandParameters);
                     break;
                 case "RESP":
-                    command = new RespCommand();
+                    command = new RespCommand(commandParameters);
                     break;
 
             }

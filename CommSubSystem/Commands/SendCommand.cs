@@ -21,11 +21,11 @@ namespace CommSubSystem.Commands
         {
             if(commandParameters.Length > 0)
             {
-                address = (string)commandParameters[0];
+                address = commandParameters[0].ToString();
             }
             if (commandParameters.Length > 1)
             {
-                address = (string)commandParameters[1];
+                port = commandParameters[1].ToString();
             }
         }
 
@@ -38,7 +38,7 @@ namespace CommSubSystem.Commands
             env.MessageTypeInEnvelope = Envelope.TypeOfMessage.CreateGame;
 
             byte[] bytes = env.Encode();
-
+            UDPClient.UDPInstance.SetServerIP(address,port);
             UDPClient.UDPInstance.Send(bytes);
 
             TargetControl.SetupConversation(msg.ConvId, env);
