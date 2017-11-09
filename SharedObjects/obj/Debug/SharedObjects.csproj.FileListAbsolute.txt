@@ -19,3 +19,10 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/SharedObjects/obj/Debug/SharedObject
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/SharedObjects/obj/Debug/SharedObjects.csproj.CoreCompileInputs.cache
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/SharedObjects/obj/Debug/SharedObjects.dll
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/SharedObjects/obj/Debug/SharedObjects.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/SharedObjects/bin/Debug/SharedObjects.dll.config
+/Users/Kyle/Documents/School/CS5200/project-sushi/SharedObjects/bin/Debug/SharedObjects.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/SharedObjects/bin/Debug/SharedObjects.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/SharedObjects/obj/Debug/SharedObjects.csprojResolveAssemblyReference.cache
+/Users/Kyle/Documents/School/CS5200/project-sushi/SharedObjects/obj/Debug/SharedObjects.csproj.CoreCompileInputs.cache
+/Users/Kyle/Documents/School/CS5200/project-sushi/SharedObjects/obj/Debug/SharedObjects.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/SharedObjects/obj/Debug/SharedObjects.pdb

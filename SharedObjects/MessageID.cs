@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 
 namespace SharedObjects
 {
+    [Serializable]
     [DataContract]
     public class MessageId
     {

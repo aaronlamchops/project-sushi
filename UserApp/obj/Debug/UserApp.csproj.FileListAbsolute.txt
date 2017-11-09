@@ -34,3 +34,21 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/UserApp/obj/Debug/UserApp.pdb
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/UserApp/obj/Debug/UserApp.csproj.CoreCompileInputs.cache
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/UserApp/obj/Debug/UserApp.exe
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/UserApp/obj/Debug/UserApp.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/UserApp.exe.config
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/UserApp.exe
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/UserApp.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/CommSubSystem.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/Messages.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/SharedObjects.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/Messages.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/Messages.dll.config
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/CommSubSystem.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/SharedObjects.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/SharedObjects.dll.config
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/obj/Debug/UserApp.csprojResolveAssemblyReference.cache
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/obj/Debug/UserApp.ClientForm.resources
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/obj/Debug/UserApp.Properties.Resources.resources
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/obj/Debug/UserApp.csproj.GenerateResource.Cache
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/obj/Debug/UserApp.csproj.CoreCompileInputs.cache
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/obj/Debug/UserApp.exe
+/Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/obj/Debug/UserApp.pdb

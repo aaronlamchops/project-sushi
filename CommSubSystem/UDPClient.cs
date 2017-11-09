@@ -18,10 +18,10 @@ namespace CommSubSystem
 
         private UDPClient()
         {
-            IPEndPoint myIP = new IPEndPoint(IPAddress.Any, 0);
+            IPEndPoint myIP = new IPEndPoint(IPAddress.Any, 3333);
             _udpClient = new UdpClient(myIP);
             _udpClient.Client.ReceiveTimeout = 1000;
-            _serverIp = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 0);
+            _serverIp = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 3333);
         }
 
         public static UDPClient UDPInstance

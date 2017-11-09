@@ -14,6 +14,7 @@ namespace SharedObjects
     ///     - Keeping track of the IP hostname, not just the IPv4 Address
     ///     - Deferred, but automatic, DNS lookup of IP hostname and selection of an appropriate IPv4 Address
     /// </summary>
+    [Serializable]
     [DataContract]
     public class PublicEndPoint
     {

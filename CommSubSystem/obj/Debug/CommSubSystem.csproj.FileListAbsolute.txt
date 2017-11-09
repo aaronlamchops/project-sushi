@@ -28,3 +28,18 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/CommSubSystem/obj/Debug/CommSubSyste
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommSubSystem/obj/Debug/CommSubSystem.csproj.CoreCompileInputs.cache
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommSubSystem/obj/Debug/CommSubSystem.dll
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommSubSystem/obj/Debug/CommSubSystem.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/CommSubSystem.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/CommSubSystem.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/Messages.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/SharedObjects.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/Utils.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/Utils.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/Utils.dll.config
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/Messages.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/Messages.dll.config
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/SharedObjects.pdb
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/SharedObjects.dll.config
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/obj/Debug/CommSubSystem.csprojResolveAssemblyReference.cache
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/obj/Debug/CommSubSystem.csproj.CoreCompileInputs.cache
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/obj/Debug/CommSubSystem.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/obj/Debug/CommSubSystem.pdb

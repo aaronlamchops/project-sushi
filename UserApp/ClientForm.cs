@@ -52,10 +52,15 @@ namespace UserApp
                 if (bytes != null)
                 {
                     env = UDPClient.Decode(bytes);
-
+                    switch (env.MessageTypeInEnvelope)
+                    {
+                        case Envelope.TypeOfMessage.CreateGame:
+                            CreateGame msg = env.MessageToBeSent as CreateGame;
+                            break;
+                    }
                     if (env != null)
                     {
-                        string row = "Received";
+                        string row = "";
                         var listViewItem = new ListViewItem(row);
                         ReceivingListView.Items.Add(listViewItem);
                     }

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using SharedObjects;
 
 using Messages;
 using CommSubSystem;
@@ -31,10 +32,10 @@ namespace CommSubSystem.Commands
         public override void Execute()
         {
             //create a message out of this
-            Heartbeat msg = new Heartbeat();
-
+            CreateGame msg = new CreateGame(){MinPlayers = 3, MaxPlayers = 4};
+            msg.ConvId = MessageId.Create();
             Envelope env = new Envelope(msg, UDPClient.UDPInstance.GetEndPoint());
-            env.MessageTypeInEnvelope = Envelope.TypeOfMessage.HeartBeat;
+            env.MessageTypeInEnvelope = Envelope.TypeOfMessage.CreateGame;
 
             byte[] bytes = env.Encode();
 
