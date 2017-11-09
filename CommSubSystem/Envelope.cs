@@ -27,6 +27,7 @@ namespace CommSubSystem
             StartNewRound,
             UpdateChate,
             UpdateState,
+            Ack,
             UserInfo
         };
 

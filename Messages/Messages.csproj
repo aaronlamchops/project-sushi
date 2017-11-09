@@ -59,6 +59,7 @@
     <Compile Include="UpdateChat.cs" />
     <Compile Include="PassCard.cs" />
     <Compile Include="Heartbeat.cs" />
+    <Compile Include="Ack.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

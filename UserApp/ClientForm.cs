@@ -46,6 +46,7 @@ namespace UserApp
         {
             byte[] bytes;
             Envelope env = null;
+            string row = "";
             while(_keepReceiving)
             {
                 bytes = UDPClient.UDPInstance.Receive();
@@ -55,12 +56,17 @@ namespace UserApp
                     switch (env.MessageTypeInEnvelope)
                     {
                         case Envelope.TypeOfMessage.CreateGame:
+                            row = "createGame";
                             CreateGame msg = env.MessageToBeSent as CreateGame;
+                            CommandFactory.Instance.CreateAndExecute("resp", AddressTextBox.Text, textBox2.Text);
+                            break;
+                        case Envelope.TypeOfMessage.Ack:
+                            row = "ack";
                             break;
                     }
                     if (env != null)
                     {
-                        string row = "";
+                        
                         var listViewItem = new ListViewItem(row);
                         ReceivingListView.Items.Add(listViewItem);
                     }

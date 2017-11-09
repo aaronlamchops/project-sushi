@@ -49,6 +49,10 @@ namespace CommSubSystem.Commands
                 case "SEND":
                     command = new SendCommand();
                     break;
+                case "RESP":
+                    command = new RespCommand();
+                    break;
+
             }
 
             if(command != null)
