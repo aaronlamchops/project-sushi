@@ -41,7 +41,6 @@ namespace UserApp
             // 
             // refreshTimer
             // 
-            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
             // AddressLabel
             // 
@@ -133,7 +132,6 @@ namespace UserApp
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.ListView ReceivingListView;
         private System.Windows.Forms.Label ReceivingLabel;
-        private System.Windows.Forms.Timer refreshTimer;
     }
 }
 

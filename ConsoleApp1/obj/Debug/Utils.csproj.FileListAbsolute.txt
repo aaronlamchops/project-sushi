@@ -15,7 +15,6 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/ConsoleApp1/obj/Debug/Utils.pdb
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/ConsoleApp1/bin/Debug/Utils.dll.config
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/ConsoleApp1/bin/Debug/Utils.dll
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/ConsoleApp1/bin/Debug/Utils.pdb
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/ConsoleApp1/obj/Debug/Utils.csprojResolveAssemblyReference.cache
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/ConsoleApp1/obj/Debug/Utils.csproj.CoreCompileInputs.cache
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/ConsoleApp1/obj/Debug/Utils.dll
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/ConsoleApp1/obj/Debug/Utils.pdb

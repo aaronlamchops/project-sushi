@@ -8,10 +8,6 @@ C:/Users/Kylie/Documents/Class/project-sushi/CommunicationSubsystem/obj/Debug/Co
 C:/Users/Aaron/Desktop/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.csprojResolveAssemblyReference.cache
 C:/Users/Aaron/Desktop/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.csproj.CoreCompileInputs.cache
 C:/Users/Aaron/Desktop/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.pdb
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.csprojResolveAssemblyReference.cache
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.csproj.CoreCompileInputs.cache
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.dll
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.pdb
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/bin/Debug/CommunicationSubsystem.dll.config
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/bin/Debug/CommunicationSubsystem.dll
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/bin/Debug/CommunicationSubsystem.pdb
@@ -25,3 +21,7 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/Com
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/bin/Debug/Messages.dll.config
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/bin/Debug/SharedObjects.pdb
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/bin/Debug/SharedObjects.dll.config
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.csprojResolveAssemblyReference.cache
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.csproj.CoreCompileInputs.cache
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.dll
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommunicationSubsystem/obj/Debug/CommunicationSubsystem.pdb

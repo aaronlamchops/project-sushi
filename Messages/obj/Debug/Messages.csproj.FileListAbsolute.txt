@@ -18,13 +18,13 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/Messages/obj/Debug/Messages.csprojRe
 C:/Users/Aaron/Desktop/CS5200/project-sushi/Messages/obj/Debug/Messages.csproj.CoreCompileInputs.cache
 C:/Users/Aaron/Desktop/CS5200/project-sushi/Messages/obj/Debug/Messages.dll
 C:/Users/Aaron/Desktop/CS5200/project-sushi/Messages/obj/Debug/Messages.pdb
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/obj/Debug/Messages.csprojResolveAssemblyReference.cache
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/obj/Debug/Messages.csproj.CoreCompileInputs.cache
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/obj/Debug/Messages.dll
-/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/obj/Debug/Messages.pdb
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/bin/Debug/Messages.dll.config
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/bin/Debug/Messages.dll
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/bin/Debug/Messages.pdb
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/bin/Debug/SharedObjects.dll
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/bin/Debug/SharedObjects.pdb
 /Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/bin/Debug/SharedObjects.dll.config
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/obj/Debug/Messages.csprojResolveAssemblyReference.cache
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/obj/Debug/Messages.csproj.CoreCompileInputs.cache
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/obj/Debug/Messages.dll
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/Messages/obj/Debug/Messages.pdb

@@ -1,15 +1,17 @@
 ﻿<Properties StartupConfiguration="{EEB75A52-775C-47FC-9C2B-21210F0DFB1E}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="UserApp/ClientForm.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UserApp/ClientForm.Designer.cs">
     <Files>
-      <File FileName="CommSubSystem/Commands/SendCommand.cs" Line="31" Column="39" />
-      <File FileName="CommSubSystem/Commands/CommandFactory.cs" Line="57" Column="28" />
-      <File FileName="CommSubSystem/Commands/SendInvoker.cs" Line="47" Column="30" />
-      <File FileName="CommSubSystem/ControlHub.cs" Line="41" Column="38" />
-      <File FileName="CommSubSystem/ConversationTypes.cs" Line="6" Column="9" />
-      <File FileName="UserApp/ClientForm.cs" Line="47" Column="26" NotebookId="1" />
-      <File FileName="CommSubSystem/UDPClient.cs" Line="75" Column="9" NotebookId="1" />
-      <File FileName="CommSubSystem/Envelope.cs" Line="53" Column="16" NotebookId="1" />
-      <File FileName="Messages/Message.cs" Line="12" Column="26" NotebookId="1" />
+      <File FileName="CommSubSystem/Commands/SendCommand.cs" Line="8" Column="1" />
+      <File FileName="CommSubSystem/Commands/CommandFactory.cs" Line="1" Column="1" />
+      <File FileName="CommSubSystem/Commands/SendInvoker.cs" Line="1" Column="1" />
+      <File FileName="CommSubSystem/ControlHub.cs" Line="1" Column="1" />
+      <File FileName="CommSubSystem/ConversationTypes.cs" Line="1" Column="1" />
+      <File FileName="UserApp/Program.cs" Line="27" Column="1" NotebookId="1" />
+      <File FileName="UserApp/ClientForm.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="CommSubSystem/UDPClient.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="CommSubSystem/Envelope.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Messages/Message.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="UserApp/ClientForm.Designer.cs" Line="136" Column="1" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
