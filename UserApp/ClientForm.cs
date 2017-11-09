@@ -49,20 +49,23 @@ namespace UserApp
             while(_keepReceiving)
             {
                 bytes = UDPClient.UDPInstance.Receive();
-                env = UDPClient.Decode(bytes);
-
-                if(env != null)
+                if (bytes != null)
                 {
-                    string row = "Received";
-                    var listViewItem = new ListViewItem(row);
-                    ReceivingListView.Items.Add(listViewItem);
+                    env = UDPClient.Decode(bytes);
+
+                    if (env != null)
+                    {
+                        string row = "Received";
+                        var listViewItem = new ListViewItem(row);
+                        ReceivingListView.Items.Add(listViewItem);
+                    }
                 }
             }
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-            refreshTimer.Start();
+            
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
