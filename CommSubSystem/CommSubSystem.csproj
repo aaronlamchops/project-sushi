@@ -50,6 +50,8 @@
     <Compile Include="Commands\SendCommand.cs" />
     <Compile Include="Commands\ReceiveInvoker.cs" />
     <Compile Include="ControlHub.cs" />
+    <Compile Include="UDPClient.cs" />
+    <Compile Include="ConversationTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\Utils.csproj">

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,8 +18,12 @@ namespace UserApp
 {
     public partial class ClientForm : Form
     {
-        private readonly ControlHub _ControlHub;
+        private readonly ControlHub _ControlHub = new ControlHub();
         private readonly SendInvoker _SendingInvoker = new SendInvoker();
+
+        public Thread _receivingThread;
+
+        private readonly bool _keepReceiving;
 
         public ClientForm()
         {
@@ -29,6 +34,30 @@ namespace UserApp
             CommandFactory.Instance.TargetControl = _ControlHub;
 
             _SendingInvoker.Start();
+
+
+            //receiving thread
+            _receivingThread = new Thread(Receive);
+            _keepReceiving = true;
+            _receivingThread.Start();
+        }
+
+        public void Receive()
+        {
+            byte[] bytes;
+            Envelope env = null;
+            while(_keepReceiving)
+            {
+                bytes = UDPClient.UDPInstance.Receive();
+                env = UDPClient.Decode(bytes);
+
+                if(env != null)
+                {
+                    string row = "Received";
+                    var listViewItem = new ListViewItem(row);
+                    ReceivingListView.Items.Add(listViewItem);
+                }
+            }
         }
 
         private void ClientForm_Load(object sender, EventArgs e)

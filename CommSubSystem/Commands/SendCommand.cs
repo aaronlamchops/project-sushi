@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Threading;
+using System.Net;
+using System.Net.Sockets;
 
+using Messages;
+using CommSubSystem;
 
 namespace CommSubSystem.Commands
 {
@@ -26,12 +31,16 @@ namespace CommSubSystem.Commands
         public override void Execute()
         {
             //create a message out of this
+            Heartbeat msg = new Heartbeat();
 
-            //create an envelope
+            Envelope env = new Envelope(msg, UDPClient.UDPInstance.GetEndPoint());
+            env.MessageTypeInEnvelope = Envelope.TypeOfMessage.HeartBeat;
 
-            //send the message
+            byte[] bytes = env.Encode();
 
-            //control the conversation with the queue
+            UDPClient.UDPInstance.Send(bytes);
+
+            TargetControl.SetupConversation(msg.ConvId, env);
         }
     }
 }

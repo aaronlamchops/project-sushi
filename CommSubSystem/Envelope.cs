@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using Messages; // Class Library Messages
 using SharedObjects;
 
 namespace CommSubSystem
 {
-    //Implementation from Dr.Clydes exmaple code, using Message instead of ControlMessage
+    [Serializable]
     public class Envelope
     {
         //Possible types of messages
@@ -28,7 +31,7 @@ namespace CommSubSystem
         };
 
         //Lets us know what type of message is inside of the envelope
-        public TypeOfMessage MessageTypeInEnvelope { get; protected set; } = TypeOfMessage.NotSet;
+        public TypeOfMessage MessageTypeInEnvelope { get; set; } = TypeOfMessage.NotSet;
 
         public Message MessageToBeSent { get; set; }
 
@@ -60,5 +63,14 @@ namespace CommSubSystem
                                       EndPoint != null &&
                                       EndPoint.Host != "0.0.0.0" &&
                                       EndPoint.Port != 0);
+
+        public byte[] Encode()
+        {
+            IFormatter formatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+
+            formatter.Serialize(stream, this);
+            return stream.ToArray();
+        }
     }
 }

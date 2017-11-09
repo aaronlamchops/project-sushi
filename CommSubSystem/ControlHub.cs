@@ -38,6 +38,19 @@ namespace CommSubSystem
             _queueDictionary.ClearAllQueues();
         }
 
+        public void SetupConversation(MessageId convId, Envelope env)
+        {
+            ConversationQueue queue;
+            queue = _queueDictionary.Lookup(convId);
 
+            if(queue != null)
+            {
+                queue.Enqueue(env);
+            }
+            else
+            {
+                _queueDictionary.CreateQueue(convId);
+            }
+        }
     }
 }
