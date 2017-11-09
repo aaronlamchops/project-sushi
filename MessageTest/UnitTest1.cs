@@ -12,7 +12,9 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_CreateGame()
         {
-            CreateGame msg1 = new CreateGame() { MsgId = 1 , ConvId = 1, MinPlayers = 1, MaxPlayers = 5};
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
+            CreateGame msg1 = new CreateGame() { MsgId = msgId , ConvId = convId, MinPlayers = 1, MaxPlayers = 5};
             byte[] bytes = msg1.Encode();
 
             CreateGame msg2 = Message.Decode(bytes) as CreateGame;
@@ -26,7 +28,9 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_ExitGame()
         {
-            ExitGame msg1 = new ExitGame() { MsgId = 1, ConvId = 1, PlayerID = 2 , GameID = 5 };
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
+            ExitGame msg1 = new ExitGame() { MsgId = msgId, ConvId = convId, PlayerID = 2 , GameID = 5 };
             byte[] bytes = msg1.Encode();
 
             ExitGame msg2 = Message.Decode(bytes) as ExitGame;
@@ -40,7 +44,9 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_Heartbeat()
         {
-            Heartbeat msg1 = new Heartbeat() { MsgId = 1, ConvId = 1};
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
+            Heartbeat msg1 = new Heartbeat() { MsgId = msgId, ConvId = convId};
             byte[] bytes = msg1.Encode();
 
             Heartbeat msg2 = Message.Decode(bytes) as Heartbeat;
@@ -52,7 +58,9 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_JoinGame()
         {
-            ExitGame msg1 = new ExitGame() { MsgId = 1, ConvId = 1, PlayerID = 2, GameID = 5 };
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
+            ExitGame msg1 = new ExitGame() { MsgId = msgId, ConvId = convId, PlayerID = 2, GameID = 5 };
             byte[] bytes = msg1.Encode();
 
             ExitGame msg2 = Message.Decode(bytes) as ExitGame;
@@ -66,7 +74,9 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_SelectCard()
         {
-            SelectCard msg1 = new SelectCard() { MsgId = 1, ConvId = 1, PlayerID = 2, CardID = CardTypes.Pudding };
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
+            SelectCard msg1 = new SelectCard() { MsgId = msgId, ConvId = convId, PlayerID = 2, CardID = CardTypes.Pudding };
             byte[] bytes = msg1.Encode();
 
             SelectCard msg2 = Message.Decode(bytes) as SelectCard;
@@ -80,7 +90,9 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_StartGame()
         {
-            StartGame msg1 = new StartGame() { MsgId = 1, ConvId = 1, GameID = 7};
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
+            StartGame msg1 = new StartGame() { MsgId = msgId, ConvId = convId, GameID = 7};
             byte[] bytes = msg1.Encode();
 
             StartGame msg2 = Message.Decode(bytes) as StartGame;
@@ -93,7 +105,9 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_UserInfo()
         {
-            UserInfo msg1 = new UserInfo() { MsgId = 1, ConvId = 1, UserName = "Kylie" };
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
+            UserInfo msg1 = new UserInfo() { MsgId = msgId, ConvId = convId, UserName = "Kylie" };
             byte[] bytes = msg1.Encode();
 
             UserInfo msg2 = Message.Decode(bytes) as UserInfo;
@@ -105,7 +119,9 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_UpdateChat()
         {
-            UpdateChat msg1 = new UpdateChat() { MsgId = 1, ConvId = 1, PlayerID = 7, Message = "New game who dis?" };
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
+            UpdateChat msg1 = new UpdateChat() { MsgId = msgId, ConvId = convId, PlayerID = 7, Message = "New game who dis?" };
             byte[] bytes = msg1.Encode();
 
             UpdateChat msg2 = Message.Decode(bytes) as UpdateChat;
@@ -119,10 +135,12 @@ namespace MessageTest
         [TestMethod]
         public void EncodeAndDecode_PassCards()
         {
+            MessageId msgId = new MessageId();
+            MessageId convId = new MessageId();
             List<CardTypes> cards = new List<CardTypes>();
             cards.Add(CardTypes.Sashimi);
             cards.Add(CardTypes.EggNigiri);
-            PassCard msg1 = new PassCard() { MsgId = 1, ConvId = 1, Hand = cards};
+            PassCard msg1 = new PassCard() { MsgId = msgId, ConvId = convId, Hand = cards};
             byte[] bytes = msg1.Encode();
 
             PassCard msg2 = Message.Decode(bytes) as PassCard;
