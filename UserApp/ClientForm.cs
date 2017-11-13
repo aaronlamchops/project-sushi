@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 using CommSubSystem;
 using CommSubSystem.Commands;
+using CommSubSystem.Receive;
 using Messages;
 using SharedObjects;
 
@@ -32,6 +33,8 @@ namespace UserApp
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;
+
+            ReceivingFactory.Instance.TargetControl = _ControlHub;
 
             _SendingInvoker.Start();
 
@@ -57,8 +60,8 @@ namespace UserApp
                     {
                         case Envelope.TypeOfMessage.CreateGame:
                             row = "createGame";
-                            CreateGame msg = env.MessageToBeSent as CreateGame;
-                            CommandFactory.Instance.CreateAndExecute("resp", AddressTextBox.Text, textBox2.Text);
+                            CreateGame msg = env.MessageToBeSent as CreateGame;//Message that was received
+                            CommandFactory.Instance.CreateAndExecute("resp");
                             break;
                         case Envelope.TypeOfMessage.Ack:
                             row = "ack";
@@ -76,10 +79,13 @@ namespace UserApp
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-            
+            System.Windows.Forms.Timer RefreshTimer = new System.Windows.Forms.Timer();
+            RefreshTimer.Interval = 1000; //every second
+            RefreshTimer.Tick += new EventHandler(RefreshTimer_Tick);
+            RefreshTimer.Start();
         }
 
-        private void refreshTimer_Tick(object sender, EventArgs e)
+        private void RefreshTimer_Tick(object sender, EventArgs e)
         {
             //call a method that needs to be refreshed a second
             //something that needs to redraw

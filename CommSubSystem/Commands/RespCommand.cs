@@ -25,7 +25,7 @@ namespace CommSubSystem.Commands
             }
             if (commandParameters.Length > 1)
             {
-                address = (string)commandParameters[1];
+                port = (string)commandParameters[1];
             }
         }
 

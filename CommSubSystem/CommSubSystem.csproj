@@ -53,6 +53,8 @@
     <Compile Include="UDPClient.cs" />
     <Compile Include="ConversationTypes.cs" />
     <Compile Include="Commands\RespCommand.cs" />
+    <Compile Include="Receive\ReceivingFactory.cs" />
+    <Compile Include="Receive\ReceiveInvoker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\Utils.csproj">
@@ -67,6 +69,9 @@
       <Project>{5196b706-880e-4b82-b245-1cd20ddf453d}</Project>
       <Name>SharedObjects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Receive\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
