@@ -14,7 +14,7 @@ using CommSubSystem.Commands;
 using Messages;
 using SharedObjects;
 
-namespace UserApp
+namespace LobbyApp
 {
     public partial class ClientForm : Form
     {
@@ -29,7 +29,7 @@ namespace UserApp
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(30);
+            UDPClient.UDPInstance.SetupAndRun(5);
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;
@@ -48,7 +48,7 @@ namespace UserApp
             byte[] bytes;
             Envelope env = null;
             string row = "";
-            while(_keepReceiving)
+            while (_keepReceiving)
             {
                 bytes = UDPClient.UDPInstance.Receive();
                 if (bytes != null)
@@ -67,7 +67,7 @@ namespace UserApp
                     }
                     if (env != null)
                     {
-                        
+
                         var listViewItem = new ListViewItem(row);
                         ReceivingListView.Items.Add(listViewItem);
                     }
@@ -77,7 +77,7 @@ namespace UserApp
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
@@ -91,6 +91,5 @@ namespace UserApp
             //gets the address, port, and message to be sent from the textfields
             CommandFactory.Instance.CreateAndExecute("send", AddressTextBox.Text, textBox2.Text);
         }
-
     }
 }

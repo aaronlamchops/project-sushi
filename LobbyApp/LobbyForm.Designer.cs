@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UserApp
+namespace LobbyApp
 {
     partial class ClientForm
     {
@@ -71,7 +71,7 @@ namespace UserApp
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(132, 22);
             this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "5";
+            this.textBox2.Text = "30";
             // 
             // PortLabel
             // 
