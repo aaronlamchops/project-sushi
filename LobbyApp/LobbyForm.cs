@@ -20,9 +20,10 @@ namespace LobbyApp
     {
         private readonly ControlHub _ControlHub = new ControlHub();
         private readonly SendInvoker _SendingInvoker = new SendInvoker();
+        private ConversationQueue _receivingQueue = new ConversationQueue();
 
         public Thread _receivingThread;
-
+        public Thread _receivingQueueThread;
         private bool _keepReceiving;
 
         public ClientForm()
@@ -36,12 +37,15 @@ namespace LobbyApp
 
             _SendingInvoker.Start();
 
-
+            _keepReceiving = true;
             //receiving thread
             _receivingThread = new Thread(Receive);
             _receivingThread.IsBackground = true;
-            _keepReceiving = true;
             _receivingThread.Start();
+            //receiving queue thread
+            _receivingQueueThread = new Thread(ReceiveQueue);
+            _receivingQueueThread.IsBackground = true;
+            _receivingQueueThread.Start();
         }
 
         public void Receive()
@@ -55,6 +59,20 @@ namespace LobbyApp
                 if (bytes != null)
                 {
                     env = UDPClient.Decode(bytes);
+                    _receivingQueue.Enqueue(env);
+                }
+            }
+        }
+
+        public void ReceiveQueue()
+        {
+            Envelope env = null;
+            string row = "";
+            while (_keepReceiving)
+            {
+                env = _receivingQueue.Dequeue(5);
+                if (env != null)
+                {
                     switch (env.MessageTypeInEnvelope)
                     {
                         case Envelope.TypeOfMessage.CreateGame:
@@ -66,12 +84,13 @@ namespace LobbyApp
                             row = "ack";
                             break;
                     }
-                    if (env != null)
-                    {
+                }
+                
+                if (env != null)
+                {
 
-                        var listViewItem = new ListViewItem(row);
-                        ReceivingListView.Items.Add(listViewItem);
-                    }
+                    var listViewItem = new ListViewItem(row);
+                    ReceivingListView.Items.Add(listViewItem);
                 }
             }
         }
@@ -97,7 +116,9 @@ namespace LobbyApp
         {
             _keepReceiving = false;
             _receivingThread.Join();
-           
+            _receivingQueueThread.Join();
+
+
         }
     }
 }
