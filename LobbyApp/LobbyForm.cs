@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 using CommSubSystem;
 using CommSubSystem.Commands;
+using CommSubSystem.Receive;
 using Messages;
 using SharedObjects;
 
@@ -20,10 +21,10 @@ namespace LobbyApp
     {
         private readonly ControlHub _ControlHub = new ControlHub();
         private readonly SendInvoker _SendingInvoker = new SendInvoker();
+        private readonly ReceiveInvoker _ReceivingInvoker = new ReceiveInvoker();
 
         public Thread _receivingThread;
 
-        private bool _keepReceiving;
 
         public ClientForm()
         {
@@ -33,52 +34,25 @@ namespace LobbyApp
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;
+            ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
+            ReceivingFactory.Instance.TargetControl = _ControlHub;
 
             _SendingInvoker.Start();
+            _ReceivingInvoker.Start();
 
-
-            //receiving thread
-            _receivingThread = new Thread(Receive);
-            _receivingThread.IsBackground = true;
-            _keepReceiving = true;
-            _receivingThread.Start();
-        }
-
-        public void Receive()
-        {
-            byte[] bytes;
-            Envelope env = null;
-            string row = "";
-            while (_keepReceiving)
-            {
-                bytes = UDPClient.UDPInstance.Receive();
-                if (bytes != null)
-                {
-                    env = UDPClient.Decode(bytes);
-                    switch (env.MessageTypeInEnvelope)
-                    {
-                        case Envelope.TypeOfMessage.CreateGame:
-                            row = "createGame";
-                            CreateGame msg = env.MessageToBeSent as CreateGame;
-                            CommandFactory.Instance.CreateAndExecute("resp", AddressTextBox.Text, textBox2.Text);
-                            break;
-                        case Envelope.TypeOfMessage.Ack:
-                            row = "ack";
-                            break;
-                    }
-                    if (env != null)
-                    {
-
-                        var listViewItem = new ListViewItem(row);
-                        ReceivingListView.Items.Add(listViewItem);
-                    }
-                }
-            }
+            ReceivingFactory.Instance.Start();
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void LobbyForm_FormClosed(object sender, EventArgs e)
+        {
+            _SendingInvoker.Stop();
+            _ReceivingInvoker.Stop();
+            ReceivingFactory.Instance.Stop();
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
@@ -91,13 +65,6 @@ namespace LobbyApp
         {
             //gets the address, port, and message to be sent from the textfields
             CommandFactory.Instance.CreateAndExecute("send", AddressTextBox.Text, textBox2.Text);
-        }
-
-        private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _keepReceiving = false;
-            _receivingThread.Join();
-           
         }
     }
 }

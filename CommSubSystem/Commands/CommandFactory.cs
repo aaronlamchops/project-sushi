@@ -49,6 +49,8 @@ namespace CommSubSystem.Commands
                 case "SEND":
                     command = new SendCommand(commandParameters);
                     break;
+
+                //Might keep receiving commands in the Receiving Factory
                 case "RESP":
                     command = new RespCommand(commandParameters);
                     break;

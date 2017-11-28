@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using Messages;
 using SharedObjects;
@@ -13,7 +14,8 @@ namespace CommSubSystem
     public class ControlHub
     {
         private readonly ConversationDictionary _queueDictionary = new ConversationDictionary();
-
+        public bool ForceRedraw { get; set; }
+        private static readonly object MyLock = new object(); 
 
         //add conversations to the dictionary
         public ConversationQueue SetupConverationQueue(MessageId convId)
@@ -51,6 +53,12 @@ namespace CommSubSystem
             {
                 _queueDictionary.CreateQueue(convId);
             }
+        }
+
+        public ListView UpdateListOfGames()
+        {
+
+            return new ListView();
         }
     }
 }
