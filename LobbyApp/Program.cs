@@ -21,6 +21,7 @@ namespace LobbyApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ClientForm());
+            System.Environment.Exit(1);
         }
     }
 }
