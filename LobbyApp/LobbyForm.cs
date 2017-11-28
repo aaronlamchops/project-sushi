@@ -39,6 +39,7 @@ namespace LobbyApp
 
             //receiving thread
             _receivingThread = new Thread(Receive);
+            _receivingThread.IsBackground = true;
             _keepReceiving = true;
             _receivingThread.Start();
         }
@@ -90,6 +91,13 @@ namespace LobbyApp
         {
             //gets the address, port, and message to be sent from the textfields
             CommandFactory.Instance.CreateAndExecute("send", AddressTextBox.Text, textBox2.Text);
+        }
+
+        private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _keepReceiving = false;
+            _receivingThread.Join();
+           
         }
     }
 }

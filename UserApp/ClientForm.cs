@@ -80,6 +80,11 @@ namespace UserApp
             
         }
 
+        private void ClientForm_closing()
+        {
+
+        }
+
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
             //call a method that needs to be refreshed a second
