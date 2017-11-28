@@ -66,12 +66,5 @@ namespace LobbyApp
             //gets the address, port, and message to be sent from the textfields
             CommandFactory.Instance.CreateAndExecute("send", AddressTextBox.Text, textBox2.Text);
         }
-
-        private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _keepReceiving = false;
-            _receivingThread.Join();
-           
-        }
     }
 }
