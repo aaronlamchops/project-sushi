@@ -25,7 +25,7 @@ namespace CommSubSystem
             SelectCard,
             StartGame,
             StartNewRound,
-            UpdateChate,
+            UpdateChat,
             UpdateState,
             Ack,
             UserInfo
