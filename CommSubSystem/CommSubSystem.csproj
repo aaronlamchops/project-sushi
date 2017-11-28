@@ -56,7 +56,6 @@
     <Compile Include="Commands\RespCommand.cs" />
     <Compile Include="Receive\ReceivingFactory.cs" />
     <Compile Include="Receive\ReceiveInvoker.cs" />
-    <Compile Include="TCPClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\Utils.csproj">

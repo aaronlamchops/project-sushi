@@ -28,7 +28,6 @@ namespace UserApp
 
         public Thread _receivingThread;
 
-        private bool _keepReceiving;
 
         public static ClientForm Instance
         {
@@ -61,51 +60,21 @@ namespace UserApp
 
             //kick off receiving for the whole system
             ReceivingFactory.Instance.Start();
-
-            //receiving thread
-            //_receivingThread = new Thread(Receive);
-            //_keepReceiving = true;
-            //_receivingThread.Start();
         }
-
-        //public void Receive()
-        //{
-        //    byte[] bytes;
-        //    Envelope env = null;
-        //    string row = "";
-        //    while (_keepReceiving)
-        //    {
-        //        bytes = UDPClient.UDPInstance.Receive();
-        //        if (bytes != null)
-        //        {
-        //            env = UDPClient.Decode(bytes);
-        //            switch (env.MessageTypeInEnvelope)
-        //            {
-        //                case Envelope.TypeOfMessage.CreateGame:
-        //                    row = "createGame";
-        //                    CreateGame msg = env.MessageToBeSent as CreateGame;//Message that was received
-        //                    CommandFactory.Instance.CreateAndExecute("resp");
-        //                    break;
-        //                case Envelope.TypeOfMessage.Ack:
-        //                    row = "ack";
-        //                    break;
-        //            }
-        //            if (env != null)
-        //            {
-
-        //                var listViewItem = new ListViewItem(row);
-        //                ReceivingListView.Items.Add(listViewItem);
-        //            }
-        //        }
-        //    }
-        //}
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-            System.Windows.Forms.Timer RefreshTimer = new System.Windows.Forms.Timer();
-            RefreshTimer.Interval = 1000; //every second
-            RefreshTimer.Tick += new EventHandler(RefreshTimer_Tick);
-            RefreshTimer.Start();
+            //System.Windows.Forms.Timer RefreshTimer = new System.Windows.Forms.Timer();
+            //RefreshTimer.Interval = 1000; //every second
+            //RefreshTimer.Tick += new EventHandler(RefreshTimer_Tick);
+            //RefreshTimer.Start();
+        }
+
+        private void ClientForm_FormClosed(object sender, EventArgs e)
+        {
+            _SendingInvoker.Stop();
+            _ReceivingInvoker.Stop();
+            ReceivingFactory.Instance.Stop();
         }
 
         private void RefreshTimer_Tick(object sender, EventArgs e)

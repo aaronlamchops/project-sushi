@@ -22,11 +22,11 @@ namespace UserApp
             base.Dispose(disposing);
         }
 
-        private void ClientForm_FormClosed()
-        {
-            _SendingInvoker.Stop();
-            _keepReceiving = false;
-        }
+        //private void ClientForm_FormClosed()
+        //{
+        //    _SendingInvoker.Stop();
+        //    _keepReceiving = false;
+        //}
 
         #region Windows Form Designer generated code
 
@@ -129,6 +129,7 @@ namespace UserApp
             this.Name = "ClientForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ClientForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ClientForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
