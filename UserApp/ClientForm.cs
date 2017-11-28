@@ -19,63 +19,84 @@ namespace UserApp
 {
     public partial class ClientForm : Form
     {
+        private static ClientForm _Instance;
+        private static readonly object MyLock = new object();
+
         private readonly ControlHub _ControlHub = new ControlHub();
         private readonly SendInvoker _SendingInvoker = new SendInvoker();
+        private readonly ReceiveInvoker _ReceivingInvoker = new ReceiveInvoker();
 
         public Thread _receivingThread;
-
         private readonly bool _keepReceiving;
 
-        public ClientForm()
+        public static ClientForm Instance
+        {
+            get
+            {
+                lock(MyLock)
+                {
+                    if(_Instance == null)
+                    {
+                        _Instance = new ClientForm();
+                    }
+                }
+                return _Instance;
+            }
+        }
+
+        private ClientForm()
         {
             InitializeComponent();
 
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;
-
+            ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
             ReceivingFactory.Instance.TargetControl = _ControlHub;
 
             _SendingInvoker.Start();
+            _ReceivingInvoker.Start();
 
+            //kick off receiving for the whole system
+            ReceivingFactory.Instance.Start();
 
             //receiving thread
-            _receivingThread = new Thread(Receive);
-            _keepReceiving = true;
-            _receivingThread.Start();
+            //_receivingThread = new Thread(Receive);
+            //_keepReceiving = true;
+            //_receivingThread.Start();
         }
 
-        public void Receive()
-        {
-            byte[] bytes;
-            Envelope env = null;
-            string row = "";
-            while(_keepReceiving)
-            {
-                bytes = UDPClient.UDPInstance.Receive();
-                if (bytes != null)
-                {
-                    env = UDPClient.Decode(bytes);
-                    switch (env.MessageTypeInEnvelope)
-                    {
-                        case Envelope.TypeOfMessage.CreateGame:
-                            row = "createGame";
-                            CreateGame msg = env.MessageToBeSent as CreateGame;//Message that was received
-                            CommandFactory.Instance.CreateAndExecute("resp");
-                            break;
-                        case Envelope.TypeOfMessage.Ack:
-                            row = "ack";
-                            break;
-                    }
-                    if (env != null)
-                    {
-                        
-                        var listViewItem = new ListViewItem(row);
-                        ReceivingListView.Items.Add(listViewItem);
-                    }
-                }
-            }
-        }
+        //public void Receive()
+        //{
+        //    byte[] bytes;
+        //    Envelope env = null;
+        //    string row = "";
+        //    while (_keepReceiving)
+        //    {
+        //        bytes = UDPClient.UDPInstance.Receive();
+        //        if (bytes != null)
+        //        {
+        //            env = UDPClient.Decode(bytes);
+        //            switch (env.MessageTypeInEnvelope)
+        //            {
+        //                case Envelope.TypeOfMessage.CreateGame:
+        //                    row = "createGame";
+        //                    CreateGame msg = env.MessageToBeSent as CreateGame;//Message that was received
+        //                    CommandFactory.Instance.CreateAndExecute("resp");
+        //                    break;
+        //                case Envelope.TypeOfMessage.Ack:
+        //                    row = "ack";
+        //                    break;
+        //            }
+        //            if (env != null)
+        //            {
+
+        //                var listViewItem = new ListViewItem(row);
+        //                ReceivingListView.Items.Add(listViewItem);
+        //            }
+        //        }
+        //    }
+        //}
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
@@ -89,6 +110,13 @@ namespace UserApp
         {
             //call a method that needs to be refreshed a second
             //something that needs to redraw
+
+            //if(_ControlHub.ForceRedraw)
+            //{
+            //    ReceivingListView.Items.Clear();
+            //}
+
+            //_ControlHub.ForceRedraw = false;
         }
 
         private void SendButton_Click(object sender, EventArgs e)
@@ -96,6 +124,5 @@ namespace UserApp
             //gets the address, port, and message to be sent from the textfields
             CommandFactory.Instance.CreateAndExecute("send", AddressTextBox.Text, textBox2.Text);
         }
-
     }
 }

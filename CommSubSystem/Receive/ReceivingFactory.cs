@@ -86,6 +86,7 @@ namespace CommSubSystem.Receive
             {
                 switch (envelope.MessageTypeInEnvelope)
                 {
+                    //remove this case later
                     case Envelope.TypeOfMessage.CreateGame:
                         CreateGame msg = envelope.MessageToBeSent as CreateGame;//Message that was received
                         //CommandFactory.Instance.CreateAndExecute("resp");

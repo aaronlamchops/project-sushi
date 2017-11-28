@@ -39,9 +39,6 @@ namespace UserApp
             this.ReceivingLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // refreshTimer
-            // 
-            // 
             // AddressLabel
             // 
             this.AddressLabel.AutoSize = true;
@@ -113,9 +110,9 @@ namespace UserApp
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.AddressTextBox);
             this.Controls.Add(this.AddressLabel);
-            this.Load += new System.EventHandler(this.ClientForm_Load);
             this.Name = "ClientForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.ClientForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
