@@ -27,7 +27,8 @@ namespace UserApp
         private readonly ReceiveInvoker _ReceivingInvoker = new ReceiveInvoker();
 
         public Thread _receivingThread;
-        private readonly bool _keepReceiving;
+
+        private bool _keepReceiving;
 
         public static ClientForm Instance
         {
@@ -48,6 +49,7 @@ namespace UserApp
         {
             InitializeComponent();
 
+            UDPClient.UDPInstance.SetupAndRun(30);
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;
