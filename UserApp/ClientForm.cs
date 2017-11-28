@@ -19,7 +19,6 @@ namespace UserApp
 {
     public partial class ClientForm : Form
     {
-        private static ClientForm _Instance;
         private static readonly object MyLock = new object();
 
         private readonly ControlHub _ControlHub = new ControlHub();
@@ -28,23 +27,7 @@ namespace UserApp
 
         public Thread _receivingThread;
 
-
-        public static ClientForm Instance
-        {
-            get
-            {
-                lock(MyLock)
-                {
-                    if(_Instance == null)
-                    {
-                        _Instance = new ClientForm();
-                    }
-                }
-                return _Instance;
-            }
-        }
-
-        private ClientForm()
+        public ClientForm()
         {
             InitializeComponent();
 

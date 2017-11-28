@@ -20,7 +20,7 @@ namespace UserApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(ClientForm.Instance);
+            Application.Run(new ClientForm());
         }
     }
 }
