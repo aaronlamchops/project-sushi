@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "ConsoleApp1\Utils.csproj", "{E210A05B-5032-4696-8B2C-9336D4740BE2}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommSubSystem", "CommSubSystem\CommSubSystem.csproj", "{0C4A9679-4135-472B-9CF9-FDB57F0B54F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubSystemTests", "SubSystemTests\SubSystemTests.csproj", "{FEDF1379-A8F7-4688-966E-77EF9151CD0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LobbyApp", "LobbyApp\LobbyApp.csproj", "{0142A149-1E08-4054-B8AC-E361356E810C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{FEDF1379-A8F7-4688-966E-77EF9151CD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEDF1379-A8F7-4688-966E-77EF9151CD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEDF1379-A8F7-4688-966E-77EF9151CD0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0142A149-1E08-4054-B8AC-E361356E810C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0142A149-1E08-4054-B8AC-E361356E810C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0142A149-1E08-4054-B8AC-E361356E810C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0142A149-1E08-4054-B8AC-E361356E810C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,9 +16,11 @@ namespace CommSubSystem
         private static readonly object MyLock = new object();
         private static UDPClient _Instance;
 
-        private UDPClient()
+        private UDPClient() { }
+
+        public void SetupAndRun(int port)
         {
-            IPEndPoint myIP = new IPEndPoint(IPAddress.Any, 3333);
+            IPEndPoint myIP = new IPEndPoint(IPAddress.Any, port);
             _udpClient = new UdpClient(myIP);
             _udpClient.Client.ReceiveTimeout = 1000;
             _serverIp = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 3333);
