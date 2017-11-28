@@ -8,15 +8,15 @@ namespace SharedObjects
 {
     public class Lobby
     {
-        //list of games
+        List<Game> gameList = new List<Game>();
     }
 
     public class Game
     {
         int gameId;
-        // list players;
+        List<Player> playerList = new List<Player>();
         int MinPlayers;
         int MaxPlayers;
-        //host player
+        Player host;
     }
 }

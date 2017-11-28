@@ -85,13 +85,13 @@ namespace LobbyApp
                             break;
                     }
                 }
-                
-                if (env != null)
-                {
 
-                    var listViewItem = new ListViewItem(row);
-                    ReceivingListView.Items.Add(listViewItem);
-                }
+                //if (env != null)
+                //{
+
+                //    var listViewItem = new ListViewItem(row);
+                //    ReceivingListView.Items.Add(listViewItem);
+                //}
             }
         }
 
@@ -117,7 +117,6 @@ namespace LobbyApp
             _keepReceiving = false;
             _receivingThread.Join();
             _receivingQueueThread.Join();
-
 
         }
     }

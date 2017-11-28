@@ -28,7 +28,11 @@ namespace CommSubSystem
             UpdateChate,
             UpdateState,
             Ack,
-            UserInfo
+            UserInfo,
+            RequestGameList,
+            SendGameList,
+            RequestGameId,
+            SendGameId
         };
 
         //Lets us know what type of message is inside of the envelope

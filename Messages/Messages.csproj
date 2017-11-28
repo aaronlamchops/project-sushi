@@ -46,6 +46,10 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SendGameId.cs" />
+    <Compile Include="RequestGameId.cs" />
+    <Compile Include="SendGameList.cs" />
+    <Compile Include="RequestGameList.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageDecorator.cs" />
