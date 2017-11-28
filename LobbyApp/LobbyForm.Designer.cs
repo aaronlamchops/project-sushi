@@ -22,12 +22,6 @@ namespace LobbyApp
             base.Dispose(disposing);
         }
 
-        private void ClientForm_FormClosed()
-        {
-            _SendingInvoker.Stop();
-            _keepReceiving = false;
-        }
-
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -122,6 +116,7 @@ namespace LobbyApp
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientForm_FormClosing);
             this.Load += new System.EventHandler(this.ClientForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LobbyForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
