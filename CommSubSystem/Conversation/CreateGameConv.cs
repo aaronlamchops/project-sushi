@@ -10,6 +10,10 @@ namespace CommSubSystem.Conversation
 {
     public class CreateGameConv : Conversation
     {
+        public int MinPlayers { get; set; }
+        public int MaxPlayers { get; set; }
+        public string GameName { get; set; }
+
         public override void ResponderConversation(object context)
         {
 
@@ -18,7 +22,7 @@ namespace CommSubSystem.Conversation
         public override void InitatorConversation(object context)
         {
             //create a message out of this
-            CreateGame msg = new CreateGame() { MinPlayers = 3, MaxPlayers = 4 };
+            CreateGame msg = new CreateGame() { MinPlayers = MinPlayers, MaxPlayers = MaxPlayers, GameName = GameName };
             msg.ConvId = MessageId.Create();
             msg.MsgId = ConvId;
 

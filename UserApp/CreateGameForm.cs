@@ -24,10 +24,7 @@ namespace UserApp
         }
 
         public int TotalPlayerCount { get; set; }
-        //{
-        //    get { return (int)TotalPlayerComboBox.SelectedValue; }
-        //    set { TotalPlayerComboBox.SelectedValue = value; } 
-        //}
+        public int MinPlayerCount { get; set; }
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
@@ -43,6 +40,12 @@ namespace UserApp
         {
             ComboBox cmb = (ComboBox)sender;
             TotalPlayerCount = Convert.ToInt32(cmb.SelectedItem.ToString());
+        }
+
+        private void MinPlayerComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cmb = (ComboBox)sender;
+            MinPlayerCount = Convert.ToInt32(cmb.SelectedItem.ToString());
         }
     }
 }

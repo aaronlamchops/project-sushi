@@ -34,6 +34,8 @@
             this.TotalPlayersLabel = new System.Windows.Forms.Label();
             this.CancelButton = new System.Windows.Forms.Button();
             this.CreateButton = new System.Windows.Forms.Button();
+            this.MinPlayerComboBox = new System.Windows.Forms.ComboBox();
+            this.MinPlayerLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // NameTextBox
@@ -77,7 +79,7 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(12, 92);
+            this.CancelButton.Location = new System.Drawing.Point(12, 112);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 4;
@@ -87,7 +89,7 @@
             // 
             // CreateButton
             // 
-            this.CreateButton.Location = new System.Drawing.Point(215, 92);
+            this.CreateButton.Location = new System.Drawing.Point(215, 112);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(75, 23);
             this.CreateButton.TabIndex = 5;
@@ -95,11 +97,36 @@
             this.CreateButton.UseVisualStyleBackColor = true;
             this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
             // 
+            // MinPlayerComboBox
+            // 
+            this.MinPlayerComboBox.FormattingEnabled = true;
+            this.MinPlayerComboBox.Items.AddRange(new object[] {
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.MinPlayerComboBox.Location = new System.Drawing.Point(144, 66);
+            this.MinPlayerComboBox.Name = "MinPlayerComboBox";
+            this.MinPlayerComboBox.Size = new System.Drawing.Size(146, 21);
+            this.MinPlayerComboBox.TabIndex = 6;
+            this.MinPlayerComboBox.SelectedIndexChanged += new System.EventHandler(this.MinPlayerComboBox_SelectedIndexChanged);
+            // 
+            // MinPlayerLabel
+            // 
+            this.MinPlayerLabel.AutoSize = true;
+            this.MinPlayerLabel.Location = new System.Drawing.Point(12, 69);
+            this.MinPlayerLabel.Name = "MinPlayerLabel";
+            this.MinPlayerLabel.Size = new System.Drawing.Size(123, 13);
+            this.MinPlayerLabel.TabIndex = 7;
+            this.MinPlayerLabel.Text = "Select Min Player Count:";
+            // 
             // CreateGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(302, 127);
+            this.ClientSize = new System.Drawing.Size(302, 147);
+            this.Controls.Add(this.MinPlayerLabel);
+            this.Controls.Add(this.MinPlayerComboBox);
             this.Controls.Add(this.CreateButton);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.TotalPlayersLabel);
@@ -121,5 +148,7 @@
         private System.Windows.Forms.Label TotalPlayersLabel;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Button CreateButton;
+        private System.Windows.Forms.ComboBox MinPlayerComboBox;
+        private System.Windows.Forms.Label MinPlayerLabel;
     }
 }

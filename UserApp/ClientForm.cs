@@ -36,7 +36,7 @@ namespace UserApp
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(1025);
+            UDPClient.UDPInstance.SetupAndRun(1024);
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
             
@@ -63,40 +63,15 @@ namespace UserApp
             ReceivingFactory.Instance.Stop();
         }
 
-        private void ClientForm_closing()
-        {
-
-        }
-        
-        //where we would put the createGame stuff
-        public void CreateGame()
-        {
-            IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 30);
-            CreateGameConv conv = 
-                ConversationFactory.Instance
-                .CreateFromConversationType<CreateGameConv>
-                (server, null, GameCreated);
-            Thread convThread = new Thread(conv.Execute);
-            convThread.Start();
-        }
-
-        public void GameCreated(object context)
-        {
-            //change player screeen
-            //player.inWaitingRoom = true
-        }
-
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
             //call a method that needs to be refreshed a second
             //something that needs to redraw
+        }
 
-            //if(_ControlHub.ForceRedraw)
-            //{
-            //    ReceivingListView.Items.Clear();
-            //}
+        public void RefreshGameList()
+        {
 
-            //_ControlHub.ForceRedraw = false;
         }
 
         private void SendButton_Click(object sender, EventArgs e)
@@ -111,16 +86,28 @@ namespace UserApp
 
             if(CreateGameForm.ShowDialog() == DialogResult.OK)
             {
-                //create the game
-                //assign stuff
-                //profit
+                //MessageBox.Show("Total Players = " + CreateGameForm.TotalPlayerCount.ToString() + "\nGame Name: " + CreateGameForm.GameName);
 
-                //Dumby test
-                MessageBox.Show("Total Players = " + CreateGameForm.TotalPlayerCount.ToString() + "\nGame Name: " + CreateGameForm.GameName);
-                //CreateGame conv = ConversationFactory.Instance.
-                //Thread createGameThread = new Thread(conv.Execute);
-                
+                CreateGame(CreateGameForm.MinPlayerCount, CreateGameForm.TotalPlayerCount, CreateGameForm.GameName);
             }
+        }
+
+        public void CreateGame(int min, int max, string name)
+        {
+            string[] parameters = { min.ToString(), max.ToString(), name };
+
+            IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);
+            CreateGameConv conv =
+                ConversationFactory.Instance
+                .CreateFromConversationType<CreateGameConv>
+                (server, null, param => CreateGamePostExecute(parameters)); //using lambda operator to pass parameters as object
+
+            conv.GameName = name;
+            conv.MinPlayers = min;
+            conv.MaxPlayers = max;
+
+            Thread convThread = new Thread(conv.Execute);
+            convThread.Start();
         }
 
         private void JoinButton_Click(object sender, EventArgs e)
@@ -149,7 +136,17 @@ namespace UserApp
 
         public void CreateGamePostExecute(object context)
         {
+            //change player screeen
+            //player.inWaitingRoom = true
+            string[] parameters = (string[])context;
 
+            var waitingRoomWindow = new WaitingRoom()
+            {
+                MinPlayers = Convert.ToInt32(parameters[0]),
+                MaxPlayers = Convert.ToInt32(parameters[1]),
+                GameName = parameters[2]
+            };
+            waitingRoomWindow.ShowDialog();
         }
 
         public void JoinGamePreExecute(object context)
