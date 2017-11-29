@@ -35,14 +35,12 @@ namespace LobbyApp
         protected override void ExecuteBasedOnType(Envelope env, IPEndPoint refEp)
         {
             Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
-            CreateGameConv conv = null;
+            Conversation conv = null;
             switch (msgType)
             {
                 case Envelope.TypeOfMessage.CreateGame:
-                    conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as CreateGameConv;
-                    conv._GameId = ManageGameID();
+                    conv = CreateGameResponse(env, refEp);
                     break;
-
                 default:
                     conv = null;
                     break;
@@ -52,6 +50,13 @@ namespace LobbyApp
                 Thread thrd = new Thread(conv.Execute);
                 thrd.Start();
             }
+        }
+
+        private Conversation CreateGameResponse(Envelope env, IPEndPoint refEp)
+        {
+            CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as CreateGameConv;
+            conv._GameId = ManageGameID();
+            return conv;
         }
     }    
 }
