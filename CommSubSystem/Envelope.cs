@@ -18,6 +18,7 @@ namespace CommSubSystem
         {
             NotSet,//Type of message that isnt set yet when creating the Envelope
             CreateGame,
+            CreateGameReply,
             ExitGame,
             HeartBeat,
             JoinGame,

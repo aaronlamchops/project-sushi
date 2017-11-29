@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SharedObjects;
 using System.Net;
+using Messages;
 
-namespace CommSubSystem.Conversation
+namespace CommSubSystem.ConversationClass
 {
     public abstract class Conversation
     {
@@ -17,6 +18,7 @@ namespace CommSubSystem.Conversation
         public bool InitiatorConv { get; set; }
         public IPEndPoint EndIP { get; set; }
         public Error Error { get; set; }
+        protected Envelope incomingEnvelope;
 
         public delegate void ActionHandler(object context = null);
         public ActionHandler PreExecuteAction { get; set; }
@@ -43,7 +45,7 @@ namespace CommSubSystem.Conversation
 
         protected void ReliableSend(Envelope env)
         {
-            Envelope incomingEnvelope = null;
+            incomingEnvelope = null;
             int remainingSends = MaxRetries;
             while(remainingSends > 0 && incomingEnvelope == null)
             {
@@ -59,6 +61,28 @@ namespace CommSubSystem.Conversation
             }
         }
         
+        protected void Send(Envelope env)
+        {
+            byte[] bytes = env.Encode();
+            UDPClient.UDPInstance.SetServerIP(EndIP);
+        }
+
+        protected Envelope CreateAwk()
+        {
+            Ack msg = new Ack();
+            msg.ConvId = ConvId;
+            msg.MsgId = MessageId.Create();
+
+            Envelope env = new Envelope()
+            {
+                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
+                MessageToBeSent = msg,
+                MessageTypeInEnvelope = Envelope.TypeOfMessage.Ack
+            };
+            return env;
+        }
+
+        public abstract Envelope CreateFirstMessage();
         public abstract void ResponderConversation(object context);
         public abstract void InitatorConversation(object context);
     }
