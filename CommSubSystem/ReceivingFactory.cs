@@ -36,7 +36,8 @@ namespace CommSubSystem.Receive
                 return _Instance;
             }
         }
-        
+
+        public ControlHub TargetControl { get; set; }
         public ReceiveInvoker ReceiveInvoker { get; set; }
 
         public void Start()
