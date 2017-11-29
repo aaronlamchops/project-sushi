@@ -10,6 +10,7 @@ using SharedObjects;
 using CommSubSystem;
 using CommSubSystem.ConversationClass;
 using log4net;
+using System.Net;
 
 namespace UserApp
 {
@@ -17,7 +18,7 @@ namespace UserApp
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
 
-        protected override void ExecuteBasedOnType(Envelope env)
+        protected override void ExecuteBasedOnType(Envelope env, IPEndPoint refEp)
         {
             Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
             Conversation conv;

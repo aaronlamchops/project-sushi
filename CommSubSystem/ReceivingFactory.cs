@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Threading;
 using SharedObjects;
+using System.Net;
 
 namespace CommSubSystem
 {
@@ -23,9 +24,11 @@ namespace CommSubSystem
         {
             byte[] bytes;
             Envelope env = null;
+            IPEndPoint remoteEp;
             while (_keepReceiving)
             {
-                bytes = UDPClient.UDPInstance.Receive();
+                remoteEp = new IPEndPoint(IPAddress.Any, 0);
+                bytes = UDPClient.UDPInstance.Receive(ref remoteEp);
                 env = Decipher(bytes);
 
                 if (env != null)
@@ -34,7 +37,7 @@ namespace CommSubSystem
                     ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
                     if (queue == null)
                     {
-                        ExecuteBasedOnType(env);
+                        ExecuteBasedOnType(env, remoteEp);
                     }
                     else
                     {
@@ -44,7 +47,7 @@ namespace CommSubSystem
             }
         }
 
-        protected abstract void ExecuteBasedOnType(Envelope env);
+        protected abstract void ExecuteBasedOnType(Envelope env, IPEndPoint refEp);
 
         public void Start()
         {
