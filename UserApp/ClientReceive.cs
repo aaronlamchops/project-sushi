@@ -7,42 +7,17 @@ using System.Threading;
 
 using Messages;
 using SharedObjects;
+using CommSubSystem;
 using CommSubSystem.ConversationClass;
+using log4net;
 
-namespace CommSubSystem.Receive
+namespace UserApp
 {
-    public class ClientReceive
+    public class ClientReceive : Receiver
     {
-        private bool _keepReceiving;
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
 
-        public void Receiving()
-        {
-            byte[] bytes;
-            Envelope env = null;
-            while (_keepReceiving)
-            {
-                bytes = UDPClient.UDPInstance.Receive();
-                env = Decipher(bytes);
-
-                if (env != null)
-                {
-                    MessageId convId = env.MessageToBeSent.ConvId;
-                    ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
-                    if (queue == null)
-                    {
-                        ExecuteBasedOnType(env);
-                    }
-                    else
-                    {
-                        queue.Enqueue(env);
-                    }
-                }
-            }
-        }
-
-        public Conversation.ActionHandler beforeConv { get; set; }
-
-        private void ExecuteBasedOnType(Envelope env)
+        protected override void ExecuteBasedOnType(Envelope env)
         {
             Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
             Conversation conv;
@@ -58,17 +33,6 @@ namespace CommSubSystem.Receive
                 Thread thrd = new Thread(conv.Execute);
                 thrd.Start();
             }
-        }
-
-        private Envelope Decipher(byte[] bytes)
-        {
-            Envelope env = null;
-            if (bytes != null)
-            {
-                env = UDPClient.Decode(bytes);
-            }
-
-            return env;
         }
     }
 

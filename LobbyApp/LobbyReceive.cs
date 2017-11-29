@@ -8,20 +8,18 @@ using System.Threading;
 using Messages;
 using SharedObjects;
 using CommSubSystem.ConversationClass;
+using log4net;
+using CommSubSystem;
 
-namespace CommSubSystem.Receive
+namespace LobbyApp
 {
-    public class LobbyReceive
+    public class LobbyReceive : Receiver
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(LobbyReceive));
         private static readonly object MyLock = new object();
 
-        private bool _keepReceiving;
         private int _GameID { get; set; }
-
-        public LobbyReceive()
-        {
-            _GameID = 0;
-        }
+        
 
         private int ManageGameID()
         {
@@ -33,41 +31,14 @@ namespace CommSubSystem.Receive
             return _GameID;
         }
 
-        public void Receiving()
-        {
-            byte[] bytes;
-            Envelope env = null;
-            while (_keepReceiving)
-            {
-                bytes = UDPClient.UDPInstance.Receive();
-                env = Decipher(bytes);
-
-                if (env != null)
-                {
-                    MessageId convId = env.MessageToBeSent.ConvId;
-                    ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
-                    if (queue == null)
-                    {
-                        ExecuteBasedOnType(env);
-                    }
-                    else
-                    {
-                        queue.Enqueue(env);
-                    }
-                }
-            }
-        }
-
-        public Conversation.ActionHandler beforeConv { get; set; }
-
-        private void ExecuteBasedOnType(Envelope env)
+        protected override void ExecuteBasedOnType(Envelope env)
         {
             Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
             CreateGameConv conv = null;
             switch (msgType)
             {
                 case Envelope.TypeOfMessage.CreateGame:
-                    conv = ConversationFactory.Instance.CreateFromMessage(env, beforeConv, null) as CreateGameConv;
+                    conv = ConversationFactory.Instance.CreateFromMessage(env, null, null) as CreateGameConv;
                     conv._GameId = ManageGameID();
                     break;
 
@@ -81,20 +52,5 @@ namespace CommSubSystem.Receive
                 thrd.Start();
             }
         }
-
-        private Envelope Decipher(byte[] bytes)
-        {
-            Envelope env = null;
-            if (bytes != null)
-            {
-                env = UDPClient.Decode(bytes);
-            }
-
-            return env;
-        }
-
-
-    }
-
-    
+    }    
 }
