@@ -54,9 +54,8 @@ namespace CommSubSystem
             return _serverIp;
         }
 
-        public byte[] Receive()
+        public byte[] Receive(ref IPEndPoint remoteEp)
         {
-            IPEndPoint remoteEp = new IPEndPoint(IPAddress.Any, 0);
             byte[] receiveBuffer = null;
             try
             {

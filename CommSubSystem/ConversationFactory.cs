@@ -31,7 +31,7 @@ namespace CommSubSystem.ConversationClass
             }
         }
 
-        public Conversation CreateFromMessage(Envelope env, Conversation.ActionHandler preAction, Conversation.ActionHandler postAction)
+        public Conversation CreateFromMessage(Envelope env, IPEndPoint refEp, Conversation.ActionHandler preAction, Conversation.ActionHandler postAction)
         {
             Conversation conversation = null;
             Type convType = MatchMessageTypeToConversation(env.MessageTypeInEnvelope);
@@ -50,7 +50,7 @@ namespace CommSubSystem.ConversationClass
                     conversation.MaxRetries = DefaultMaxRetries;
                     conversation.Done = false;
                     conversation.InitiatorConv = initiator;
-                    conversation.EndIP = env.IpEndPoint;
+                    conversation.EndIP = refEp;
                     conversation.MyQueue = queue;
                     conversation.PreExecuteAction = preAction;
                     conversation.PostExecuteAction = postAction;

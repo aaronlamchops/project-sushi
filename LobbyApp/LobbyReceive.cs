@@ -10,6 +10,7 @@ using SharedObjects;
 using CommSubSystem.ConversationClass;
 using log4net;
 using CommSubSystem;
+using System.Net;
 
 namespace LobbyApp
 {
@@ -31,14 +32,14 @@ namespace LobbyApp
             return _GameID;
         }
 
-        protected override void ExecuteBasedOnType(Envelope env)
+        protected override void ExecuteBasedOnType(Envelope env, IPEndPoint refEp)
         {
             Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
             CreateGameConv conv = null;
             switch (msgType)
             {
                 case Envelope.TypeOfMessage.CreateGame:
-                    conv = ConversationFactory.Instance.CreateFromMessage(env, null, null) as CreateGameConv;
+                    conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as CreateGameConv;
                     conv._GameId = ManageGameID();
                     break;
 
