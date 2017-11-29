@@ -19,14 +19,15 @@ namespace CommSubSystem.ConversationClass
         public IPEndPoint EndIP { get; set; }
         public Error Error { get; set; }
         protected Envelope incomingEnvelope;
+        protected List<MessageId> MessageLog = new List<MessageId>();
 
         public delegate void ActionHandler(object context = null);
         public ActionHandler PreExecuteAction { get; set; }
         public ActionHandler PostExecuteAction { get; set; }
 
-
         public ConversationQueue MyQueue { get; set; }
         
+        //main method allows for form actions before and after conversation
         public void Execute(object context = null)
         {
             PreExecuteAction?.Invoke(context);
@@ -43,6 +44,8 @@ namespace CommSubSystem.ConversationClass
             ConversationDictionary.Instance.CloseQueue(MyQueue.QueueID);
         }
 
+        // Send with retries
+        // if response comes in stores in incomingEnvelope
         protected void ReliableSend(Envelope env)
         {
             incomingEnvelope = null;
@@ -58,15 +61,47 @@ namespace CommSubSystem.ConversationClass
                 if (Error != null) break;
 
                 incomingEnvelope = MyQueue.Dequeue(Timeout);
+
+                if (!ValidateEnvelope(env))
+                {
+                    incomingEnvelope = null;
+                }
             }
         }
-        
+
+        // Checks for duplicates and good types
+        protected bool ValidateEnvelope(Envelope env)
+        {
+            //received envelope
+            if (incomingEnvelope != null)
+            {
+                //allowed type
+                if (allowedMessageTypes.Contains(env.MessageTypeInEnvelope))
+                {
+                    //check for duplicate
+                    if (!MessageLog.Contains(env.MessageToBeSent.MsgId))
+                    {
+                        //add Id to log for future checks
+                        MessageLog.Add(env.MessageToBeSent.MsgId);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        //list of allowed messages
+        protected List<Envelope.TypeOfMessage> allowedMessageTypes;
+
+        // Sends once
         protected void Send(Envelope env)
         {
             byte[] bytes = env.Encode();
             UDPClient.UDPInstance.SetServerIP(EndIP);
+            UDPClient.UDPInstance.Send(bytes);
         }
 
+        //most reliable conversations require an ack so here's a basic one
         protected Envelope CreateAwk()
         {
             Ack msg = new Ack();
@@ -82,8 +117,11 @@ namespace CommSubSystem.ConversationClass
             return env;
         }
 
+        //initial message for initiator
         public abstract Envelope CreateFirstMessage();
+        //implement responce
         public abstract void ResponderConversation(object context);
+        //implement send
         public abstract void InitatorConversation(object context);
     }
 }

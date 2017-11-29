@@ -17,6 +17,16 @@ namespace CommSubSystem.ConversationClass
         //for response
         public int _GameId { get; set; }
 
+        CreateGameConv()
+        {
+            allowedMessageTypes = new List<Envelope.TypeOfMessage>
+            {
+                Envelope.TypeOfMessage.CreateGame,
+                Envelope.TypeOfMessage.CreateGameReply,
+                Envelope.TypeOfMessage.Ack
+            };
+        }
+
         public override void ResponderConversation(object context)
         {
             CreateGameReply msg = new CreateGameReply() { GameId = _GameId };
