@@ -9,6 +9,7 @@ using System.Threading;
 using Messages;
 using SharedObjects;
 using CommSubSystem.Commands;
+using CommSubSystem.ConversationClass;
 
 namespace CommSubSystem.Receive
 {
@@ -36,8 +37,7 @@ namespace CommSubSystem.Receive
                 return _Instance;
             }
         }
-
-        public ControlHub TargetControl { get; set; }
+        
         public ReceiveInvoker ReceiveInvoker { get; set; }
 
         public void Start()
@@ -63,8 +63,41 @@ namespace CommSubSystem.Receive
 
                 if(env != null)
                 {
-                    CommandSelection(env);
+                    MessageId convId = env.MessageToBeSent.ConvId;
+                    ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
+                    if(queue == null)
+                    {
+                        ExecuteBasedOnType(env);
+                    }
+                    else
+                    {
+                        queue.Enqueue(env);
+                    }
                 }
+            }
+        }
+
+        public Conversation.ActionHandler beforeConv { get; set; }
+
+        private void ExecuteBasedOnType(Envelope env)
+        {
+            Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
+            Conversation conv;
+            switch (msgType)
+            {
+                case Envelope.TypeOfMessage.CreateGame:
+                    conv = ConversationFactory.Instance.CreateFromMessage(env, beforeConv, null) as CreateGameConv;
+                    
+                    break;
+
+                default:
+                    conv = null;
+                    break;
+            }
+            if (conv != null)
+            {
+                Thread thrd = new Thread(conv.Execute);
+                thrd.Start();
             }
         }
 
@@ -100,7 +133,6 @@ namespace CommSubSystem.Receive
                 }
                 if(command != null)
                 {
-                    command.TargetControl = TargetControl;
                     ReceiveInvoker.EnqueueCommandForExecution(command);
                 }
             }

@@ -12,4 +12,10 @@ namespace Messages
         public int MaxPlayers { get; set; }
         public string GameName { get; set; }
     }
+
+    [Serializable]
+    public class CreateGameReply : Message
+    {
+        public int GameId { get; set; }
+    }
 }
