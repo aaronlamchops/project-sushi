@@ -19,29 +19,36 @@ namespace LobbyApp
 {
     public partial class ClientForm : Form
     {
-        private readonly ControlHub _ControlHub = new ControlHub();
         private readonly SendInvoker _SendingInvoker = new SendInvoker();
         private readonly ReceiveInvoker _ReceivingInvoker = new ReceiveInvoker();
 
         public Thread _receivingThread;
+        public LobbyReceive _ReceivingProcess;
 
+        private static readonly object MyLock = new object();
+        
 
         public ClientForm()
         {
             InitializeComponent();
 
             UDPClient.UDPInstance.SetupAndRun(1025);
-            _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
-            CommandFactory.Instance.TargetControl = _ControlHub;
             ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
-            ReceivingFactory.Instance.TargetControl = _ControlHub;
+
+            _ReceivingProcess = new LobbyReceive();
+            _receivingThread = new Thread(_ReceivingProcess.Receiving);
+            _receivingThread.IsBackground = true;
 
             _SendingInvoker.Start();
             _ReceivingInvoker.Start();
+            _receivingThread.Start();
+            
 
             ReceivingFactory.Instance.Start();
         }
+
+        
 
         private void ClientForm_Load(object sender, EventArgs e)
         {

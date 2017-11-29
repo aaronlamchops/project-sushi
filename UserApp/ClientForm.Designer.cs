@@ -176,7 +176,7 @@ namespace UserApp
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.AddressTextBox);
             this.Controls.Add(this.AddressLabel);
-            this.Name = "ClientForm";
+            //this.Name = "ClientForm";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ClientForm_FormClosed);
             this.Load += new System.EventHandler(this.ClientForm_Load);

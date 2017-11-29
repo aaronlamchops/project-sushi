@@ -26,6 +26,7 @@ namespace UserApp
         private readonly SendInvoker _SendingInvoker = new SendInvoker();
         private readonly ReceiveInvoker _ReceivingInvoker = new ReceiveInvoker();
 
+        public ClientReceive _ReceivingProcess;
         public Thread _receivingThread;
 
         //Hold and populate list from server
@@ -39,6 +40,10 @@ namespace UserApp
             UDPClient.UDPInstance.SetupAndRun(1024);
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
+            _ReceivingProcess = new ClientReceive();
+            
+            _receivingThread = new Thread(_ReceivingProcess.Receiving);
+            _receivingThread.IsBackground = true;
 
             DefineResponses();
 
@@ -47,6 +52,7 @@ namespace UserApp
             _SendingInvoker.Start();
             _ReceivingInvoker.Start();
 
+            _receivingThread.Start();
             //kick off receiving for the whole system
             ReceivingFactory.Instance.Start();
         }
@@ -110,9 +116,9 @@ namespace UserApp
                 .CreateFromConversationType<CreateGameConv>
                 (server, null, param => CreateGamePostExecute(parameters)); //using lambda operator to pass parameters as object
 
-            conv.GameName = name;
-            conv.MinPlayers = min;
-            conv.MaxPlayers = max;
+            conv._GameName = name;
+            conv._MinPlayers = min;
+            conv._MaxPlayers = max;
 
             Thread convThread = new Thread(conv.Execute);
             convThread.Start();
