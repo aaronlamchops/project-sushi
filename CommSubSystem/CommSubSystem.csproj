@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,18 +47,12 @@
     <Compile Include="ConversationFactory.cs" />
     <Compile Include="CreateGameConv.cs" />
     <Compile Include="TCPClient.cs" />
-    <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\CommandFactory.cs" />
     <Compile Include="ConversationDictionary.cs" />
     <Compile Include="ConversationQueue.cs" />
     <Compile Include="Envelope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\SendInvoker.cs" />
-    <Compile Include="Commands\SendCommand.cs" />
     <Compile Include="UDPClient.cs" />
-    <Compile Include="Commands\RespCommand.cs" />
-    <Compile Include="Receive\ReceivingFactory.cs" />
-    <Compile Include="Receive\ReceiveInvoker.cs" />
+    <Compile Include="ReceivingFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\Utils.csproj">
@@ -70,6 +67,9 @@
       <Project>{5196b706-880e-4b82-b245-1cd20ddf453d}</Project>
       <Name>SharedObjects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

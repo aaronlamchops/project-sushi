@@ -10,9 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using CommSubSystem;
-using CommSubSystem.Commands;
-using CommSubSystem.Receive;
-using Messages;
 using SharedObjects;
 using System.Net;
 using CommSubSystem.ConversationClass;
@@ -22,10 +19,9 @@ namespace UserApp
     public partial class ClientForm : Form
     {
         private static readonly object MyLock = new object();
-        
-        private readonly SendInvoker _SendingInvoker = new SendInvoker();
-        private readonly ReceiveInvoker _ReceivingInvoker = new ReceiveInvoker();
 
+
+        IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);
         public ClientReceive _ReceivingProcess;
         public Thread _receivingThread;
 
@@ -38,28 +34,10 @@ namespace UserApp
             InitializeComponent();
 
             UDPClient.UDPInstance.SetupAndRun(1024);
-            CommandFactory.Instance.SendInvoker = _SendingInvoker;
-            ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
             _ReceivingProcess = new ClientReceive();
+            _ReceivingProcess.Start();
             
-            _receivingThread = new Thread(_ReceivingProcess.Receiving);
-            _receivingThread.IsBackground = true;
-
-            DefineResponses();
-
-            
-
-            _SendingInvoker.Start();
-            _ReceivingInvoker.Start();
-
-            _receivingThread.Start();
             //kick off receiving for the whole system
-            ReceivingFactory.Instance.Start();
-        }
-
-        private void DefineResponses()
-        {
-            //ReceivingFactory.Instance.beforeConv = GameCreated;
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
@@ -72,9 +50,7 @@ namespace UserApp
 
         private void ClientForm_FormClosed(object sender, EventArgs e)
         {
-            _SendingInvoker.Stop();
-            _ReceivingInvoker.Stop();
-            ReceivingFactory.Instance.Stop();
+            _ReceivingProcess.Stop();
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
@@ -90,8 +66,6 @@ namespace UserApp
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            //gets the address, port, and message to be sent from the textfields
-            CommandFactory.Instance.CreateAndExecute("send", AddressTextBox.Text, textBox2.Text);
         }
 
         private void CreateGameButton_Click(object sender, EventArgs e)
@@ -110,7 +84,6 @@ namespace UserApp
         {
             string[] parameters = { min.ToString(), max.ToString(), name };
 
-            IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);
             CreateGameConv conv =
                 ConversationFactory.Instance
                 .CreateFromConversationType<CreateGameConv>
