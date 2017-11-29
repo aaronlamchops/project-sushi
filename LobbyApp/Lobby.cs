@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Collections.Concurrent;
 using System.Net;
-using CommSubSystem.Conversation;
+using CommSubSystem.ConversationClass;
 
 
 namespace SharedObjects
@@ -16,7 +16,7 @@ namespace SharedObjects
         private int IDCounter = 1;//lobby ID is always 1
         public volatile bool isRunning = true;
 
-        public int GetID()//before response
+        public int GetPlayerID()//before response
         {
             IDCounter += 1;
             return IDCounter;
@@ -46,12 +46,13 @@ namespace SharedObjects
             Game g = gameList[gameID];
             foreach(Player p in g.playerList)
             {
-                //TODO Send StartGame message to p
+                //Send gameserver info to each player
                 IPEndPoint playerIP = p.GetIP();
                 StartGameConv conv =
                     ConversationFactory.Instance
                     .CreateFromConversationType<StartGameConv>
-                    (playerIP, null, null);//pass in numberOfPlayers somehow?
+                    (playerIP, null, null);
+                conv._gameServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1026);
                 Thread convThread = new Thread(conv.Execute);
                 convThread.Start();
             }
@@ -66,14 +67,15 @@ namespace SharedObjects
                 foreach(var keypair in gameList)
                 {
                     Game g = keypair.Value;
-                    int numberOfPlayers = g.playerList.Count();
+                    int numberOfPlayers = g.playerList.Count;
                     foreach (Player p in g.playerList)
                     {
                         IPEndPoint playerIP = p.GetIP();
                         LobbyHeartbeatConv conv =
                             ConversationFactory.Instance
                             .CreateFromConversationType<LobbyHeartbeatConv>
-                            (playerIP, null, null);//pass in numberOfPlayers somehow?
+                            (playerIP, null, null);
+                        conv._NumberOfPlayers = numberOfPlayers;
                         Thread convThread = new Thread(conv.Execute);
                         convThread.Start();
                         //If timeout, remove player from game
@@ -84,32 +86,5 @@ namespace SharedObjects
             }
         }
 
-    }
-
-    public class Game
-    {
-        int gameId;
-        public List<Player> playerList = new List<Player>();
-        int MinPlayers;
-        int MaxPlayers;
-        Player host;
-
-        public Game(int gameId, Player host, int minPlayer, int maxPlayer){
-            this.gameId = gameId;
-            this.host = host;
-            this.MinPlayers = minPlayer;
-            this.MaxPlayers = maxPlayer;
-        }
-        public void AddPlayer(Player p) 
-        {
-            if (playerList.Count() < MaxPlayers)
-            {
-                playerList.Add(p);
-            }
-            else 
-            {
-                //error, maxplayers exceeded
-            }
-        }
     }
 }

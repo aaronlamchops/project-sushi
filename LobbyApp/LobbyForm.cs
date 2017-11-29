@@ -15,7 +15,7 @@ using CommSubSystem.Receive;
 using Messages;
 using SharedObjects;
 using System.Net;
-using CommSubSystem.Conversation;
+using CommSubSystem.ConversationClass;
 
 namespace LobbyApp
 {
