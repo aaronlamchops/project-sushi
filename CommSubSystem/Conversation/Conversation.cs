@@ -16,8 +16,9 @@ namespace CommSubSystem.Conversation
         public bool Done { get; set; }
         public bool InitiatorConv { get; set; }
         public IPEndPoint EndIP { get; set; }
+        public Error Error { get; set; }
 
-        protected ConversationQueue MyQueue { get; set; }
+        public ConversationQueue MyQueue { get; set; }
         
         public void Initialize()
         {
@@ -43,6 +44,12 @@ namespace CommSubSystem.Conversation
                 byte[] bytes = env.Encode();
                 UDPClient.UDPInstance.SetServerIP(EndIP);
                 UDPClient.UDPInstance.Send(bytes);
+
+                remainingSends--;
+
+                if (Error != null) break;
+
+                incomingEnvelope = MyQueue.Dequeue(Timeout);
             }
         }
 

@@ -15,6 +15,7 @@ namespace CommSubSystem.Conversation
         private ConversationFactory() { }
         public int DefaultTimeout = 300;
         public int DefaultMaxRetries = 3;
+        private ConversationDictionary ConversationDict = new ConversationDictionary();
 
 
         public static ConversationFactory Instance
@@ -32,75 +33,63 @@ namespace CommSubSystem.Conversation
             }
         }
 
-        public virtual Conversation CreateFromMessage(Envelope env)
+        public Conversation CreateFromMessage(Envelope env)
         {
             Conversation conversation = null;
-            bool initiator = false;
+            Type convType = MatchMessageTypeToConversation(env.MessageTypeInEnvelope);
 
-
-            
-            return conversation;
-        }
-
-        public virtual Conversation CreateFromConversationType(ConversationTypes type, IPEndPoint receiver)
-        {
-            Conversation conversation = null;
-            bool initiator = true;
-            if(type == ConversationTypes.CreateGame)
+            if (convType != null)
             {
-                conversation = new CreateGameConv()
-                {
-                    ConvId = MessageId.Create(),
-                    Timeout = DefaultTimeout,
-                    MaxRetries = DefaultMaxRetries,
-                    Done = false,
-                    InitiatorConv = initiator,
-                    EndIP = receiver
-                };
+                bool initiator = false;
+                MessageId ConvId = env.MessageToBeSent.ConvId;
+                ConversationQueue queue = ConversationDict.CreateQueue(ConvId);
+
+                conversation = Activator.CreateInstance(convType) as Conversation;
+                if(conversation!= null) { 
+                    conversation.InitiatorConv = initiator;
+                    conversation.ConvId = ConvId;
+                    conversation.Timeout = DefaultTimeout;
+                    conversation.MaxRetries = DefaultMaxRetries;
+                    conversation.Done = false;
+                    conversation.InitiatorConv = initiator;
+                    conversation.EndIP = env.IpEndPoint;
+                    conversation.MyQueue = queue;
+                }
             }
+
             return conversation;
         }
 
-        private ConversationTypes MatchMessageTypeToConversation(Envelope.TypeOfMessage msgType)
+        public T CreateFromConversationType<T>(IPEndPoint receiver) where T : Conversation, new()
         {
-            ConversationTypes convType;
+           bool initiator = true;
+           MessageId ConvId = MessageId.Create();
+           ConversationQueue queue = ConversationDict.CreateQueue(ConvId);
+
+            T conversation = new T()
+            {
+                ConvId = ConvId,
+                Timeout = DefaultTimeout,
+                MaxRetries = DefaultMaxRetries,
+                Done = false,
+                InitiatorConv = initiator,
+                EndIP = receiver,
+                MyQueue = queue
+           };
+           return conversation;
+        }
+
+        private Type MatchMessageTypeToConversation(Envelope.TypeOfMessage msgType)
+        {
+            Type convType;
             switch (msgType)
             {
                 case Envelope.TypeOfMessage.CreateGame:
-                    convType = ConversationTypes.CreateGame;
+                    convType = typeof(CreateGameConv);
                     break;
-                case Envelope.TypeOfMessage.ExitGame:
-                    convType = ConversationTypes.ExitGame;
-                    break;
-                case Envelope.TypeOfMessage.HeartBeat:
-                    convType = ConversationTypes.HeartBeat;
-                    break;
-                case Envelope.TypeOfMessage.JoinGame:
-                    convType = ConversationTypes.JoinGame;
-                    break;
-                case Envelope.TypeOfMessage.PassCard:
-                    convType = ConversationTypes.PassCard;
-                    break;
-                case Envelope.TypeOfMessage.SelectCard:
-                    convType = ConversationTypes.SelectCard;
-                    break;
-                case Envelope.TypeOfMessage.StartGame:
-                    convType = ConversationTypes.StartGame;
-                    break;
-                case Envelope.TypeOfMessage.StartNewRound:
-                    convType = ConversationTypes.StartNewRound;
-                    break;
-                case Envelope.TypeOfMessage.UpdateChat:
-                    convType = ConversationTypes.UpdateChat;
-                    break;
-                case Envelope.TypeOfMessage.UpdateState:
-                    convType = ConversationTypes.UpdateState;
-                    break;
-                case Envelope.TypeOfMessage.UserInfo:
-                    convType = ConversationTypes.UserInfo;
-                    break;
+                
                 default:
-                    convType = ConversationTypes.None;
+                    convType = null;
                     break;
             }
             return convType;

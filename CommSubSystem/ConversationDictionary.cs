@@ -12,15 +12,8 @@ namespace CommSubSystem
 {
     public class ConversationDictionary
     {
-        /*
-         * Might need to make this a Flyweight
-         * We could combine this class into the Conversation Factory
-         * 
-         * Will probably need to map Conversations to certain ids 
-         */
-
-        //Holds all conversations in the sub system
         private readonly ConcurrentDictionary<MessageId, ConversationQueue> _ConversationDictionary = new ConcurrentDictionary<MessageId, ConversationQueue>(new MessageId.MessageIdComparer());
+        public ConversationDictionary() { }
 
         public ConversationQueue CreateQueue(MessageId convId)
         {
@@ -59,6 +52,18 @@ namespace CommSubSystem
         }
 
         public int ConversationQueueCount => _ConversationDictionary.Count;
-        
+
+        public void SetupConversation(MessageId convId, Envelope env)
+        {
+            ConversationQueue queue;
+            queue = Lookup(convId);
+
+            if (queue == null)
+            {
+                queue = CreateQueue(convId);
+            }
+            queue.Enqueue(env);
+        }
+
     }
 }
