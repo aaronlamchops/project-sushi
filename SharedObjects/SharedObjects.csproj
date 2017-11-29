@@ -50,7 +50,6 @@
     <Compile Include="ChatLog.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Error.cs" />
-    <Compile Include="Lobby.cs" />
     <Compile Include="LocalProcessInfo.cs" />
     <Compile Include="MessageId.cs" />
     <Compile Include="Player.cs" />

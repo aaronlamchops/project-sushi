@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Collections.Concurrent;
+using System.Net;
+using CommSubSystem.Conversation;
+
 
 namespace SharedObjects
 {
@@ -13,7 +16,7 @@ namespace SharedObjects
         private int IDCounter = 1;//lobby ID is always 1
         public volatile bool isRunning = true;
 
-        public int GetID() 
+        public int GetID()//before response
         {
             IDCounter += 1;
             return IDCounter;
@@ -22,37 +25,62 @@ namespace SharedObjects
         public void HandleRequestGameList()
         {
             //TODO Send gameList to player
+
         }
 
-        public void HandleCreateGame(Player host, int minPlayer, int maxPlayer)
+        public void HandleCreateGame(Player host, int minPlayer, int maxPlayer)//before response 
         {
             int gameID = -1;//TODO Send RequestGameID to gameServer to get valid ID
             Game g = new Game(gameID, host, minPlayer, maxPlayer);
             gameList[gameID] = g;
         }
 
-        public void HandleJoinGame(Player p, int gameID) {
+        public void HandleJoinGame(Player p, int gameID) {//before response
             Game g = gameList[gameID];
             g.AddPlayer(p);
             gameList[gameID] = g;
         }
 
-        public void StartGame(int gameID)
+        public void StartGame(int gameID)//before response
         {
             Game g = gameList[gameID];
             foreach(Player p in g.playerList)
             {
                 //TODO Send StartGame message to p
+                IPEndPoint playerIP = p.GetIP();
+                StartGameConv conv =
+                    ConversationFactory.Instance
+                    .CreateFromConversationType<StartGameConv>
+                    (playerIP, null, null);//pass in numberOfPlayers somehow?
+                Thread convThread = new Thread(conv.Execute);
+                convThread.Start();
             }
             gameList.TryRemove(gameID, out g);
         }
 
-        public void SendHeartbeats()
+        public void SendHeartbeats()//run as thread
         {
             while(isRunning)
             {
-                //TODO hearbeat all players that have joined games
-                //If timeout, remove player from game
+                //TODO hearbeat to all players that have joined games
+                foreach(var keypair in gameList)
+                {
+                    Game g = keypair.Value;
+                    int numberOfPlayers = g.playerList.Count();
+                    foreach (Player p in g.playerList)
+                    {
+                        IPEndPoint playerIP = p.GetIP();
+                        LobbyHeartbeatConv conv =
+                            ConversationFactory.Instance
+                            .CreateFromConversationType<LobbyHeartbeatConv>
+                            (playerIP, null, null);//pass in numberOfPlayers somehow?
+                        Thread convThread = new Thread(conv.Execute);
+                        convThread.Start();
+                        //If timeout, remove player from game
+                    }
+                }
+
+
             }
         }
 

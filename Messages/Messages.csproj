@@ -65,6 +65,7 @@
     <Compile Include="Heartbeat.cs" />
     <Compile Include="Ack.cs" />
     <Compile Include="RequestPID.cs" />
+    <Compile Include="LobbyHeartbeat.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

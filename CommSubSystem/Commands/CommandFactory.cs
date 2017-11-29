@@ -27,7 +27,7 @@ namespace CommSubSystem.Commands
             }
         }
 
-        public ControlHub TargetControl { get; set; }
+        //public ControlHub TargetControl { get; set; }
         public SendInvoker SendInvoker { get; set; }
 
 
@@ -37,10 +37,10 @@ namespace CommSubSystem.Commands
             {
                 return;
             }
-            if(TargetControl == null)
-            {
-                return;
-            }
+            //if(TargetControl == null)
+            //{
+            //    return;
+            //}
 
             Command command = null;
 
@@ -59,7 +59,7 @@ namespace CommSubSystem.Commands
 
             if(command != null)
             {
-                command.TargetControl = TargetControl;
+                //command.TargetControl = TargetControl;
                 SendInvoker.EnqueueCommandForExecution(command);
             }
         }

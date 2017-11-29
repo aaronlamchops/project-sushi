@@ -99,7 +99,7 @@ namespace CommSubSystem.Receive
                 }
                 if(command != null)
                 {
-                    command.TargetControl = TargetControl;
+                    //command.TargetControl = TargetControl;
                     ReceiveInvoker.EnqueueCommandForExecution(command);
                 }
             }

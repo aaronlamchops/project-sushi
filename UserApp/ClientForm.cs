@@ -67,7 +67,7 @@ namespace UserApp
         //where we would put the createGame stuff
         public void CreateGame()
         {
-            IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 30);
+            IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1024);
             CreateGameConv conv = 
                 ConversationFactory.Instance
                 .CreateFromConversationType<CreateGameConv>

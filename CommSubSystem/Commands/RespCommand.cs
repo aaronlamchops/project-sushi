@@ -41,7 +41,7 @@ namespace CommSubSystem.Commands
 
             UDPClient.UDPInstance.Send(bytes);
 
-            TargetControl.SetupConversation(msg.ConvId, env);
+            //TargetControl.SetupConversation(msg.ConvId, env);
         }
     }
 }
