@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -82,7 +83,7 @@ namespace UserApp
 
         public void CreateGame(int min, int max, string name)
         {
-            string[] parameters = { min.ToString(), max.ToString(), name };
+            var parameters = new string[]{ min.ToString(), max.ToString(), name };
 
             CreateGameConv conv =
                 ConversationFactory.Instance
@@ -125,7 +126,7 @@ namespace UserApp
         {
             //change player screeen
             //player.inWaitingRoom = true
-            string[] parameters = (string[])context;
+            string[] parameters = ((IEnumerable)context).Cast<object>().Select(x => x.ToString()).ToArray();
 
             var waitingRoomWindow = new WaitingRoom()
             {
