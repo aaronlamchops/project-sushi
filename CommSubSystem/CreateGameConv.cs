@@ -47,7 +47,7 @@ namespace CommSubSystem.ConversationClass
 
         public override Envelope CreateFirstMessage()
         {
-            CreateGame msg = new CreateGame() { MinPlayers = _MinPlayers, MaxPlayers = _MaxPlayers, GameName = _GameName };
+            CreateGame msg = new CreateGame() { MinPlayers = _MinPlayers, MaxPlayers = _MaxPlayers };
             msg.ConvId = ConvId;
             msg.MsgId = ConvId;
 

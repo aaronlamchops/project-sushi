@@ -13,7 +13,7 @@ namespace CommSubSystem.ConversationClass
         private static ConversationFactory _Instance;
         private static readonly object MyLock = new object();
         private ConversationFactory() { }
-        public int DefaultTimeout = 30000;
+        public int DefaultTimeout = 300;
         public int DefaultMaxRetries = 3;
 
         public static ConversationFactory Instance
