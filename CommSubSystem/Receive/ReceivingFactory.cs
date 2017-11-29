@@ -9,6 +9,7 @@ using System.Threading;
 using Messages;
 using SharedObjects;
 using CommSubSystem.Commands;
+using CommSubSystem.ConversationClass;
 
 namespace CommSubSystem.Receive
 {
@@ -24,11 +25,11 @@ namespace CommSubSystem.Receive
 
         public static ReceivingFactory Instance
         {
-            get 
+            get
             {
-                lock(MyLock)
+                lock (MyLock)
                 {
-                    if(_Instance == null)
+                    if (_Instance == null)
                     {
                         _Instance = new ReceivingFactory();
                     }
@@ -36,14 +37,14 @@ namespace CommSubSystem.Receive
                 return _Instance;
             }
         }
-        
+
         public ReceiveInvoker ReceiveInvoker { get; set; }
 
         public void Start()
         {
             _keepReceiving = true;
-            _worker = new Thread(Receive);
-            _worker.Start();
+            //_worker = new Thread(Receive);
+            //_worker.Start();
         }
 
         public void Stop()
@@ -51,37 +52,10 @@ namespace CommSubSystem.Receive
             _keepReceiving = false;
         }
 
-        private void Receive()
-        {
-            byte[] bytes;
-            Envelope env = null;
-            while(_keepReceiving)
-            {
-                bytes = UDPClient.UDPInstance.Receive();
-                env = Decipher(bytes);
-
-                if(env != null)
-                {
-                    MessageId 
-                }
-            }
-        }
-
-        private Envelope Decipher(byte[] bytes)
-        {
-            Envelope env = null;
-            if (bytes != null)
-            {
-                env = UDPClient.Decode(bytes);
-            }
-
-            return env;
-        }
-
         private void CommandSelection(Envelope envelope)
         {
             Command command = null;
-            if(envelope != null)
+            if (envelope != null)
             {
                 switch (envelope.MessageTypeInEnvelope)
                 {
@@ -94,10 +68,10 @@ namespace CommSubSystem.Receive
                         break;
 
                     case Envelope.TypeOfMessage.Ack:
-                        
+
                         break;
                 }
-                if(command != null)
+                if (command != null)
                 {
                     ReceiveInvoker.EnqueueCommandForExecution(command);
                 }

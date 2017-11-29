@@ -26,18 +26,12 @@ namespace CommSubSystem.Commands
                 return _Instance;
             }
         }
-
-        public ControlHub TargetControl { get; set; }
         public SendInvoker SendInvoker { get; set; }
 
 
         public virtual void CreateAndExecute(string commandType, params object[] commandParameters)
         {
             if(string.IsNullOrWhiteSpace(commandType))
-            {
-                return;
-            }
-            if(TargetControl == null)
             {
                 return;
             }
@@ -59,7 +53,7 @@ namespace CommSubSystem.Commands
 
             if(command != null)
             {
-                command.TargetControl = TargetControl;
+                
                 SendInvoker.EnqueueCommandForExecution(command);
             }
         }
