@@ -53,7 +53,7 @@
     <Compile Include="Lobby.cs" />
     <Compile Include="LocalProcessInfo.cs" />
     <Compile Include="MessageId.cs" />
-    <Compile Include="Players.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="ProcessType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicEndPoint.cs" />

@@ -29,7 +29,7 @@ namespace UserApp
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(30);
+            UDPClient.UDPInstance.SetupAndRun(1024);
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;

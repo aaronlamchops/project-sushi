@@ -64,6 +64,7 @@
     <Compile Include="PassCard.cs" />
     <Compile Include="Heartbeat.cs" />
     <Compile Include="Ack.cs" />
+    <Compile Include="RequestPID.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

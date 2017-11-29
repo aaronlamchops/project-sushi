@@ -26,11 +26,13 @@ namespace LobbyApp
         public Thread _receivingQueueThread;
         private bool _keepReceiving;
 
+        private Lobby _lobby = new Lobby();
+
         public ClientForm()
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(5);
+            UDPClient.UDPInstance.SetupAndRun(1025);
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;
