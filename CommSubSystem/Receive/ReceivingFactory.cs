@@ -62,7 +62,7 @@ namespace CommSubSystem.Receive
 
                 if(env != null)
                 {
-                    CommandSelection(env);
+                    MessageId 
                 }
             }
         }
@@ -99,7 +99,6 @@ namespace CommSubSystem.Receive
                 }
                 if(command != null)
                 {
-                    //command.TargetControl = TargetControl;
                     ReceiveInvoker.EnqueueCommandForExecution(command);
                 }
             }

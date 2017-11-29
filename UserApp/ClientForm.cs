@@ -15,7 +15,7 @@ using CommSubSystem.Receive;
 using Messages;
 using SharedObjects;
 using System.Net;
-using CommSubSystem.Conversation;
+using CommSubSystem.ConversationClass;
 
 namespace UserApp
 {
@@ -35,6 +35,9 @@ namespace UserApp
             UDPClient.UDPInstance.SetupAndRun(1024);
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
+
+            DefineResponses();
+
             
 
             _SendingInvoker.Start();
@@ -42,6 +45,11 @@ namespace UserApp
 
             //kick off receiving for the whole system
             ReceivingFactory.Instance.Start();
+        }
+
+        private void DefineResponses()
+        {
+            //ReceivingFactory.Instance.beforeConv = GameCreated;
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
@@ -72,6 +80,8 @@ namespace UserApp
                 ConversationFactory.Instance
                 .CreateFromConversationType<CreateGameConv>
                 (server, null, GameCreated);
+            conv._MaxPlayers = 5;
+            conv._MinPlayers = 2;
             Thread convThread = new Thread(conv.Execute);
             convThread.Start();
         }

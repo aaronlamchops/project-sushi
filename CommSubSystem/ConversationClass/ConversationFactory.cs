@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SharedObjects;
 using System.Net;
 
-namespace CommSubSystem.Conversation
+namespace CommSubSystem.ConversationClass
 {
     public class ConversationFactory
     {
@@ -76,7 +76,7 @@ namespace CommSubSystem.Conversation
                 EndIP = receiver,
                 MyQueue = queue,
                 PreExecuteAction = preAction,
-                PostExecuteAction = postAction
+                PostExecuteAction = pos
            };
            return conversation;
         }
