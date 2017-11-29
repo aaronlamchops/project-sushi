@@ -18,6 +18,7 @@ namespace SharedObjects
 
         public int GetPlayerID()//before response
         {
+            //add lock
             IDCounter += 1;
             return IDCounter;
         }
