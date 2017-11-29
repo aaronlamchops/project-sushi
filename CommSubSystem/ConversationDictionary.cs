@@ -13,7 +13,24 @@ namespace CommSubSystem
     public class ConversationDictionary
     {
         private readonly ConcurrentDictionary<MessageId, ConversationQueue> _ConversationDictionary = new ConcurrentDictionary<MessageId, ConversationQueue>(new MessageId.MessageIdComparer());
-        public ConversationDictionary() { }
+        private static ConversationDictionary _Instance;
+        private static readonly object MyLock = new object();
+        private ConversationDictionary() { }
+
+        public static ConversationDictionary Instance
+        {
+            get
+            {
+                lock (MyLock)
+                {
+                    if (_Instance == null)
+                    {
+                        _Instance = new ConversationDictionary();
+                    }
+                }
+                return _Instance;
+            }
+        }
 
         public ConversationQueue CreateQueue(MessageId convId)
         {

@@ -8,15 +8,13 @@ using System.Net;
 
 namespace CommSubSystem.Conversation
 {
-    class ConversationFactory
+    public class ConversationFactory
     {
         private static ConversationFactory _Instance;
         private static readonly object MyLock = new object();
         private ConversationFactory() { }
         public int DefaultTimeout = 300;
         public int DefaultMaxRetries = 3;
-        private ConversationDictionary ConversationDict = new ConversationDictionary();
-
 
         public static ConversationFactory Instance
         {
@@ -33,7 +31,7 @@ namespace CommSubSystem.Conversation
             }
         }
 
-        public Conversation CreateFromMessage(Envelope env)
+        public Conversation CreateFromMessage(Envelope env, Conversation.ActionHandler preAction, Conversation.ActionHandler postAction)
         {
             Conversation conversation = null;
             Type convType = MatchMessageTypeToConversation(env.MessageTypeInEnvelope);
@@ -42,7 +40,7 @@ namespace CommSubSystem.Conversation
             {
                 bool initiator = false;
                 MessageId ConvId = env.MessageToBeSent.ConvId;
-                ConversationQueue queue = ConversationDict.CreateQueue(ConvId);
+                ConversationQueue queue = ConversationDictionary.Instance.CreateQueue(ConvId);
 
                 conversation = Activator.CreateInstance(convType) as Conversation;
                 if(conversation!= null) { 
@@ -54,17 +52,19 @@ namespace CommSubSystem.Conversation
                     conversation.InitiatorConv = initiator;
                     conversation.EndIP = env.IpEndPoint;
                     conversation.MyQueue = queue;
+                    conversation.PreExecuteAction = preAction;
+                    conversation.PostExecuteAction = postAction;
                 }
             }
 
             return conversation;
         }
 
-        public T CreateFromConversationType<T>(IPEndPoint receiver) where T : Conversation, new()
+        public T CreateFromConversationType<T>(IPEndPoint receiver, Conversation.ActionHandler preAction, Conversation.ActionHandler postAction) where T : Conversation, new()
         {
            bool initiator = true;
            MessageId ConvId = MessageId.Create();
-           ConversationQueue queue = ConversationDict.CreateQueue(ConvId);
+           ConversationQueue queue = ConversationDictionary.Instance.CreateQueue(ConvId);
 
             T conversation = new T()
             {
@@ -74,7 +74,9 @@ namespace CommSubSystem.Conversation
                 Done = false,
                 InitiatorConv = initiator,
                 EndIP = receiver,
-                MyQueue = queue
+                MyQueue = queue,
+                PreExecuteAction = preAction,
+                PostExecuteAction = postAction
            };
            return conversation;
         }

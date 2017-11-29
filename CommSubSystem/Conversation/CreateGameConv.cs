@@ -8,19 +8,14 @@ using SharedObjects;
 
 namespace CommSubSystem.Conversation
 {
-    class CreateGameConv : Conversation
+    public class CreateGameConv : Conversation
     {
-        public override void ResponderConversation()
+        public override void ResponderConversation(object context)
         {
 
         }
 
-        public override void InitatorConversation()
-        {
-
-        }
-
-        public override void SendFirstMessage()
+        public override void InitatorConversation(object context)
         {
             //create a message out of this
             CreateGame msg = new CreateGame() { MinPlayers = 3, MaxPlayers = 4 };

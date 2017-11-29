@@ -14,14 +14,15 @@ using CommSubSystem.Commands;
 using CommSubSystem.Receive;
 using Messages;
 using SharedObjects;
+using System.Net;
+using CommSubSystem.Conversation;
 
 namespace UserApp
 {
     public partial class ClientForm : Form
     {
         private static readonly object MyLock = new object();
-
-        private readonly ControlHub _ControlHub = new ControlHub();
+        
         private readonly SendInvoker _SendingInvoker = new SendInvoker();
         private readonly ReceiveInvoker _ReceivingInvoker = new ReceiveInvoker();
 
@@ -32,11 +33,9 @@ namespace UserApp
             InitializeComponent();
 
             UDPClient.UDPInstance.SetupAndRun(30);
-            _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
-            CommandFactory.Instance.TargetControl = _ControlHub;
             ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
-            ReceivingFactory.Instance.TargetControl = _ControlHub;
+            
 
             _SendingInvoker.Start();
             _ReceivingInvoker.Start();
@@ -63,6 +62,24 @@ namespace UserApp
         private void ClientForm_closing()
         {
 
+        }
+        
+        //where we would put the createGame stuff
+        public void CreateGame()
+        {
+            IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 30);
+            CreateGameConv conv = 
+                ConversationFactory.Instance
+                .CreateFromConversationType<CreateGameConv>
+                (server, null, GameCreated);
+            Thread convThread = new Thread(conv.Execute);
+            convThread.Start();
+        }
+
+        public void GameCreated(object context)
+        {
+            //change player screeen
+            //player.inWaitingRoom = true
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)

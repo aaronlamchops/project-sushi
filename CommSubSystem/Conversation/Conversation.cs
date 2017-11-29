@@ -18,21 +18,27 @@ namespace CommSubSystem.Conversation
         public IPEndPoint EndIP { get; set; }
         public Error Error { get; set; }
 
+        public delegate void ActionHandler(object context = null);
+        public ActionHandler PreExecuteAction { get; set; }
+        public ActionHandler PostExecuteAction { get; set; }
+
+
         public ConversationQueue MyQueue { get; set; }
         
-        public void Initialize()
+        public void Execute(object context = null)
         {
+            PreExecuteAction?.Invoke(context);
             if (InitiatorConv)
             {
-                SendFirstMessage();
-                InitatorConversation();
+                InitatorConversation(context);
             }
             else
             {
-                ResponderConversation();
+                ResponderConversation(context);
             }
-
+            PostExecuteAction?.Invoke(context);
             Done = true;
+            ConversationDictionary.Instance.CloseQueue(MyQueue.QueueID);
         }
 
         protected void ReliableSend(Envelope env)
@@ -52,10 +58,8 @@ namespace CommSubSystem.Conversation
                 incomingEnvelope = MyQueue.Dequeue(Timeout);
             }
         }
-
-
-        public abstract void ResponderConversation();
-        public abstract void InitatorConversation();
-        public abstract void SendFirstMessage();
+        
+        public abstract void ResponderConversation(object context);
+        public abstract void InitatorConversation(object context);
     }
 }
