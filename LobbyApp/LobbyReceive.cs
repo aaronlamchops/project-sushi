@@ -41,6 +41,11 @@ namespace LobbyApp
                 case Envelope.TypeOfMessage.CreateGame:
                     conv = CreateGameResponse(env, refEp);
                     break;
+
+                case Envelope.TypeOfMessage.RequestGameList:
+                    
+                    break;
+
                 default:
                     conv = null;
                     break;
@@ -56,6 +61,13 @@ namespace LobbyApp
         {
             CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as CreateGameConv;
             conv._GameId = ManageGameID();
+            return conv;
+        }
+
+        private Conversation RequestGameListResponse(Envelope env, IPEndPoint refEp)
+        {
+            RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as RequestGameListConv;
+
             return conv;
         }
     }    

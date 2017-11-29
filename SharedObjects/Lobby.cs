@@ -9,6 +9,7 @@ namespace SharedObjects
     public class Lobby
     {
         //list of games
+        public List<Game> GameList;
     }
 
     public class Game

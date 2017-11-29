@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UDPClient.cs" />
     <Compile Include="ReceivingFactory.cs" />
+    <Compile Include="RequestGameListConv.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\Utils.csproj">
