@@ -27,11 +27,15 @@ namespace UserApp
 
         public Thread _receivingThread;
 
+        //Hold and populate list from server
+        public List<Game> GameList = new List<Game>();
+        public Game SelectedGame;
+
         public ClientForm()
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(30);
+            UDPClient.UDPInstance.SetupAndRun(1024);
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;
@@ -83,5 +87,64 @@ namespace UserApp
             //gets the address, port, and message to be sent from the textfields
             CommandFactory.Instance.CreateAndExecute("send", AddressTextBox.Text, textBox2.Text);
         }
+
+        private void CreateGameButton_Click(object sender, EventArgs e)
+        {
+            var CreateGameForm = new CreateGameForm();
+
+            if(CreateGameForm.ShowDialog() == DialogResult.OK)
+            {
+                //create the game
+                //assign stuff
+                //profit
+
+                //Dumby test
+                MessageBox.Show("Total Players = " + CreateGameForm.TotalPlayerCount.ToString() + "\nGame Name: " + CreateGameForm.GameName);
+                //CreateGame conv = ConversationFactory.Instance.
+                //Thread createGameThread = new Thread(conv.Execute);
+                
+            }
+        }
+
+        private void JoinButton_Click(object sender, EventArgs e)
+        {
+            if (SelectedGame == null) return;
+
+            //send and connect to lobby using selected lobby information
+        }
+
+        private void ReceivingListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ReceivingListView.SelectedIndices.Count == 1)
+            {
+                SelectedGame = GameList[ReceivingListView.SelectedIndices[0]];
+            }
+            else
+            {
+                SelectedGame = null;
+            }
+        }
+
+        public void CreateGamePreExecute(object context)
+        {
+
+        }
+
+        public void CreateGamePostExecute(object context)
+        {
+
+        }
+
+        public void JoinGamePreExecute(object context)
+        {
+
+        }
+
+        public void JoinGamePostExecute(object context)
+        {
+
+        }
+
+        
     }
 }

@@ -30,7 +30,7 @@ namespace LobbyApp
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(5);
+            UDPClient.UDPInstance.SetupAndRun(1025);
             _ControlHub = new ControlHub();
             CommandFactory.Instance.SendInvoker = _SendingInvoker;
             CommandFactory.Instance.TargetControl = _ControlHub;
