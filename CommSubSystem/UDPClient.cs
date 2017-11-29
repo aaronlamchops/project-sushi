@@ -65,9 +65,22 @@ namespace CommSubSystem
             return receiveBuffer;
         }
         
-        public void Send(byte[] envelope)
+        public Error Send(byte[] envelope)
         {
-            _udpClient.Send(envelope, envelope.Length, _serverIp);
+            Error error = null;
+            try
+            {
+                _udpClient.Send(envelope, envelope.Length, _serverIp);
+            }
+            catch (Exception err)
+            {
+                error = new Error()
+                {
+                    Text = $"Cannnot send a message to {_serverIp}: {err.Message}"
+                };
+            }
+            return error;
+
         }
 
 
@@ -95,33 +108,4 @@ namespace CommSubSystem
         }
         
     }
-
-    //class CommunicationStuff
-    //{
-    //    public CommunicationStuff() {
-    //        _myUdpClient = new UDPClient();
-    //    }
-
-    //    UDPClient _myUdpClient;
-    //    //can have a list of conversations if nesacerry
-
-    //    public void Send(Message message) //include MessageType in params
-    //    {
-    //        //pack into envelope
-    //        //envelope should decode itself
-    //        //send through client
-    //    }
-
-    //    public void Receive()
-    //    {
-    //        //some thread should be running and always receiving
-    //        DoStuffWithMessage();
-
-    //    }
-
-    //    private void DoStuffWithMessage(Message message, messageType type)
-    //    {
-    //        //Conversation Rules go here
-    //    }
-    //}
 }

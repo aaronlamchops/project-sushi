@@ -26,20 +26,23 @@ namespace CommSubSystem.ConversationClass
         public ActionHandler PostExecuteAction { get; set; }
 
         public ConversationQueue MyQueue { get; set; }
-        
+
         //main method allows for form actions before and after conversation
         public void Execute(object context = null)
         {
             PreExecuteAction?.Invoke(context);
             if (InitiatorConv)
             {
-                InitatorConversation(context);
+                Error = InitatorConversation(context);
             }
             else
             {
-                ResponderConversation(context);
+                Error = ResponderConversation(context);
             }
-            PostExecuteAction?.Invoke(context);
+            if (Error == null)
+            {
+                PostExecuteAction?.Invoke(context);
+            }
             Done = true;
             ConversationDictionary.Instance.CloseQueue(MyQueue.QueueID);
         }
@@ -50,11 +53,11 @@ namespace CommSubSystem.ConversationClass
         {
             incomingEnvelope = null;
             int remainingSends = MaxRetries;
-            while(remainingSends > 0 && incomingEnvelope == null)
+            while (remainingSends > 0 && incomingEnvelope == null)
             {
                 byte[] bytes = env.Encode();
                 UDPClient.UDPInstance.SetServerIP(EndIP);
-                UDPClient.UDPInstance.Send(bytes);
+                Error = UDPClient.UDPInstance.Send(bytes);
 
                 remainingSends--;
 
@@ -66,6 +69,14 @@ namespace CommSubSystem.ConversationClass
                 {
                     incomingEnvelope = null;
                 }
+            }
+            //was not able to receive within timeout
+            if (Error == null && incomingEnvelope == null)
+            {
+                Error = new Error()
+                {
+                    Text = $"Did not receive message"
+                };
             }
         }
 
@@ -94,23 +105,24 @@ namespace CommSubSystem.ConversationClass
         protected List<Envelope.TypeOfMessage> allowedMessageTypes;
 
         // Sends once
-        protected void Send(Envelope env)
+        protected Error Send(Envelope env)
         {
             byte[] bytes = env.Encode();
             UDPClient.UDPInstance.SetServerIP(EndIP);
-            UDPClient.UDPInstance.Send(bytes);
+            return UDPClient.UDPInstance.Send(bytes);
         }
 
         //most reliable conversations require an ack so here's a basic one
         protected Envelope CreateAwk()
         {
-            Ack msg = new Ack();
-            msg.ConvId = ConvId;
-            msg.MsgId = MessageId.Create();
+            Ack msg = new Ack
+            {
+                ConvId = ConvId,
+                MsgId = MessageId.Create()
+            };
 
             Envelope env = new Envelope()
             {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
                 MessageToBeSent = msg,
                 MessageTypeInEnvelope = Envelope.TypeOfMessage.Ack
             };

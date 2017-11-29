@@ -37,34 +37,12 @@ namespace CommSubSystem
 
         public Message MessageToBeSent { get; set; }
 
-        public PublicEndPoint EndPoint { get; set; }
-
         public Envelope() { }
 
-        public Envelope(Message msg, PublicEndPoint endPoint)
+        public Envelope(Message msg)
         {
             MessageToBeSent = msg;
-            EndPoint = endPoint;
         }
-
-        public Envelope(Message message, IPEndPoint ep) :
-            this(message, (ep != null) ? new PublicEndPoint() { IpEndPoint = ep } : null) { }
-
-        public IPEndPoint IpEndPoint
-        {
-            get
-            {
-                return (EndPoint == null) ?
-                    new IPEndPoint(IPAddress.Any, 0) :
-                    EndPoint.IpEndPoint;
-            }
-            set { EndPoint = (value == null) ? null : new PublicEndPoint() { IpEndPoint = value }; }
-        }
-
-        public bool IsValidToSend => (MessageToBeSent != null &&
-                                      EndPoint != null &&
-                                      EndPoint.Host != "0.0.0.0" &&
-                                      EndPoint.Port != 0);
 
         public byte[] Encode()
         {

@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-
-using Messages;
-using SharedObjects;
 using CommSubSystem.ConversationClass;
 using log4net;
 using CommSubSystem;

@@ -35,7 +35,6 @@ namespace CommSubSystem.ConversationClass
 
             Envelope env = new Envelope()
             {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
                 MessageToBeSent = msg,
                 MessageTypeInEnvelope = Envelope.TypeOfMessage.CreateGameReply
             };
@@ -48,14 +47,13 @@ namespace CommSubSystem.ConversationClass
             Envelope env = CreateFirstMessage();
             ReliableSend(env);
 
-            if (incomingEnvelope != null)
-            {
-                //can parse message received
-                CreateGameReply msg = incomingEnvelope.MessageToBeSent as CreateGameReply;
-                //whatever logic will help in the post action
+            if (Error != null) return;
+            
+            //can parse message received
+            CreateGameReply msg = incomingEnvelope.MessageToBeSent as CreateGameReply;
+            //whatever logic will help in the post action
 
-                Send(CreateAwk());
-            }
+            Send(CreateAwk());
         }
 
         public override Envelope CreateFirstMessage()
@@ -67,7 +65,6 @@ namespace CommSubSystem.ConversationClass
 
             Envelope env = new Envelope()
             {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
                 MessageToBeSent = msg,
                 MessageTypeInEnvelope = Envelope.TypeOfMessage.CreateGame
             };
