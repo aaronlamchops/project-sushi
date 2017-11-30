@@ -57,7 +57,7 @@ namespace LobbyApp
             CreateGameConv conv =
                 ConversationFactory.Instance
                 .CreateFromConversationType<CreateGameConv>
-                (server, null, GameCreated);
+                (server, null, GameCreated, null);
             Thread convThread = new Thread(conv.Execute);
             convThread.Start();
         }
@@ -82,7 +82,7 @@ namespace LobbyApp
             LobbyHeartbeatConv conv =
                 ConversationFactory.Instance
                 .CreateFromConversationType<LobbyHeartbeatConv>
-                (playerIP, null, null);
+                (playerIP, null, null, null);
             conv._NumberOfPlayers = 3;
             Thread convThread = new Thread(conv.Execute);
             convThread.Start();

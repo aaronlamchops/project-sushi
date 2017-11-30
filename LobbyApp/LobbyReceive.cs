@@ -83,21 +83,21 @@ namespace LobbyApp
 
         private CreateGameConv CreateGameResponse(byte[] bytes, IPEndPoint refEp)
         {
-            CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage<CreateGameConv>(bytes, refEp, null, null);
+            CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage<CreateGameConv>(bytes, refEp, null, null, null);
             conv._GameId = ManageGameID();
             return conv;
         }
 
         private Registration RegistrationResponse(byte[] bytes, IPEndPoint refEp)
         {
-            Registration conv = ConversationFactory.Instance.CreateFromMessage<Registration>(bytes, refEp, null, null);
+            Registration conv = ConversationFactory.Instance.CreateFromMessage<Registration>(bytes, refEp, null, null, null);
             conv._processId = ManageProcessID();
             return conv;
         }
 
         private RequestGameListConv RequestGameListResponse(byte[] bytes, IPEndPoint refEp)
         {
-            RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage<RequestGameListConv>(bytes, refEp, null, null);
+            RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage<RequestGameListConv>(bytes, refEp, null, null, null);
             conv._LobbyGameList = GamesOnLobby.gameList;
             return conv;
         }

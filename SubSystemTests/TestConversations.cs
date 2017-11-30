@@ -25,7 +25,7 @@ namespace SubSystemTests
             CreateGameConv conv =
                 ConversationFactory
                 .Instance.CreateFromMessage<CreateGameConv>
-                (msg.Encode(), ip, null, null);
+                (msg.Encode(), ip, null, null, null);
 
             Assert.AreEqual(conv.EndIP, ip);
             Assert.AreEqual(conv.ConvId, msgid);
@@ -33,7 +33,7 @@ namespace SubSystemTests
             CreateGameConv conv2 =
                 ConversationFactory
                 .Instance.CreateFromConversationType<CreateGameConv>
-                (ip, null, null);
+                (ip, null, null, null);
 
             Assert.AreEqual(conv2.EndIP, ip);
             Assert.AreNotEqual(conv.ConvId, msgid);
@@ -46,7 +46,7 @@ namespace SubSystemTests
             CreateGameConv conv =
                 ConversationFactory
                 .Instance.CreateFromConversationType<CreateGameConv>
-                (ip, null, null);
+                (ip, null, null, null);
             conv._MinPlayers = 5;
             conv._MaxPlayers = 6;
 

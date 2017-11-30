@@ -25,6 +25,7 @@ namespace CommSubSystem.ConversationClass
         public delegate void ActionHandler(object context = null);
         public ActionHandler PreExecuteAction { get; set; }
         public ActionHandler PostExecuteAction { get; set; }
+        public ActionHandler FailureAction { get; set; }
 
         public ConversationQueue MyQueue { get; set; }
 
@@ -49,6 +50,10 @@ namespace CommSubSystem.ConversationClass
             if (Error == null)
             {
                 PostExecuteAction?.Invoke(context);
+            }
+            else
+            {
+                FailureAction?.Invoke(context);
             }
             Done = true;
             ConversationDictionary.Instance.CloseQueue(MyQueue.QueueID);
