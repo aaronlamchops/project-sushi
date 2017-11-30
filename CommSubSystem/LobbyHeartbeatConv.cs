@@ -17,34 +17,31 @@ namespace CommSubSystem.ConversationClass
 
         public override void ResponderConversation(object context)
         {
-            Send(CreateAwk());
+            Send(CreateAck());
         }
 
         public override void InitatorConversation(object context)
         {
-            Envelope env = CreateFirstMessage();
-            ReliableSend(env);
+            Message msg = CreateFirstMessage();
+            ReliableSend(msg);
 
-            if (incomingEnvelope != null)
+            if (incomingMsg != null)
             {
-                Send(CreateAwk());
+                Send(CreateAck());
             }
         }
 
-        public override Envelope CreateFirstMessage()
+        public override Message CreateFirstMessage()
         {
-            LobbyHeartbeat msg = new LobbyHeartbeat() { NumberOfPlayers = _NumberOfPlayers };
-            msg.ConvId = ConvId;
-            msg.MsgId = ConvId;
-
-
-            Envelope env = new Envelope()
+            LobbyHeartbeat msg = new LobbyHeartbeat()
             {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
-                MessageToBeSent = msg,
-                MessageTypeInEnvelope = Envelope.TypeOfMessage.LobbyHeartbeat
+                NumberOfPlayers = _NumberOfPlayers,
+                ConvId = ConvId,
+                MsgId = ConvId,
+                MessageType = TypeOfMessage.LobbyHeartbeat
             };
-            return env;
+            
+            return msg;
         }
     }
 }
