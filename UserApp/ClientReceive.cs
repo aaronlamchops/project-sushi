@@ -23,8 +23,8 @@ namespace UserApp
             Conversation conv;
             switch (type)
             {
-                case Envelope.TypeOfMessage.LobbyHeartbeat:
-                    conv = LobbyHeartBeatResponse(env, refEp);
+                case TypeOfMessage.LobbyHeartbeat:
+                    conv = LobbyHeartBeatResponse(bytes, refEp);
                     break;
                 default:
                     conv = null;
@@ -36,9 +36,9 @@ namespace UserApp
                 thrd.Start();
             }
         }
-        private Conversation LobbyHeartBeatResponse(Envelope env, IPEndPoint refEp)
+        private Conversation LobbyHeartBeatResponse(byte[] bytes, IPEndPoint refEp)
         {
-            LobbyHeartbeatConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as LobbyHeartbeatConv;
+            LobbyHeartbeatConv conv = ConversationFactory.Instance.CreateFromMessage<LobbyHeartbeatConv>(bytes, refEp, null, null);
             return conv;
         }
     }
