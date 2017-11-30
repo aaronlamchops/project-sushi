@@ -53,6 +53,7 @@
     <Compile Include="CreateGameConv.cs" />
     <Compile Include="UDPClient.cs" />
     <Compile Include="ReceivingFactory.cs" />
+    <Compile Include="LobbyHeartbeatConv.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\Utils.csproj">

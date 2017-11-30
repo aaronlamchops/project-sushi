@@ -49,13 +49,13 @@ namespace SharedObjects
             {
                 //Send gameserver info to each player
                 IPEndPoint playerIP = p.GetIP();
-                StartGameConv conv =
-                    ConversationFactory.Instance
-                    .CreateFromConversationType<StartGameConv>
-                    (playerIP, null, null);
-                conv._gameServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1026);
-                Thread convThread = new Thread(conv.Execute);
-                convThread.Start();
+                //StartGameConv conv =
+                //    ConversationFactory.Instance
+                //    .CreateFromConversationType<StartGameConv>
+                //    (playerIP, null, null);
+                //conv._gameServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1026);
+                //Thread convThread = new Thread(conv.Execute);
+                //convThread.Start();
             }
             gameList.TryRemove(gameID, out g);
         }

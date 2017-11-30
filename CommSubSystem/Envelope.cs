@@ -33,7 +33,8 @@ namespace CommSubSystem
             RequestGameList,
             SendGameList,
             RequestGameId,
-            SendGameId
+            SendGameId,
+            LobbyHeartbeat
         };
 
         //Lets us know what type of message is inside of the envelope

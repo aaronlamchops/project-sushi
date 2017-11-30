@@ -43,3 +43,5 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/CommSubSystem/bin/Debug/Messages.pdb
 C:/Users/Aaron/Desktop/CS5200/project-sushi/CommSubSystem/bin/Debug/Messages.dll.config
 C:/Users/Aaron/Desktop/CS5200/project-sushi/CommSubSystem/bin/Debug/SharedObjects.pdb
 C:/Users/Aaron/Desktop/CS5200/project-sushi/CommSubSystem/bin/Debug/SharedObjects.dll.config
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/log4net.dll
+/Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/log4net.xml
