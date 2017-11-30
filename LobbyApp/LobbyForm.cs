@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using CommSubSystem;
 using Messages;
 using SharedObjects;
+using System.Net;
+using CommSubSystem.ConversationClass;
 
 namespace LobbyApp
 {
@@ -22,6 +24,8 @@ namespace LobbyApp
 
         private static readonly object MyLock = new object();
         
+
+        private Lobby _lobby = new Lobby();
 
         public ClientForm()
         {
@@ -36,13 +40,31 @@ namespace LobbyApp
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void LobbyForm_FormClosed(object sender, EventArgs e)
         {
             _ReceivingProcess.Stop();
         }
+
+        //where we would put the createGame stuff
+        public void CreateGame()
+        {
+            IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1024);
+            CreateGameConv conv =
+                ConversationFactory.Instance
+                .CreateFromConversationType<CreateGameConv>
+                (server, null, GameCreated);
+            Thread convThread = new Thread(conv.Execute);
+            convThread.Start();
+        }
+
+        public void GameCreated(object context)
+        {
+            //change player screeen
+            //player.inWaitingRoom = true
+        }
+
 
         private void refreshTimer_Tick(object sender, EventArgs e)
         {
