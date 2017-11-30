@@ -51,9 +51,9 @@ namespace LobbyApp
                 case TypeOfMessage.CreateGame:
                     conv = CreateGameResponse(bytes, refEp);
                     break;
-                case TypeOfMessage.Registration:
-                    conv = RegistrationResponse(bytes, refEp);
-                    break;
+                //case TypeOfMessage.Registration:
+                    //conv = RegistrationResponse(bytes, refEp);
+                    //break;
                 default:
                     conv = null;
                     break;
@@ -72,11 +72,11 @@ namespace LobbyApp
             return conv;
         }
 
-        private Registration RegistrationResponse(byte[] bytes, IPEndPoint refEp)
-        {
-            Registration conv = ConversationFactory.Instance.CreateFromMessage<Registration>(bytes, refEp, null, null);
-            conv._processId = ManageProcessID();
-            return conv;
-        }
+        //private Registration RegistrationResponse(byte[] bytes, IPEndPoint refEp)
+        //{
+        //    Registration conv = ConversationFactory.Instance.CreateFromMessage<Registration>(bytes, refEp, null, null);
+        //    conv._processId = ManageProcessID();
+        //    return conv;
+        //}
     }    
 }

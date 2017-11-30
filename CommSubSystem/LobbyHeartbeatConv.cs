@@ -16,6 +16,14 @@ namespace CommSubSystem.ConversationClass
         //for response
         //none
 
+        public LobbyHeartbeatConv(){
+            allowedMessageTypes = new List<TypeOfMessage>
+            {
+                TypeOfMessage.LobbyHeartbeat,
+                TypeOfMessage.Ack
+            };
+        }
+
         public override void ResponderConversation(object context)
         {
             ReliableSend(CreateAck());
