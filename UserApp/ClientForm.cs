@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -152,9 +153,9 @@ namespace UserApp
 
             var waitingRoomWindow = new WaitingRoom()
             {
-                MinPlayers = Convert.ToInt32(parameters[0]),
-                MaxPlayers = Convert.ToInt32(parameters[1]),
-                GameName = parameters[2]
+                MinPlayers = Convert.ToInt32(parameters[1]),
+                MaxPlayers = Convert.ToInt32(parameters[2]),
+                GameName = parameters[0]
             };
             waitingRoomWindow.ShowDialog();
         }
@@ -171,7 +172,21 @@ namespace UserApp
 
         public void RefreshPostExecute(object context)
         {
+            var gameList = (ConcurrentDictionary<int, Game>)context;
 
+            foreach(KeyValuePair<int, Game> index in gameList)
+            {
+                string[] row = {
+                    index.Value.gameId.ToString(),
+                    index.Value.gameId.ToString(),
+                    index.Value.playerList.Count.ToString(),
+                    index.Value.MaxPlayers.ToString()
+                };
+
+                var ListViewItem = new ListViewItem(row);
+
+                ReceivingListView.Items.Add(ListViewItem);
+            }
         }
         
     }

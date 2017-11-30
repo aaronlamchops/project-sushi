@@ -61,6 +61,8 @@ namespace Messages
         UserInfo,
         Registration,
         RegistrationReply,
-        LobbyHeartbeat
+        LobbyHeartbeat,
+        RequestGameList,
+        RequestGameListReply
     };
 }

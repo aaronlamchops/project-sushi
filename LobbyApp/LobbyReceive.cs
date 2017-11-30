@@ -10,6 +10,8 @@ using CommSubSystem;
 using System.Net;
 using Messages;
 
+using System.Diagnostics;
+
 namespace LobbyApp
 {
     public class LobbyReceive : Receiver
@@ -54,8 +56,8 @@ namespace LobbyApp
                     conv = RegistrationResponse(bytes, refEp);
                     break;
 
-                case Envelope.TypeOfMessage.RequestGameList:
-                    conv = RequestGameListResponse(env, refEp);
+                case TypeOfMessage.RequestGameList:
+                    conv = RequestGameListResponse(bytes, refEp);
                     break;
 
                 default:
@@ -76,17 +78,17 @@ namespace LobbyApp
             return conv;
         }
 
-<<<<<<< HEAD
-        private Conversation RequestGameListResponse(Envelope env, IPEndPoint refEp)
-        {
-            RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as RequestGameListConv;
-            conv._LobbyGameList = GamesOnLobby.gameList;
-=======
         private Registration RegistrationResponse(byte[] bytes, IPEndPoint refEp)
         {
             Registration conv = ConversationFactory.Instance.CreateFromMessage<Registration>(bytes, refEp, null, null);
             conv._processId = ManageProcessID();
->>>>>>> febe72c5201dbd643398eb7cf13145860e6cf85a
+            return conv;
+        }
+
+        private RequestGameListConv RequestGameListResponse(byte[] bytes, IPEndPoint refEp)
+        {
+            RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage<RequestGameListConv>(bytes, refEp, null, null);
+            conv._LobbyGameList = GamesOnLobby.gameList;
             return conv;
         }
     }    

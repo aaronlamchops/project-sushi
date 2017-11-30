@@ -4,11 +4,11 @@ namespace SharedObjects
 {
     public class Game
     {
-        int gameId;
+        public int gameId;
         public List<Player> playerList = new List<Player>();
-        int MinPlayers;
-        int MaxPlayers;
-        Player host;
+        public int MinPlayers;
+        public int MaxPlayers;
+        public Player host;
 
         public Game(int gameId, Player host, int minPlayer, int maxPlayer)
         {
