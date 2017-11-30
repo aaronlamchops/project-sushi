@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -20,7 +22,6 @@ namespace UserApp
     {
         private static readonly object MyLock = new object();
 
-
         IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);
         public ClientReceive _ReceivingProcess;
         public Thread _receivingThread;
@@ -28,6 +29,9 @@ namespace UserApp
         //Hold and populate list from server
         public List<Game> GameList = new List<Game>();
         public Game SelectedGame;
+
+        public List<ListViewItem> GameItems = new List<ListViewItem>();
+        public bool NeedsRefresh = false;
 
         public ClientForm()
         {
@@ -46,10 +50,7 @@ namespace UserApp
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-            //System.Windows.Forms.Timer RefreshTimer = new System.Windows.Forms.Timer();
-            //RefreshTimer.Interval = 1000; //every second
-            //RefreshTimer.Tick += new EventHandler(RefreshTimer_Tick);
-            //RefreshTimer.Start();
+            RefreshTimer.Start();
         }
 
         private void ClientForm_FormClosed(object sender, EventArgs e)
@@ -57,19 +58,30 @@ namespace UserApp
             _ReceivingProcess.Stop();
         }
 
-        private void refreshTimer_Tick(object sender, EventArgs e)
+        private void RefreshTimer_Tick(object sender, EventArgs e)
         {
             //call a method that needs to be refreshed a second
             //something that needs to redraw
+            RefreshGameList();
         }
 
         public void RefreshGameList()
         {
+            if(NeedsRefresh)
+            {
+                ReceivingListView.Items.Clear();
+                foreach(ListViewItem item in GameItems)
+                {
+                    ReceivingListView.Items.Add(item);
+                }
+            }
 
+            NeedsRefresh = false;
         }
 
         private void SendButton_Click(object sender, EventArgs e)
         {
+
         }
 
         private void CreateGameButton_Click(object sender, EventArgs e)
@@ -96,7 +108,7 @@ namespace UserApp
 
         public void CreateGame(int min, int max, string name)
         {
-            string[] parameters = { min.ToString(), max.ToString(), name };
+            var parameters = new string[]{ min.ToString(), max.ToString(), name };
 
             CreateGameConv conv =
                 ConversationFactory.Instance
@@ -117,16 +129,27 @@ namespace UserApp
             //send and connect to lobby using selected lobby information
         }
 
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            RequestGameListConv conv = 
+                ConversationFactory
+                .Instance.CreateFromConversationType<RequestGameListConv>
+                (server, null, RefreshPostExecute);
+
+            Thread convThread = new Thread(conv.Execute);
+            convThread.Start();
+        }
+
         private void ReceivingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ReceivingListView.SelectedIndices.Count == 1)
-            {
-                SelectedGame = GameList[ReceivingListView.SelectedIndices[0]];
-            }
-            else
-            {
-                SelectedGame = null;
-            }
+            //if(ReceivingListView.SelectedIndices.Count == 1)
+            //{
+            //    SelectedGame = GameList[ReceivingListView.SelectedIndices[0]];
+            //}
+            //else
+            //{
+            //    SelectedGame = null;
+            //}
         }
 
         public void CreateGamePreExecute(object context)
@@ -138,13 +161,13 @@ namespace UserApp
         {
             //change player screeen
             //player.inWaitingRoom = true
-            string[] parameters = (string[])context;
+            string[] parameters = ((IEnumerable)context).Cast<object>().Select(x => x.ToString()).ToArray();
 
             var waitingRoomWindow = new WaitingRoom()
             {
-                MinPlayers = Convert.ToInt32(parameters[0]),
-                MaxPlayers = Convert.ToInt32(parameters[1]),
-                GameName = parameters[2]
+                MinPlayers = Convert.ToInt32(parameters[1]),
+                MaxPlayers = Convert.ToInt32(parameters[2]),
+                GameName = parameters[0]
             };
             waitingRoomWindow.ShowDialog();
         }
@@ -159,6 +182,25 @@ namespace UserApp
 
         }
 
+        public void RefreshPostExecute(object context)
+        {
+            var gameList = (ConcurrentDictionary<int, Game>)context;
+
+            foreach(KeyValuePair<int, Game> index in gameList)
+            {
+                string[] row = {
+                    index.Value.gameId.ToString(),
+                    index.Value.gameId.ToString(),
+                    index.Value.playerList.Count.ToString(),
+                    index.Value.MaxPlayers.ToString()
+                };
+
+                var ListViewItem = new ListViewItem(row);
+                GameItems.Add(ListViewItem);
+                //ReceivingListView.Items.Add(ListViewItem); //Cant have another thread edit a form item
+                NeedsRefresh = true;
+            }
+        }
         
     }
 }

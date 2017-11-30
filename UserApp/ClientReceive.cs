@@ -23,9 +23,14 @@ namespace UserApp
             Conversation conv;
             switch (type)
             {
+                case TypeOfMessage.RequestGameListReply:
+                    conv = null;
+                    break;
+
                 case TypeOfMessage.LobbyHeartbeat:
                     conv = LobbyHeartBeatResponse(bytes, refEp);
                     break;
+                    
                 default:
                     conv = null;
                     break;

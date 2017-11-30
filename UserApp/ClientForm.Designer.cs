@@ -36,6 +36,7 @@ namespace UserApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.AddressLabel = new System.Windows.Forms.Label();
             this.AddressTextBox = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -49,6 +50,8 @@ namespace UserApp
             this.GameLabel = new System.Windows.Forms.Label();
             this.CreateGameButton = new System.Windows.Forms.Button();
             this.JoinButton = new System.Windows.Forms.Button();
+            this.RefreshButton = new System.Windows.Forms.Button();
+            this.RefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // AddressLabel
@@ -114,6 +117,10 @@ namespace UserApp
             // 
             this.Name.Tag = "";
             this.Name.Text = "Name";
+            //
+            // RefreshTimer
+            //
+            this.RefreshTimer.Tick += new System.EventHandler(this.RefreshTimer_Tick);
             // 
             // Address
             // 
@@ -162,11 +169,22 @@ namespace UserApp
             this.JoinButton.UseVisualStyleBackColor = true;
             this.JoinButton.Click += new System.EventHandler(this.JoinButton_Click);
             // 
+            // RefreshButton
+            // 
+            this.RefreshButton.Location = new System.Drawing.Point(69, 76);
+            this.RefreshButton.Name = "RefreshButton";
+            this.RefreshButton.Size = new System.Drawing.Size(75, 23);
+            this.RefreshButton.TabIndex = 9;
+            this.RefreshButton.Text = "Refresh";
+            this.RefreshButton.UseVisualStyleBackColor = true;
+            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(489, 461);
+            this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.JoinButton);
             this.Controls.Add(this.CreateGameButton);
             this.Controls.Add(this.GameLabel);
@@ -202,6 +220,8 @@ namespace UserApp
         private System.Windows.Forms.ColumnHeader AvailablePlayers;
         private System.Windows.Forms.ColumnHeader TotalPlayers;
         private System.Windows.Forms.Button JoinButton;
+        private System.Windows.Forms.Button RefreshButton;
+        private System.Windows.Forms.Timer RefreshTimer;
     }
 }
 

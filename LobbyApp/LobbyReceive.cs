@@ -20,11 +20,18 @@ namespace LobbyApp
         private static readonly object MyLock = new object();
 
         private int _GameID { get; set; }
+        private Lobby GamesOnLobby;
         private short _Pid { get; set; }
 
         public LobbyReceive()
         {
             _Pid = 1;
+            GamesOnLobby = new Lobby();
+            GamesOnLobby.HandleCreateGame(new SharedObjects.Player()
+            {
+                id = 1468,
+                name = "Initial"
+            }, 1, 5);
         }
 
         private short ManageProcessID()
@@ -54,6 +61,15 @@ namespace LobbyApp
                 case TypeOfMessage.Registration:
                     conv = RegistrationResponse(bytes, refEp);
                     break;
+
+                case TypeOfMessage.RequestGameList:
+                    conv = RequestGameListResponse(bytes, refEp);
+                    break;
+
+                case TypeOfMessage.RequestGameListReply:
+                    conv = RequestGameListResponse(bytes, refEp);
+                    break;
+
                 default:
                     conv = null;
                     break;
@@ -76,6 +92,13 @@ namespace LobbyApp
         {
             Registration conv = ConversationFactory.Instance.CreateFromMessage<Registration>(bytes, refEp, null, null);
             conv._processId = ManageProcessID();
+            return conv;
+        }
+
+        private RequestGameListConv RequestGameListResponse(byte[] bytes, IPEndPoint refEp)
+        {
+            RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage<RequestGameListConv>(bytes, refEp, null, null);
+            conv._LobbyGameList = GamesOnLobby.gameList;
             return conv;
         }
     }    

@@ -53,6 +53,7 @@
     <Compile Include="CreateGameConv.cs" />
     <Compile Include="UDPClient.cs" />
     <Compile Include="ReceivingFactory.cs" />
+    <Compile Include="RequestGameListConv.cs" />
     <Compile Include="LobbyHeartbeatConv.cs" />
   </ItemGroup>
   <ItemGroup>

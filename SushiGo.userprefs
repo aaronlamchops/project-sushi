@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{0142A149-1E08-4054-B8AC-E361356E810C}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UserApp/ClientForm.cs">
+    <Files>
+      <File FileName="LobbyApp/Lobby.cs" Line="1" Column="1" />
+      <File FileName="LobbyApp/LobbyForm.cs" Line="1" Column="1" />
+      <File FileName="LobbyApp/LobbyReceive.cs" Line="63" Column="27" />
+      <File FileName="UserApp/ClientForm.cs" Line="138" Column="37" />
+      <File FileName="UserApp/ClientReceive.cs" Line="31" Column="33" />
+      <File FileName="CommSubSystem/CreateGameConv.cs" Line="14" Column="46" />
+      <File FileName="CommSubSystem/RequestGameListConv.cs" Line="48" Column="13" NotebookId="1" />
+      <File FileName="Messages/RequestGameList.cs" Line="13" Column="38" NotebookId="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.UserApp PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Utils PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.LobbyApp PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
