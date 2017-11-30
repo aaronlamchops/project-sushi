@@ -23,7 +23,7 @@ namespace UserApp
             Conversation conv;
             switch (type)
             {
-                case Envelope.TypeOfMessage.RequestGameListReply:
+                case TypeOfMessage.RequestGameListReply:
                     conv = null;
                     break;
 

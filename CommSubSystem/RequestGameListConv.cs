@@ -13,48 +13,40 @@ namespace CommSubSystem.ConversationClass
     {
         public ConcurrentDictionary<int, Game> _LobbyGameList = new ConcurrentDictionary<int, Game>();
 
-        public override Envelope CreateFirstMessage()
+        public override Message CreateFirstMessage()
         {
-            RequestGameList msg = new RequestGameList();
-            msg.ConvId = ConvId;
-            msg.MsgId = ConvId;
-
-            Envelope env = new Envelope()
+            RequestGameList msg = new RequestGameList()
             {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
-                MessageToBeSent = msg,
-                MessageTypeInEnvelope = Envelope.TypeOfMessage.RequestGameList
+                ConvId = ConvId,
+                MsgId = ConvId,
+                MessageType = TypeOfMessage.RequestGameList
             };
-            return env;
+            return msg;
         }
 
         public override void InitatorConversation(object context)
         {
-            Envelope env = CreateFirstMessage();
-            ReliableSend(env);
+            Message msg = CreateFirstMessage();
+            ReliableSend(msg);
 
-            if(incomingEnvelope != null)
-            {
-                RequestGameList msg = incomingEnvelope.MessageToBeSent as RequestGameList;
+            if (Error != null) return;
 
-                Send(CreateAwk());
-            }
+            RequestGameListReply reply = Message.Decode<RequestGameListReply>(incomingMsg);
+            _LobbyGameList = reply.LobbyGameList;
+
+            Send(CreateAck());
         }
 
         public override void ResponderConversation(object context)
         {
-            SendGameList msg = new SendGameList() { gameList = _LobbyGameList };
-            msg.ConvId = ConvId;
-            msg.MsgId = MessageId.Create();
-
-            Envelope env = new Envelope()
+            RequestGameListReply msg = new RequestGameListReply()
             {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
-                MessageToBeSent = msg,
-                MessageTypeInEnvelope = Envelope.TypeOfMessage.SendGameList
+                LobbyGameList = _LobbyGameList,
+                MessageType = TypeOfMessage.RequestGameListReply
             };
 
-            ReliableSend(env);
+
+            ReliableSend(msg);
         }
     }
 }
