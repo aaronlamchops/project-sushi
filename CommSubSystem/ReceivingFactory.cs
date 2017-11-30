@@ -30,10 +30,10 @@ namespace CommSubSystem
             {
                 remoteEp = new IPEndPoint(IPAddress.Any, 0);
                 bytes = UDPClient.UDPInstance.Receive(ref remoteEp);
-                msg = Message.Decode<Message>(bytes);
 
-                if (msg != null)
+                if (bytes != null)
                 {
+                    msg = Message.Decode<Message>(bytes);
                     MessageId convId = msg.ConvId;
                     ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
                     if (queue == null)

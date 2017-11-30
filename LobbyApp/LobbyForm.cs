@@ -28,6 +28,9 @@ namespace LobbyApp
             InitializeComponent();
 
             UDPClient.UDPInstance.SetupAndRun(1025);
+
+            LocalProcessInfo.Instance.ProcessId = 1;
+
             _ReceivingProcess = new LobbyReceive();
             _ReceivingProcess.Start();
         }

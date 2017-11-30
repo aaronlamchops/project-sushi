@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SharedObjects;
 using System.Net;
 using Messages;
+using System.Threading;
 
 namespace CommSubSystem.ConversationClass
 {
@@ -27,6 +28,12 @@ namespace CommSubSystem.ConversationClass
 
         public ConversationQueue MyQueue { get; set; }
 
+        public void Start(object context = null)
+        {
+            Thread convThread = new Thread(Execute);
+            convThread.Start();
+        }
+
         //main method allows for form actions before and after conversation
         public void Execute(object context = null)
         {
@@ -47,9 +54,21 @@ namespace CommSubSystem.ConversationClass
             ConversationDictionary.Instance.CloseQueue(MyQueue.QueueID);
         }
 
-        // Send with retries
-        // if response comes in stores in incomingEnvelope
-        protected void ReliableSend(Message msg)
+        protected void Receive()
+        {
+            incomingMsg = MyQueue.Dequeue(Timeout);
+            if (incomingMsg == null)
+            {
+                Error = new Error()
+                {
+                    Text = $"Did not receive message"
+                };
+            }
+        }
+
+    // Send with retries
+    // if response comes in stores in incomingEnvelope
+    protected void ReliableSend(Message msg)
         {
             incomingMsg = null;
             int remainingSends = MaxRetries;

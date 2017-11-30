@@ -10,7 +10,7 @@ namespace CommSubSystem.ConversationClass
 {
     public class Registration : Conversation
     {
-        public int _processId { get; set; }
+        public short _processId { get; set; }
         public Registration()
         {
             allowedMessageTypes = new List<TypeOfMessage>
@@ -22,11 +22,12 @@ namespace CommSubSystem.ConversationClass
 
         public override void ResponderConversation(object context)
         {
-            Message msg = new Message()
+            RegistrationMsg msg = new RegistrationMsg()
             {
                 MsgId = MessageId.Create(),
                 ConvId = ConvId,
-                MessageType = TypeOfMessage.RegistrationReply
+                MessageType = TypeOfMessage.RegistrationReply,
+                Pid = _processId
             };
             Send(msg);
         }
@@ -34,6 +35,9 @@ namespace CommSubSystem.ConversationClass
         public override void InitatorConversation(object context)
         {
             Send(CreateFirstMessage());
+
+            Receive();
+
             if (Error != null) return;
 
             RegistrationMsg msg = Message.Decode<RegistrationMsg>(incomingMsg);
@@ -44,11 +48,13 @@ namespace CommSubSystem.ConversationClass
         //requests a processId
         public override Message CreateFirstMessage()
         {
-            Message env = new Message()
+            Message msg = new Message()
             {
-                MessageType = TypeOfMessage.Registration
+                MessageType = TypeOfMessage.Registration,
+                ConvId = ConvId,
+                MsgId = MessageId.Create()
             };
-            return env;
+            return msg;
         }
     }
 }
