@@ -50,7 +50,7 @@ namespace CommSubSystem.ConversationClass
             CreateGameReply reply = Message.Decode<CreateGameReply>(incomingMsg);
             //whatever logic will help in the post action
 
-            Send(CreateAwk());
+            Send(CreateAck());
         }
 
         public override Message CreateFirstMessage()

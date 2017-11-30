@@ -132,7 +132,7 @@ namespace CommSubSystem.ConversationClass
         }
 
         //most reliable conversations require an ack so here's a basic one
-        protected Ack CreateAwk()
+        protected Ack CreateAck()
         {
             Ack msg = new Ack
             {
