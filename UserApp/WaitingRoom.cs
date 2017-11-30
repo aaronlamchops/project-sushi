@@ -20,12 +20,11 @@ namespace UserApp
 
         public WaitingRoom()
         {
-            InitializeComponent();
-
             GameNameLabel.Text = GameName;
             MinPlayerCountLabel.Text = MinPlayers.ToString();
             MaxPlayerCountLabel.Text = MaxPlayers.ToString();
             PlayerCountLabel.Text = PlayerCount.ToString();
+            InitializeComponent();
         }
 
         private void StartGameButton_Click(object sender, EventArgs e)
