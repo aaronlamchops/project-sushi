@@ -105,6 +105,17 @@ namespace UserApp
             //send and connect to lobby using selected lobby information
         }
 
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            RequestGameListConv conv = 
+                ConversationFactory
+                .Instance.CreateFromConversationType<RequestGameListConv>
+                (server, null, RefreshPostExecute);
+
+            Thread convThread = new Thread(conv.Execute);
+            convThread.Start();
+        }
+
         private void ReceivingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(ReceivingListView.SelectedIndices.Count == 1)
@@ -147,6 +158,10 @@ namespace UserApp
 
         }
 
+        public void RefreshPostExecute(object context)
+        {
+
+        }
         
     }
 }

@@ -49,6 +49,7 @@ namespace UserApp
             this.GameLabel = new System.Windows.Forms.Label();
             this.CreateGameButton = new System.Windows.Forms.Button();
             this.JoinButton = new System.Windows.Forms.Button();
+            this.RefreshButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddressLabel
@@ -162,11 +163,22 @@ namespace UserApp
             this.JoinButton.UseVisualStyleBackColor = true;
             this.JoinButton.Click += new System.EventHandler(this.JoinButton_Click);
             // 
+            // RefreshButton
+            // 
+            this.RefreshButton.Location = new System.Drawing.Point(69, 76);
+            this.RefreshButton.Name = "RefreshButton";
+            this.RefreshButton.Size = new System.Drawing.Size(75, 23);
+            this.RefreshButton.TabIndex = 9;
+            this.RefreshButton.Text = "Refresh";
+            this.RefreshButton.UseVisualStyleBackColor = true;
+            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(489, 461);
+            this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.JoinButton);
             this.Controls.Add(this.CreateGameButton);
             this.Controls.Add(this.GameLabel);
@@ -176,7 +188,7 @@ namespace UserApp
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.AddressTextBox);
             this.Controls.Add(this.AddressLabel);
-            //this.Name = "ClientForm";
+            this.Name = "ClientForm";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ClientForm_FormClosed);
             this.Load += new System.EventHandler(this.ClientForm_Load);
@@ -202,6 +214,7 @@ namespace UserApp
         private System.Windows.Forms.ColumnHeader AvailablePlayers;
         private System.Windows.Forms.ColumnHeader TotalPlayers;
         private System.Windows.Forms.Button JoinButton;
+        private System.Windows.Forms.Button RefreshButton;
     }
 }
 
