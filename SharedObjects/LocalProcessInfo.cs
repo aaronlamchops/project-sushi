@@ -10,6 +10,10 @@ namespace SharedObjects
     {
         private static LocalProcessInfo _instance;
         private static readonly object MyLock = new object();
+        private LocalProcessInfo()
+        {
+            ProcessId = 0;
+        }
 
         public static LocalProcessInfo Instance
         {

@@ -17,7 +17,7 @@ namespace MessageTest
             CreateGame msg1 = new CreateGame() { MsgId = msgId , ConvId = convId, MinPlayers = 1, MaxPlayers = 5};
             byte[] bytes = msg1.Encode();
 
-            CreateGame msg2 = Message.Decode(bytes) as CreateGame;
+            CreateGame msg2 = Message.Decode<CreateGame>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);
@@ -33,7 +33,7 @@ namespace MessageTest
             ExitGame msg1 = new ExitGame() { MsgId = msgId, ConvId = convId, PlayerID = 2 , GameID = 5 };
             byte[] bytes = msg1.Encode();
 
-            ExitGame msg2 = Message.Decode(bytes) as ExitGame;
+            ExitGame msg2 = Message.Decode<ExitGame>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);
@@ -49,7 +49,7 @@ namespace MessageTest
             Heartbeat msg1 = new Heartbeat() { MsgId = msgId, ConvId = convId};
             byte[] bytes = msg1.Encode();
 
-            Heartbeat msg2 = Message.Decode(bytes) as Heartbeat;
+            Heartbeat msg2 = Message.Decode<Heartbeat>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);
@@ -63,7 +63,7 @@ namespace MessageTest
             ExitGame msg1 = new ExitGame() { MsgId = msgId, ConvId = convId, PlayerID = 2, GameID = 5 };
             byte[] bytes = msg1.Encode();
 
-            ExitGame msg2 = Message.Decode(bytes) as ExitGame;
+            ExitGame msg2 = Message.Decode<ExitGame>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);
@@ -79,7 +79,7 @@ namespace MessageTest
             SelectCard msg1 = new SelectCard() { MsgId = msgId, ConvId = convId, PlayerID = 2, CardID = CardTypes.Pudding };
             byte[] bytes = msg1.Encode();
 
-            SelectCard msg2 = Message.Decode(bytes) as SelectCard;
+            SelectCard msg2 = Message.Decode<SelectCard>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);
@@ -95,7 +95,7 @@ namespace MessageTest
             StartGame msg1 = new StartGame() { MsgId = msgId, ConvId = convId, GameID = 7};
             byte[] bytes = msg1.Encode();
 
-            StartGame msg2 = Message.Decode(bytes) as StartGame;
+            StartGame msg2 = Message.Decode<StartGame>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);
@@ -110,7 +110,7 @@ namespace MessageTest
             UserInfo msg1 = new UserInfo() { MsgId = msgId, ConvId = convId, UserName = "Kylie" };
             byte[] bytes = msg1.Encode();
 
-            UserInfo msg2 = Message.Decode(bytes) as UserInfo;
+            UserInfo msg2 = Message.Decode<UserInfo>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.UserName, msg2.UserName);
@@ -124,7 +124,7 @@ namespace MessageTest
             UpdateChat msg1 = new UpdateChat() { MsgId = msgId, ConvId = convId, PlayerID = 7, Message = "New game who dis?" };
             byte[] bytes = msg1.Encode();
 
-            UpdateChat msg2 = Message.Decode(bytes) as UpdateChat;
+            UpdateChat msg2 = Message.Decode<UpdateChat>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);
@@ -143,7 +143,7 @@ namespace MessageTest
             PassCard msg1 = new PassCard() { MsgId = msgId, ConvId = convId, Hand = cards};
             byte[] bytes = msg1.Encode();
 
-            PassCard msg2 = Message.Decode(bytes) as PassCard;
+            PassCard msg2 = Message.Decode<PassCard>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);

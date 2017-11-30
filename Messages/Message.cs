@@ -13,8 +13,10 @@ namespace Messages
 
         static Message(){}
 
-        public virtual MessageId MsgId { get; set; }
-        public virtual MessageId ConvId { get; set; }
+        public MessageId MsgId { get; set; }
+        public MessageId ConvId { get; set; }
+        //Lets us know what type of message is inside of the envelope
+        public TypeOfMessage MessageType { get; set; } = TypeOfMessage.NotSet;
 
         public byte[] Encode()
         {
@@ -24,17 +26,40 @@ namespace Messages
             return stream.ToArray();
         }
 
-        public static Message Decode(byte[] message)
+        public static T Decode<T>(byte[] message) where T : Message, new()
         {
-            Message result = null;
+            T result = null;
 
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new MemoryStream(message);
+            if (message != null)
+            {
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new MemoryStream(message);
 
-            result = (Message) formatter.Deserialize(stream);
-
+                result = (T)formatter.Deserialize(stream);
+            }
             return result;
         }
 
     }
+
+    //Possible types of messages
+    public enum TypeOfMessage
+    {
+        NotSet,//Type of message that isnt set yet when creating the Envelope
+        CreateGame,
+        CreateGameReply,
+        ExitGame,
+        HeartBeat,
+        JoinGame,
+        PassCard,
+        SelectCard,
+        StartGame,
+        StartNewRound,
+        UpdateChat,
+        UpdateState,
+        Ack,
+        UserInfo,
+        Registration,
+        RegistrationReply
+    };
 }
