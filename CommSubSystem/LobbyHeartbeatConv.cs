@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Messages;
 using SharedObjects;
+using System.Diagnostics;
 
 namespace CommSubSystem.ConversationClass
 {
@@ -15,9 +16,17 @@ namespace CommSubSystem.ConversationClass
         //for response
         //none
 
+        public LobbyHeartbeatConv(){
+            allowedMessageTypes = new List<TypeOfMessage>
+            {
+                TypeOfMessage.LobbyHeartbeat,
+                TypeOfMessage.Ack
+            };
+        }
+
         public override void ResponderConversation(object context)
         {
-            Send(CreateAck());
+            ReliableSend(CreateAck());
         }
 
         public override void InitatorConversation(object context)
@@ -27,8 +36,15 @@ namespace CommSubSystem.ConversationClass
 
             if (incomingMsg != null)
             {
-                Send(CreateAck());
+                //Send(CreateAck());
+                //Got Ack no need to time out
+                Debug.WriteLine("Got ACK");
+                
             }
+            else{
+                //Hearbeat timeout
+            }
+
         }
 
         public override Message CreateFirstMessage()
