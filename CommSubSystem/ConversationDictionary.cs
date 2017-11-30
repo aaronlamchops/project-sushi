@@ -70,7 +70,7 @@ namespace CommSubSystem
 
         public int ConversationQueueCount => _ConversationDictionary.Count;
 
-        public void SetupConversation(MessageId convId, byte[] bytes)
+        public ConversationQueue SetupConversation(MessageId convId, byte[] bytes)
         {
             ConversationQueue queue;
             queue = Lookup(convId);
@@ -80,6 +80,7 @@ namespace CommSubSystem
                 queue = CreateQueue(convId);
             }
             queue.Enqueue(bytes);
+            return queue;
         }
 
     }

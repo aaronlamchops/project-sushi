@@ -7,16 +7,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.IO;
 using SharedObjects;
+using System.Collections.Generic;
 
 namespace CommSubSystem
 {
     public class UDPClient
     {
-        public IPEndPoint myIP;
-        public UdpClient _udpClient;
-        public IPEndPoint _serverIp;
+        private IPEndPoint myIP;
+        private UdpClient _udpClient;
+        private IPEndPoint _serverIp;
         private static readonly object MyLock = new object();
         private static UDPClient _Instance;
+        private List<IPEndPoint> multicast;
 
         private UDPClient() { }
 
@@ -42,12 +44,6 @@ namespace CommSubSystem
                 return _Instance;
             }
         }
-
-        public PublicEndPoint GetPublicEndPoint()
-        {
-            return new PublicEndPoint() { IpEndPoint = myIP };
-        }
-        
 
         public IPEndPoint GetEndPoint()
         {
