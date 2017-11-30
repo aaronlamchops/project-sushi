@@ -43,7 +43,8 @@ namespace UserApp
         }
         private Conversation LobbyHeartBeatResponse(byte[] bytes, IPEndPoint refEp)
         {
-            LobbyHeartbeatConv conv = ConversationFactory.Instance.CreateFromMessage<LobbyHeartbeatConv>(bytes, refEp, null, null);
+            LobbyHeartbeatConv conv = ConversationFactory.Instance
+                .CreateFromMessage<LobbyHeartbeatConv>(bytes, refEp, null, null, null);
             return conv;
         }
     }

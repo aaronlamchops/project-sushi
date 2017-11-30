@@ -32,7 +32,9 @@ namespace CommSubSystem.ConversationClass
             }
         }
 
-        public T CreateFromMessage<T>(byte[] bytes, IPEndPoint refEp, Conversation.ActionHandler preAction, Conversation.ActionHandler postAction) where T : Conversation, new()
+        public T CreateFromMessage<T>(byte[] bytes, IPEndPoint refEp,
+            Conversation.ActionHandler preAction, Conversation.ActionHandler postAction,
+            Conversation.ActionHandler failAction) where T : Conversation, new()
         {
             bool initiator = false;
             MessageId ConvId = Message.Decode<Message>(bytes).ConvId;
@@ -48,14 +50,17 @@ namespace CommSubSystem.ConversationClass
                 EndIP = refEp,
                 MyQueue = queue,
                 PreExecuteAction = preAction,
-                PostExecuteAction = postAction
+                PostExecuteAction = postAction,
+                FailureAction = failAction
             };
             
 
             return conversation;
         }
 
-        public T CreateFromConversationType<T>(IPEndPoint receiver, Conversation.ActionHandler preAction, Conversation.ActionHandler postAction) where T : Conversation, new()
+        public T CreateFromConversationType<T>(IPEndPoint receiver,
+            Conversation.ActionHandler preAction, Conversation.ActionHandler postAction,
+            Conversation.ActionHandler failAction) where T : Conversation, new()
         {
            bool initiator = true;
            MessageId ConvId = MessageId.Create();
@@ -71,7 +76,8 @@ namespace CommSubSystem.ConversationClass
                 EndIP = receiver,
                 MyQueue = queue,
                 PreExecuteAction = preAction,
-                PostExecuteAction = postAction
+                PostExecuteAction = postAction,
+                FailureAction = failAction
            };
            return conversation;
         }

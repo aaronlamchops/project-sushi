@@ -100,7 +100,7 @@ namespace UserApp
         {
             Registration conv = ConversationFactory.Instance
                 .CreateFromConversationType<Registration>
-                (server, null, null);
+                (server, null, null, null);
             conv.Start();
             while(conv.Done != true) {
             }
@@ -113,7 +113,7 @@ namespace UserApp
             CreateGameConv conv =
                 ConversationFactory.Instance
                 .CreateFromConversationType<CreateGameConv>
-                (server, null, param => CreateGamePostExecute(parameters)); //using lambda operator to pass parameters as object
+                (server, null, param => CreateGamePostExecute(parameters), null); //using lambda operator to pass parameters as object
 
             conv._GameName = name;
             conv._MinPlayers = min;
@@ -134,7 +134,7 @@ namespace UserApp
             RequestGameListConv conv = 
                 ConversationFactory
                 .Instance.CreateFromConversationType<RequestGameListConv>
-                (server, null, RefreshPostExecute);
+                (server, null, RefreshPostExecute, null);
 
             Thread convThread = new Thread(conv.Execute);
             convThread.Start();
