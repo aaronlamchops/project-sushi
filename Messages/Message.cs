@@ -60,6 +60,7 @@ namespace Messages
         Ack,
         UserInfo,
         Registration,
-        RegistrationReply
+        RegistrationReply,
+        LobbyHeartbeat
     };
 }
