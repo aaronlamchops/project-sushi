@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharedObjects;
 using System.Net;
+using Messages;
 
 namespace CommSubSystem.ConversationClass
 {
@@ -13,7 +14,7 @@ namespace CommSubSystem.ConversationClass
         private static ConversationFactory _Instance;
         private static readonly object MyLock = new object();
         private ConversationFactory() { }
-        public int DefaultTimeout = 300;
+        public int DefaultTimeout = 1000;
         public int DefaultMaxRetries = 3;
 
         public static ConversationFactory Instance
@@ -31,31 +32,25 @@ namespace CommSubSystem.ConversationClass
             }
         }
 
-        public Conversation CreateFromMessage(Envelope env, IPEndPoint refEp, Conversation.ActionHandler preAction, Conversation.ActionHandler postAction)
+        public T CreateFromMessage<T>(byte[] bytes, IPEndPoint refEp, Conversation.ActionHandler preAction, Conversation.ActionHandler postAction) where T : Conversation, new()
         {
-            Conversation conversation = null;
-            Type convType = MatchMessageTypeToConversation(env.MessageTypeInEnvelope);
+            bool initiator = false;
+            MessageId ConvId = Message.Decode<Message>(bytes).ConvId;
+            ConversationQueue queue = ConversationDictionary.Instance.CreateQueue(ConvId);
 
-            if (convType != null)
+            T conversation = new T()
             {
-                bool initiator = false;
-                MessageId ConvId = env.MessageToBeSent.ConvId;
-                ConversationQueue queue = ConversationDictionary.Instance.CreateQueue(ConvId);
-
-                conversation = Activator.CreateInstance(convType) as Conversation;
-                if(conversation!= null) { 
-                    conversation.InitiatorConv = initiator;
-                    conversation.ConvId = ConvId;
-                    conversation.Timeout = DefaultTimeout;
-                    conversation.MaxRetries = DefaultMaxRetries;
-                    conversation.Done = false;
-                    conversation.InitiatorConv = initiator;
-                    conversation.EndIP = refEp;
-                    conversation.MyQueue = queue;
-                    conversation.PreExecuteAction = preAction;
-                    conversation.PostExecuteAction = postAction;
-                }
-            }
+                InitiatorConv = initiator,
+                ConvId = ConvId,
+                Timeout = DefaultTimeout,
+                MaxRetries = DefaultMaxRetries,
+                Done = false,
+                EndIP = refEp,
+                MyQueue = queue,
+                PreExecuteAction = preAction,
+                PostExecuteAction = postAction
+            };
+            
 
             return conversation;
         }
@@ -81,20 +76,6 @@ namespace CommSubSystem.ConversationClass
            return conversation;
         }
 
-        private Type MatchMessageTypeToConversation(Envelope.TypeOfMessage msgType)
-        {
-            Type convType;
-            switch (msgType)
-            {
-                case Envelope.TypeOfMessage.CreateGame:
-                    convType = typeof(CreateGameConv);
-                    break;
-                
-                default:
-                    convType = null;
-                    break;
-            }
-            return convType;
-        }
+        
     }
 }

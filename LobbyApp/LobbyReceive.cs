@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-
-using Messages;
-using SharedObjects;
 using CommSubSystem.ConversationClass;
 using log4net;
 using CommSubSystem;
 using System.Net;
+using Messages;
 
 namespace LobbyApp
 {
@@ -21,6 +19,18 @@ namespace LobbyApp
 
         private int _GameID { get; set; }
         private Lobby GamesOnLobby;
+        private short _Pid { get; set; }
+
+        public LobbyReceive()
+        {
+            _Pid = 1;
+        }
+
+        private short ManageProcessID()
+        {
+            _Pid++;
+            return _Pid;
+        }
 
         private int ManageGameID()
         {
@@ -32,14 +42,16 @@ namespace LobbyApp
             return _GameID;
         }
 
-        protected override void ExecuteBasedOnType(Envelope env, IPEndPoint refEp)
+        protected override void ExecuteBasedOnType(byte[] bytes, TypeOfMessage type, IPEndPoint refEp)
         {
-            Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
             Conversation conv = null;
-            switch (msgType)
+            switch (type)
             {
-                case Envelope.TypeOfMessage.CreateGame:
-                    conv = CreateGameResponse(env, refEp);
+                case TypeOfMessage.CreateGame:
+                    conv = CreateGameResponse(bytes, refEp);
+                    break;
+                case TypeOfMessage.Registration:
+                    conv = RegistrationResponse(bytes, refEp);
                     break;
 
                 case Envelope.TypeOfMessage.RequestGameList:
@@ -57,17 +69,24 @@ namespace LobbyApp
             }
         }
 
-        private Conversation CreateGameResponse(Envelope env, IPEndPoint refEp)
+        private CreateGameConv CreateGameResponse(byte[] bytes, IPEndPoint refEp)
         {
-            CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as CreateGameConv;
+            CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage<CreateGameConv>(bytes, refEp, null, null);
             conv._GameId = ManageGameID();
             return conv;
         }
 
+<<<<<<< HEAD
         private Conversation RequestGameListResponse(Envelope env, IPEndPoint refEp)
         {
             RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as RequestGameListConv;
             conv._LobbyGameList = GamesOnLobby.gameList;
+=======
+        private Registration RegistrationResponse(byte[] bytes, IPEndPoint refEp)
+        {
+            Registration conv = ConversationFactory.Instance.CreateFromMessage<Registration>(bytes, refEp, null, null);
+            conv._processId = ManageProcessID();
+>>>>>>> febe72c5201dbd643398eb7cf13145860e6cf85a
             return conv;
         }
     }    

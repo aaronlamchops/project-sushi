@@ -37,8 +37,12 @@ namespace UserApp
             UDPClient.UDPInstance.SetupAndRun(1024);
             _ReceivingProcess = new ClientReceive();
             _ReceivingProcess.Start();
-            
-            //kick off receiving for the whole system
+
+            //get pid
+            while(LocalProcessInfo.Instance.ProcessId == 0)
+            {
+                GetPid();
+            }
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
@@ -81,6 +85,14 @@ namespace UserApp
             }
         }
 
+        public void GetPid()
+        {
+            Registration conv = ConversationFactory.Instance
+                .CreateFromConversationType<Registration>
+                (server, null, null);
+            conv.Start();
+        }
+
         public void CreateGame(int min, int max, string name)
         {
             var parameters = new string[]{ min.ToString(), max.ToString(), name };
@@ -94,8 +106,7 @@ namespace UserApp
             conv._MinPlayers = min;
             conv._MaxPlayers = max;
 
-            Thread convThread = new Thread(conv.Execute);
-            convThread.Start();
+            conv.Start();
         }
 
         private void JoinButton_Click(object sender, EventArgs e)

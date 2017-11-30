@@ -7,6 +7,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using SharedObjects;
 using System.Net;
+using Messages;
 
 namespace CommSubSystem
 {
@@ -23,31 +24,31 @@ namespace CommSubSystem
         public void Receiving()
         {
             byte[] bytes;
-            Envelope env = null;
+            Message msg = null;
             IPEndPoint remoteEp;
             while (_keepReceiving)
             {
                 remoteEp = new IPEndPoint(IPAddress.Any, 0);
                 bytes = UDPClient.UDPInstance.Receive(ref remoteEp);
-                env = Decipher(bytes);
 
-                if (env != null)
+                if (bytes != null)
                 {
-                    MessageId convId = env.MessageToBeSent.ConvId;
+                    msg = Message.Decode<Message>(bytes);
+                    MessageId convId = msg.ConvId;
                     ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
                     if (queue == null)
                     {
-                        ExecuteBasedOnType(env, remoteEp);
+                        ExecuteBasedOnType(bytes, msg.MessageType, remoteEp);
                     }
                     else
                     {
-                        queue.Enqueue(env);
+                        queue.Enqueue(bytes);
                     }
                 }
             }
         }
 
-        protected abstract void ExecuteBasedOnType(Envelope env, IPEndPoint refEp);
+        protected abstract void ExecuteBasedOnType(byte[] bytes, TypeOfMessage type, IPEndPoint refEp);
 
         public void Start()
         {
@@ -59,17 +60,6 @@ namespace CommSubSystem
         public void Stop()
         {
             _keepReceiving = false;
-        }
-
-        protected Envelope Decipher(byte[] bytes)
-        {
-            Envelope env = null;
-            if (bytes != null)
-            {
-                env = UDPClient.Decode(bytes);
-            }
-
-            return env;
         }
     }
 }

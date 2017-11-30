@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SharedObjects;
 using System.Net;
 using Messages;
+using System.Threading;
 
 namespace CommSubSystem.ConversationClass
 {
@@ -18,15 +19,22 @@ namespace CommSubSystem.ConversationClass
         public bool InitiatorConv { get; set; }
         public IPEndPoint EndIP { get; set; }
         public Error Error { get; set; }
-        protected Envelope incomingEnvelope;
+        protected byte[] incomingMsg;
+        protected List<MessageId> MessageLog = new List<MessageId>();
 
         public delegate void ActionHandler(object context = null);
         public ActionHandler PreExecuteAction { get; set; }
         public ActionHandler PostExecuteAction { get; set; }
 
-
         public ConversationQueue MyQueue { get; set; }
-        
+
+        public void Start(object context = null)
+        {
+            Thread convThread = new Thread(Execute);
+            convThread.Start();
+        }
+
+        //main method allows for form actions before and after conversation
         public void Execute(object context = null)
         {
             PreExecuteAction?.Invoke(context);
@@ -38,52 +46,108 @@ namespace CommSubSystem.ConversationClass
             {
                 ResponderConversation(context);
             }
-            PostExecuteAction?.Invoke(context);
+            if (Error == null)
+            {
+                PostExecuteAction?.Invoke(context);
+            }
             Done = true;
             ConversationDictionary.Instance.CloseQueue(MyQueue.QueueID);
         }
 
-        protected void ReliableSend(Envelope env)
+        protected void Receive()
         {
-            incomingEnvelope = null;
-            int remainingSends = MaxRetries;
-            while(remainingSends > 0 && incomingEnvelope == null)
+            incomingMsg = MyQueue.Dequeue(Timeout);
+            if (incomingMsg == null)
             {
-                byte[] bytes = env.Encode();
+                Error = new Error()
+                {
+                    Text = $"Did not receive message"
+                };
+            }
+        }
+
+    // Send with retries
+    // if response comes in stores in incomingEnvelope
+    protected void ReliableSend(Message msg)
+        {
+            incomingMsg = null;
+            int remainingSends = MaxRetries;
+            while (remainingSends > 0 && incomingMsg == null)
+            {
+                byte[] bytes = msg.Encode();
                 UDPClient.UDPInstance.SetServerIP(EndIP);
-                UDPClient.UDPInstance.Send(bytes);
+                Error = UDPClient.UDPInstance.Send(bytes);
 
                 remainingSends--;
 
                 if (Error != null) break;
 
-                incomingEnvelope = MyQueue.Dequeue(Timeout);
+                incomingMsg = MyQueue.Dequeue(Timeout);
+
+                if (!ValidateEnvelope(msg))
+                {
+                    incomingMsg = null;
+                }
+            }
+            //was not able to receive within timeout
+            if (Error == null && incomingMsg == null)
+            {
+                Error = new Error()
+                {
+                    Text = $"Did not receive message"
+                };
             }
         }
-        
-        protected void Send(Envelope env)
-        {
-            byte[] bytes = env.Encode();
-            UDPClient.UDPInstance.SetServerIP(EndIP);
-        }
 
-        protected Envelope CreateAwk()
+        // Checks for duplicates and good types
+        protected bool ValidateEnvelope(Message msg)
         {
-            Ack msg = new Ack();
-            msg.ConvId = ConvId;
-            msg.MsgId = MessageId.Create();
-
-            Envelope env = new Envelope()
+            //received envelope
+            if (incomingMsg != null)
             {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
-                MessageToBeSent = msg,
-                MessageTypeInEnvelope = Envelope.TypeOfMessage.Ack
-            };
-            return env;
+                //allowed type
+                if (allowedMessageTypes.Contains(msg.MessageType))
+                {
+                    //check for duplicate
+                    if (!MessageLog.Contains(msg.MsgId))
+                    {
+                        //add Id to log for future checks
+                        MessageLog.Add(msg.MsgId);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
-        public abstract Envelope CreateFirstMessage();
+        //list of allowed messages
+        protected List<TypeOfMessage> allowedMessageTypes;
+
+        // Sends once
+        protected Error Send(Message msg)
+        {
+            byte[] bytes = msg.Encode();
+            UDPClient.UDPInstance.SetServerIP(EndIP);
+            return UDPClient.UDPInstance.Send(bytes);
+        }
+
+        //most reliable conversations require an ack so here's a basic one
+        protected Ack CreateAwk()
+        {
+            Ack msg = new Ack
+            {
+                ConvId = ConvId,
+                MsgId = MessageId.Create(),
+                MessageType = TypeOfMessage.Ack
+            };
+            return msg;
+        }
+
+        //initial message for initiator
+        public abstract Message CreateFirstMessage();
+        //implement responce
         public abstract void ResponderConversation(object context);
+        //implement send
         public abstract void InitatorConversation(object context);
     }
 }
