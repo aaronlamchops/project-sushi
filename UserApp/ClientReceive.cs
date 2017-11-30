@@ -18,12 +18,17 @@ namespace UserApp
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
 
+        public Lobby GameListOnClient;
+
         protected override void ExecuteBasedOnType(Envelope env, IPEndPoint refEp)
         {
             Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
             Conversation conv;
             switch (msgType)
             {
+                case Envelope.TypeOfMessage.RequestGameListReply:
+                    conv = null;
+                    break;
 
                 default:
                     conv = null;
