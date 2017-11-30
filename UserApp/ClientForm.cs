@@ -102,6 +102,8 @@ namespace UserApp
                 .CreateFromConversationType<Registration>
                 (server, null, null);
             conv.Start();
+            while(conv.Done != true) {
+            }
         }
 
         public void CreateGame(int min, int max, string name)

@@ -1,68 +1,54 @@
-﻿//using System;
-//using System.Threading;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using CommSubSystem;
-//using Messages;
-//using SharedObjects;
+﻿using System;
+using System.Threading;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using CommSubSystem;
+using Messages;
+using SharedObjects;
+using System.Net;
 
-//namespace CommunicationSubsystemTest
-//{
-//    [TestClass]
-//    public class UDPCommunicatorTester
-//    {
-//        private Envelope _lastIncomingEnvelope1;
-//        private Envelope _lastIncomingEnvelope2;
+namespace CommunicationSubsystemTest
+{
+    [TestClass]
+    public class UDPCommunicatorTester
+    {
+        //trust that 3rd party UDP send works because our class is
+        //a singleton
+        [TestMethod]
+        public void UdpCommunicator_TestSetIP()
+        {
+            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 0);
+            UDPClient.UDPInstance.SetServerIP(ip);
+            Assert.AreEqual(ip, UDPClient.UDPInstance.GetEndPoint());
+            UDPClient.UDPInstance.SetServerIP("127.0.0.1", "5");
+            IPEndPoint ip2 = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5);
+            Assert.AreEqual(ip2, UDPClient.UDPInstance.GetEndPoint());
+        }
 
-//        [TestMethod]
-//        public void UdpCommunicator_TestSendAndReceive()
-//        {
-//            LocalProcessInfo.Instance.ProcessId = 10;
 
-//            UDPClient comm1 = new UDPClient()
-//            {
-//                MinPort = 10000,
-//                MaxPort = 10999,
-//                Timeout = 1000,
-//                EnvelopeHandler = ProcessEnvelope1
-//            };
+        [TestMethod]
+        public void UdpCommunicator_TestTCPConnect()
+        {
+            TCPClient tc1 = new TCPClient();
+            TCPClient tc2 = new TCPClient();
 
-//            comm1.Start();
+            IPEndPoint tc1Address = new IPEndPoint(IPAddress.Any, 1025);
 
-//            UDPClient comm2 = new UDPClient()
-//            {
-//                MinPort = 10000,
-//                MaxPort = 10999,
-//                Timeout = 1000,
-//                EnvelopeHandler = ProcessEnvelope2
-//            };
-//            comm2.Start();
+            MessageId msgid = new MessageId() { Pid = 1, Seq = 1};
+            Message msg = new Message()
+            {
+                MsgId = msgid,
+                ConvId = msgid,
+                MessageType = TypeOfMessage.Ack
+            };
 
-//            PublicEndPoint targetEndPoint = new PublicEndPoint() { Host = "127.0.0.1", Port = comm2.Port };
+            tc1.SetupConnection(1025);
+            tc2.ConnectToServer(tc1Address);
 
-//            ExitGame msg = new ExitGame() { MsgId = 1, ConvId = 1, PlayerID = 1, GameID = 1 };
-//            Envelope env = new Envelope(msg, targetEndPoint);
+            tc1.Send(msg.Encode());
+            Thread.Sleep(100);
+            byte[] msgbytes = tc2.Receive();
 
-//            comm1.Send(env);
-
-//            Thread.Sleep(100);
-
-//            Assert.IsNotNull(_lastIncomingEnvelope2);
-//            Assert.IsNotNull(_lastIncomingEnvelope2.MessageToBeSent);
-//            Assert.AreEqual(msg.MsgId, _lastIncomingEnvelope2.MessageToBeSent.MsgId);
-//            Assert.AreEqual(msg.ConvId, _lastIncomingEnvelope2.MessageToBeSent.ConvId);
-//            ExitGame msg2 = _lastIncomingEnvelope2.MessageToBeSent as ExitGame;
-//            Assert.IsNotNull(msg2);
-//        }
-
-//        private void ProcessEnvelope1(Envelope env)
-//        {
-//            _lastIncomingEnvelope1 = env;
-//        }
-
-//        private void ProcessEnvelope2(Envelope env)
-//        {
-//            _lastIncomingEnvelope2 = env;
-//        }
-
-//    }
-//}
+            Assert.AreEqual(msg.Encode(), msgbytes);
+        }
+    }
+}

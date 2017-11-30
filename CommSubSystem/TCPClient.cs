@@ -8,12 +8,12 @@ using System.Net;
 
 namespace CommSubSystem
 {
-    class TCPClient
+    public class TCPClient
     {
-        TcpClient client;
-        NetworkStream stream;
+        private TcpClient client;
+        private NetworkStream stream;
 
-        void SetupConnection(int port)
+        public void SetupConnection(int port)
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Any, port);
             TcpListener server = new TcpListener(ep);
@@ -22,20 +22,20 @@ namespace CommSubSystem
             stream = client.GetStream();
         }
 
-        void ConnectToServer(IPEndPoint server)
+        public void ConnectToServer(IPEndPoint server)
         {
             client = new TcpClient();
             client.Connect(server);
             stream = client.GetStream();
         }
 
-        void Send(byte[] envelope)
+        public void Send(byte[] envelope)
         {
             stream.Write(envelope, 0, envelope.Length);
         }
     
         //need to check for errors
-        byte[] Receive()
+        public byte[] Receive()
         {
             var buffer = new byte[256];
             int bytesRead = stream.Read(buffer, 0, buffer.Length);
