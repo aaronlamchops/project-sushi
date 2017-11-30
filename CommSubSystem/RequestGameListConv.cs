@@ -32,7 +32,9 @@ namespace CommSubSystem.ConversationClass
             if (Error != null) return;
 
             RequestGameListReply reply = Message.Decode<RequestGameListReply>(incomingMsg);
-            _LobbyGameList = reply.LobbyGameList;
+            //_LobbyGameList = reply.LobbyGameList;
+
+            context = _LobbyGameList;
 
             Send(CreateAck());
         }
