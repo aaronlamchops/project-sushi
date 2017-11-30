@@ -19,7 +19,7 @@ namespace CommSubSystem.ConversationClass
         public bool InitiatorConv { get; set; }
         public IPEndPoint EndIP { get; set; }
         public Error Error { get; set; }
-        protected byte[] incomingMsg;
+        public byte[] incomingMsg;
         protected List<MessageId> MessageLog = new List<MessageId>();
 
         public delegate void ActionHandler(object context = null);
@@ -54,7 +54,7 @@ namespace CommSubSystem.ConversationClass
             ConversationDictionary.Instance.CloseQueue(MyQueue.QueueID);
         }
 
-        protected void Receive()
+        public void Receive()
         {
             incomingMsg = MyQueue.Dequeue(Timeout);
             if (incomingMsg == null)
@@ -100,7 +100,7 @@ namespace CommSubSystem.ConversationClass
         }
 
         // Checks for duplicates and good types
-        protected bool ValidateEnvelope(Message msg)
+        public bool ValidateEnvelope(Message msg)
         {
             //received envelope
             if (incomingMsg != null)
