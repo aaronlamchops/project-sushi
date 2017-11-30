@@ -18,11 +18,10 @@ namespace UserApp
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
 
-        protected override void ExecuteBasedOnType(Envelope env, IPEndPoint refEp)
+        protected override void ExecuteBasedOnType(byte[] bytes, TypeOfMessage type, IPEndPoint refEp)
         {
-            Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
             Conversation conv;
-            switch (msgType)
+            switch (type)
             {
 
                 default:

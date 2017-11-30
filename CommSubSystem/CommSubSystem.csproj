@@ -45,11 +45,11 @@
   <ItemGroup>
     <Compile Include="Conversation.cs" />
     <Compile Include="ConversationFactory.cs" />
+    <Compile Include="Conversations\Registration.cs" />
     <Compile Include="CreateGameConv.cs" />
     <Compile Include="TCPClient.cs" />
     <Compile Include="ConversationDictionary.cs" />
     <Compile Include="ConversationQueue.cs" />
-    <Compile Include="Envelope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UDPClient.cs" />
     <Compile Include="ReceivingFactory.cs" />

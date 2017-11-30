@@ -8,6 +8,7 @@ using CommSubSystem.ConversationClass;
 using log4net;
 using CommSubSystem;
 using System.Net;
+using Messages;
 
 namespace LobbyApp
 {
@@ -29,14 +30,13 @@ namespace LobbyApp
             return _GameID;
         }
 
-        protected override void ExecuteBasedOnType(Envelope env, IPEndPoint refEp)
+        protected override void ExecuteBasedOnType(byte[] bytes, TypeOfMessage type, IPEndPoint refEp)
         {
-            Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
             Conversation conv = null;
-            switch (msgType)
+            switch (type)
             {
-                case Envelope.TypeOfMessage.CreateGame:
-                    conv = CreateGameResponse(env, refEp);
+                case TypeOfMessage.CreateGame:
+                    conv = CreateGameResponse(bytes, refEp);
                     break;
                 default:
                     conv = null;
@@ -49,9 +49,9 @@ namespace LobbyApp
             }
         }
 
-        private Conversation CreateGameResponse(Envelope env, IPEndPoint refEp)
+        private Conversation CreateGameResponse(byte[] bytes, IPEndPoint refEp)
         {
-            CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as CreateGameConv;
+            CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage<CreateGameConv>(bytes, refEp, null, null);
             conv._GameId = ManageGameID();
             return conv;
         }

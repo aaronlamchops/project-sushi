@@ -94,18 +94,5 @@ namespace CommSubSystem
         {
             _serverIp = serverIP;
         }
-
-        public static Envelope Decode(byte[] message)
-        {
-            Envelope result = null;
-
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new MemoryStream(message);
-
-            result = (Envelope)formatter.Deserialize(stream);
-
-            return result;
-        }
-        
     }
 }
