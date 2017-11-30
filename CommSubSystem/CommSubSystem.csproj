@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conversations\Registration.cs" />
-    <Compile Include="CreateGameConv.cs" />
     <Compile Include="TCPClient.cs" />
     <Compile Include="ConversationDictionary.cs" />
     <Compile Include="ConversationQueue.cs" />
