@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Messages;
 using SharedObjects;
+using System.Diagnostics;
 
 namespace CommSubSystem.ConversationClass
 {
@@ -29,6 +30,7 @@ namespace CommSubSystem.ConversationClass
             {
                 //Send(CreateAwk());
                 //Got Ack no need to time out
+                Debug.WriteLine("Got ACK");
             }
             else{
                 //Hearbeat timeout

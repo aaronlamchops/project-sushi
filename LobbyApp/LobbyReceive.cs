@@ -43,9 +43,6 @@ namespace LobbyApp
                 case Envelope.TypeOfMessage.CreateGame:
                     conv = CreateGameResponse(env, refEp);
                     break;
-                case Envelope.TypeOfMessage.Ack:
-                    Debug.WriteLine("ACK");
-                    break;
                 default:
                     conv = null;
                     break;

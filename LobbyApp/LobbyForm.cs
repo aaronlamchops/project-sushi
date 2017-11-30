@@ -31,7 +31,6 @@ namespace LobbyApp
         public ClientForm()
         {
             InitializeComponent();
-            Debug.WriteLine("LOBBY");
             UDPClient.UDPInstance.SetupAndRun(1025);
             _ReceivingProcess = new LobbyReceive();
             _ReceivingProcess.Start();
