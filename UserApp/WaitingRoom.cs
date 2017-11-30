@@ -20,14 +20,14 @@ namespace UserApp
 
         public int MinPlayers
         { 
-            get { return Convert.ToInt32(MinPlayerLabel.Text); } 
-            set { MinPlayerLabel.Text = value.ToString(); }
+            get { return Convert.ToInt32(MinPlayerCountLabel.Text); } 
+            set { MinPlayerCountLabel.Text = value.ToString(); }
         }
 
         public int MaxPlayers
         { 
-            get { return Convert.ToInt32(MaxPlayerLabel.Text); }
-            set { MaxPlayerLabel.Text = value.ToString(); }
+            get { return Convert.ToInt32(MaxPlayerCountLabel.Text); }
+            set { MaxPlayerCountLabel.Text = value.ToString(); }
         }
 
         public int PlayerCount
