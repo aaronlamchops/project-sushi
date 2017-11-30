@@ -12,18 +12,32 @@ namespace UserApp
 {
     public partial class WaitingRoom : Form
     {
-        public string GameName { get; set; }
-        public int MinPlayers { get; set; }
-        public int MaxPlayers { get; set; }
+        public string GameName 
+        { 
+            get { return GameNameLabel.Text; } 
+            set { GameNameLabel.Text = value; } 
+        }
 
-        public int PlayerCount { get; set; }
+        public int MinPlayers
+        { 
+            get { return Convert.ToInt32(MinPlayerLabel.Text); } 
+            set { MinPlayerLabel.Text = value.ToString(); }
+        }
+
+        public int MaxPlayers
+        { 
+            get { return Convert.ToInt32(MaxPlayerLabel.Text); }
+            set { MaxPlayerLabel.Text = value.ToString(); }
+        }
+
+        public int PlayerCount
+        { 
+            get { return Convert.ToInt32(PlayerCountLabel.Text); }
+            set { PlayerCountLabel.Text = value.ToString(); }
+        }
 
         public WaitingRoom()
         {
-            GameNameLabel.Text = GameName;
-            MinPlayerCountLabel.Text = MinPlayers.ToString();
-            MaxPlayerCountLabel.Text = MaxPlayers.ToString();
-            PlayerCountLabel.Text = PlayerCount.ToString();
             InitializeComponent();
         }
 

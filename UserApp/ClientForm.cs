@@ -165,10 +165,11 @@ namespace UserApp
 
             var waitingRoomWindow = new WaitingRoom()
             {
+                MaxPlayers = Convert.ToInt32(parameters[0]),
                 MinPlayers = Convert.ToInt32(parameters[1]),
-                MaxPlayers = Convert.ToInt32(parameters[2]),
-                GameName = parameters[0]
+                GameName = parameters[2],
             };
+
             waitingRoomWindow.ShowDialog();
         }
 
