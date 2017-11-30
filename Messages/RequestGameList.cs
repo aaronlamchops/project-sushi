@@ -10,6 +10,12 @@ namespace Messages
     [Serializable]
     public class RequestGameList : Message
     {
+        //public Lobby LobbyGameList;
+    }
+
+    [Serializable]
+    public class RequestGameListReply : Message
+    {
         public Lobby LobbyGameList;
     }
 }

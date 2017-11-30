@@ -9,15 +9,16 @@ namespace SharedObjects
     public class Lobby
     {
         //list of games
-        public List<Game> GameList;
+        public List<Game> GameList { get; set; }
     }
 
     public class Game
     {
-        int gameId;
+        public int gameId { get; set; }
+        public string GameName { get; set; }
         // list players;
-        int MinPlayers;
-        int MaxPlayers;
+        public int MinPlayers { get; set; }
+        public int MaxPlayers { get; set; }
         //host player
     }
 }

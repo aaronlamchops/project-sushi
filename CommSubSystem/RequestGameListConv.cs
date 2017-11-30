@@ -10,21 +10,50 @@ namespace CommSubSystem.ConversationClass
 {
     public class RequestGameListConv : Conversation
     {
-        
+        public Lobby GameList { get; set; }
 
         public override Envelope CreateFirstMessage()
         {
-            throw new NotImplementedException();
+            RequestGameList msg = new RequestGameList();
+            msg.ConvId = ConvId;
+            msg.MsgId = ConvId;
+
+            Envelope env = new Envelope()
+            {
+                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
+                MessageToBeSent = msg,
+                MessageTypeInEnvelope = Envelope.TypeOfMessage.RequestGameList
+            };
+            return env;
         }
 
         public override void InitatorConversation(object context)
         {
-            throw new NotImplementedException();
+            Envelope env = CreateFirstMessage();
+            ReliableSend(env);
+
+            if(incomingEnvelope != null)
+            {
+                RequestGameList msg = incomingEnvelope.MessageToBeSent as RequestGameList;
+
+                Send(CreateAwk());
+            }
         }
 
         public override void ResponderConversation(object context)
         {
-            throw new NotImplementedException();
+            RequestGameListReply msg = new RequestGameListReply() { LobbyGameList = GameList };
+            msg.ConvId = ConvId;
+            msg.MsgId = MessageId.Create();
+
+            Envelope env = new Envelope()
+            {
+                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
+                MessageToBeSent = msg,
+                MessageTypeInEnvelope = Envelope.TypeOfMessage.CreateGameReply
+            };
+
+            ReliableSend(env);
         }
     }
 }

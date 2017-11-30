@@ -20,7 +20,23 @@ namespace LobbyApp
         private static readonly object MyLock = new object();
 
         private int _GameID { get; set; }
-        
+        private Lobby GamesOnLobby;
+
+        public LobbyReceive()
+        {
+            _GameID = 1;
+
+            GamesOnLobby.GameList = new List<Game>()
+            {
+                new Game()
+                {
+                    GameName = "Initial Game",
+                    MinPlayers = 1,
+                    MaxPlayers = 2,
+                    gameId = 0
+                }
+            };
+        }
 
         private int ManageGameID()
         {
@@ -43,7 +59,7 @@ namespace LobbyApp
                     break;
 
                 case Envelope.TypeOfMessage.RequestGameList:
-                    
+                    conv = RequestGameListResponse(env, refEp);
                     break;
 
                 default:
@@ -67,7 +83,7 @@ namespace LobbyApp
         private Conversation RequestGameListResponse(Envelope env, IPEndPoint refEp)
         {
             RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as RequestGameListConv;
-
+            conv.GameList = GamesOnLobby;
             return conv;
         }
     }    
