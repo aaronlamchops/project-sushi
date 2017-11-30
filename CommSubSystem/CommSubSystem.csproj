@@ -43,31 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
-    <Compile Include="Conversation.cs" />
-    <Compile Include="ConversationFactory.cs" />
-    <Compile Include="CreateGameConv.cs" />
->>>>>>> master
     <Compile Include="TCPClient.cs" />
     <Compile Include="ConversationDictionary.cs" />
     <Compile Include="ConversationQueue.cs" />
     <Compile Include="Envelope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
-    <Compile Include="Commands\SendInvoker.cs" />
-    <Compile Include="Commands\SendCommand.cs" />
-    <Compile Include="UDPClient.cs" />
-    <Compile Include="Commands\RespCommand.cs" />
-    <Compile Include="Receive\ReceivingFactory.cs" />
-    <Compile Include="Receive\ReceiveInvoker.cs" />
-    <Compile Include="ConversationClass\Conversation.cs" />
-    <Compile Include="ConversationClass\ConversationFactory.cs" />
-    <Compile Include="ConversationClass\CreateGameConv.cs" />
-=======
+    <Compile Include="Conversation.cs" />
+    <Compile Include="ConversationFactory.cs" />
+    <Compile Include="CreateGameConv.cs" />
     <Compile Include="UDPClient.cs" />
     <Compile Include="ReceivingFactory.cs" />
->>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\Utils.csproj">
