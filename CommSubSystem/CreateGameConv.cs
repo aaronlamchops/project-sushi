@@ -27,7 +27,7 @@ namespace CommSubSystem.ConversationClass
             };
         }
 
-        public override void ResponderConversation(object context)
+        public override void ResponderConversation(ref object context)
         {
             CreateGameReply msg = new CreateGameReply() {
                 GameId = _GameId,
@@ -39,7 +39,7 @@ namespace CommSubSystem.ConversationClass
             ReliableSend(msg);
         }
 
-        public override void InitatorConversation(object context)
+        public override void InitatorConversation(ref object context)
         {
             Message msg = CreateFirstMessage();
             ReliableSend(msg);

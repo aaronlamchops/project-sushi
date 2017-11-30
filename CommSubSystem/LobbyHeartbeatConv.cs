@@ -24,12 +24,12 @@ namespace CommSubSystem.ConversationClass
             };
         }
 
-        public override void ResponderConversation(object context)
+        public override void ResponderConversation(ref object context)
         {
             ReliableSend(CreateAck());
         }
 
-        public override void InitatorConversation(object context)
+        public override void InitatorConversation(ref object context)
         {
             Message msg = CreateFirstMessage();
             ReliableSend(msg);

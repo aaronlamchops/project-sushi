@@ -13,6 +13,16 @@ namespace CommSubSystem.ConversationClass
     {
         public ConcurrentDictionary<int, Game> _LobbyGameList = new ConcurrentDictionary<int, Game>();
 
+        public RequestGameListConv()
+        {
+            allowedMessageTypes = new List<TypeOfMessage>
+            {
+                TypeOfMessage.RequestGameListReply,
+                TypeOfMessage.RequestGameList,
+                TypeOfMessage.Ack
+            };
+        }
+
         public override Message CreateFirstMessage()
         {
             RequestGameList msg = new RequestGameList()
@@ -24,7 +34,7 @@ namespace CommSubSystem.ConversationClass
             return msg;
         }
 
-        public override void InitatorConversation(object context)
+        public override void InitatorConversation(ref object context)
         {
             Message msg = CreateFirstMessage();
             ReliableSend(msg);
@@ -32,18 +42,20 @@ namespace CommSubSystem.ConversationClass
             if (Error != null) return;
 
             RequestGameListReply reply = Message.Decode<RequestGameListReply>(incomingMsg);
-            //_LobbyGameList = reply.LobbyGameList;
+            _LobbyGameList = reply.LobbyGameList;
 
             context = _LobbyGameList;
 
             Send(CreateAck());
         }
 
-        public override void ResponderConversation(object context)
+        public override void ResponderConversation(ref object context)
         {
             RequestGameListReply msg = new RequestGameListReply()
             {
                 LobbyGameList = _LobbyGameList,
+                ConvId = ConvId,
+                MsgId = MessageId.Create(),
                 MessageType = TypeOfMessage.RequestGameListReply
             };
 

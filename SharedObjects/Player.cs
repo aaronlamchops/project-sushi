@@ -7,14 +7,15 @@ using System.Net;
 
 namespace SharedObjects
 {
+    [Serializable]
     public class Player
     {
-        int id;
-        IPEndPoint playerIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1024);
+        public int id;
+        public IPEndPoint playerIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1024);
         //hand
-        string name;
-        int score;
-        int puddingCount;
+        public string name;
+        public int score;
+        public int puddingCount;
         //list cardsplayed
 
         public IPEndPoint GetIP()

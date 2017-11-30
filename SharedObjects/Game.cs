@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+
+
 namespace SharedObjects
 {
+    [Serializable]
     public class Game
     {
         public int gameId;

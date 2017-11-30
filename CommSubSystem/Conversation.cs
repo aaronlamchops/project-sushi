@@ -35,16 +35,16 @@ namespace CommSubSystem.ConversationClass
         }
 
         //main method allows for form actions before and after conversation
-        public void Execute(object context = null)
+        public void Execute(object context)
         {
             PreExecuteAction?.Invoke(context);
             if (InitiatorConv)
             {
-                InitatorConversation(context);
+                InitatorConversation(ref context);
             }
             else
             {
-                ResponderConversation(context);
+                ResponderConversation(ref context);
             }
             if (Error == null)
             {
@@ -146,8 +146,8 @@ namespace CommSubSystem.ConversationClass
         //initial message for initiator
         public abstract Message CreateFirstMessage();
         //implement responce
-        public abstract void ResponderConversation(object context);
+        public abstract void ResponderConversation(ref object context);
         //implement send
-        public abstract void InitatorConversation(object context);
+        public abstract void InitatorConversation(ref object context);
     }
 }

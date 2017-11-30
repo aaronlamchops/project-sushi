@@ -22,7 +22,6 @@ namespace UserApp
     {
         private static readonly object MyLock = new object();
 
-
         IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);
         public ClientReceive _ReceivingProcess;
         public Thread _receivingThread;
@@ -30,6 +29,9 @@ namespace UserApp
         //Hold and populate list from server
         public List<Game> GameList = new List<Game>();
         public Game SelectedGame;
+
+        public List<ListViewItem> GameItems = new List<ListViewItem>();
+        public bool NeedsRefresh = false;
 
         public ClientForm()
         {
@@ -48,10 +50,7 @@ namespace UserApp
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-            //System.Windows.Forms.Timer RefreshTimer = new System.Windows.Forms.Timer();
-            //RefreshTimer.Interval = 1000; //every second
-            //RefreshTimer.Tick += new EventHandler(RefreshTimer_Tick);
-            //RefreshTimer.Start();
+            RefreshTimer.Start();
         }
 
         private void ClientForm_FormClosed(object sender, EventArgs e)
@@ -59,19 +58,30 @@ namespace UserApp
             _ReceivingProcess.Stop();
         }
 
-        private void refreshTimer_Tick(object sender, EventArgs e)
+        private void RefreshTimer_Tick(object sender, EventArgs e)
         {
             //call a method that needs to be refreshed a second
             //something that needs to redraw
+            RefreshGameList();
         }
 
         public void RefreshGameList()
         {
+            if(NeedsRefresh)
+            {
+                ReceivingListView.Items.Clear();
+                foreach(ListViewItem item in GameItems)
+                {
+                    ReceivingListView.Items.Add(item);
+                }
+            }
 
+            NeedsRefresh = false;
         }
 
         private void SendButton_Click(object sender, EventArgs e)
         {
+
         }
 
         private void CreateGameButton_Click(object sender, EventArgs e)
@@ -130,14 +140,14 @@ namespace UserApp
 
         private void ReceivingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ReceivingListView.SelectedIndices.Count == 1)
-            {
-                SelectedGame = GameList[ReceivingListView.SelectedIndices[0]];
-            }
-            else
-            {
-                SelectedGame = null;
-            }
+            //if(ReceivingListView.SelectedIndices.Count == 1)
+            //{
+            //    SelectedGame = GameList[ReceivingListView.SelectedIndices[0]];
+            //}
+            //else
+            //{
+            //    SelectedGame = null;
+            //}
         }
 
         public void CreateGamePreExecute(object context)
@@ -184,8 +194,9 @@ namespace UserApp
                 };
 
                 var ListViewItem = new ListViewItem(row);
-
-                ReceivingListView.Items.Add(ListViewItem);
+                GameItems.Add(ListViewItem);
+                //ReceivingListView.Items.Add(ListViewItem); //Cant have another thread edit a form item
+                NeedsRefresh = true;
             }
         }
         

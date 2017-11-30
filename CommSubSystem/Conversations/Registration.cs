@@ -20,7 +20,7 @@ namespace CommSubSystem.ConversationClass
             };
         }
 
-        public override void ResponderConversation(object context)
+        public override void ResponderConversation(ref object context)
         {
             RegistrationMsg msg = new RegistrationMsg()
             {
@@ -32,7 +32,7 @@ namespace CommSubSystem.ConversationClass
             Send(msg);
         }
 
-        public override void InitatorConversation(object context)
+        public override void InitatorConversation(ref object context)
         {
             Send(CreateFirstMessage());
 

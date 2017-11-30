@@ -36,6 +36,7 @@ namespace UserApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.AddressLabel = new System.Windows.Forms.Label();
             this.AddressTextBox = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -50,6 +51,7 @@ namespace UserApp
             this.CreateGameButton = new System.Windows.Forms.Button();
             this.JoinButton = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
+            this.RefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // AddressLabel
@@ -115,6 +117,10 @@ namespace UserApp
             // 
             this.Name.Tag = "";
             this.Name.Text = "Name";
+            //
+            // RefreshTimer
+            //
+            this.RefreshTimer.Tick += new System.EventHandler(this.RefreshTimer_Tick);
             // 
             // Address
             // 
@@ -215,6 +221,7 @@ namespace UserApp
         private System.Windows.Forms.ColumnHeader TotalPlayers;
         private System.Windows.Forms.Button JoinButton;
         private System.Windows.Forms.Button RefreshButton;
+        private System.Windows.Forms.Timer RefreshTimer;
     }
 }
 

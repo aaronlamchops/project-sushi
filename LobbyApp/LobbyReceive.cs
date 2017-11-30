@@ -26,6 +26,12 @@ namespace LobbyApp
         public LobbyReceive()
         {
             _Pid = 1;
+            GamesOnLobby = new Lobby();
+            GamesOnLobby.HandleCreateGame(new SharedObjects.Player()
+            {
+                id = 1468,
+                name = "Initial"
+            }, 1, 5);
         }
 
         private short ManageProcessID()
@@ -57,6 +63,10 @@ namespace LobbyApp
                     break;
 
                 case TypeOfMessage.RequestGameList:
+                    conv = RequestGameListResponse(bytes, refEp);
+                    break;
+
+                case TypeOfMessage.RequestGameListReply:
                     conv = RequestGameListResponse(bytes, refEp);
                     break;
 
