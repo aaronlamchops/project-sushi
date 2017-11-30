@@ -11,6 +11,7 @@ namespace CommSubSystem.ConversationClass
     public class CreateGameConv : Conversation
     {
         //for initiator
+        public string _GameName { get; set; }
         public int _MinPlayers{ get; set;}
         public int _MaxPlayers{ get; set;}
         //for response
@@ -37,11 +38,14 @@ namespace CommSubSystem.ConversationClass
             Envelope env = CreateFirstMessage();
             ReliableSend(env);
 
-            //can parse message received
-            CreateGameReply msg = incomingEnvelope.MessageToBeSent as CreateGameReply;
-            //whatever logic will help in the post action
+            if (incomingEnvelope != null)
+            {
+                //can parse message received
+                CreateGameReply msg = incomingEnvelope.MessageToBeSent as CreateGameReply;
+                //whatever logic will help in the post action
 
-            Send(CreateAwk());
+                Send(CreateAwk());
+            }
         }
 
         public override Envelope CreateFirstMessage()

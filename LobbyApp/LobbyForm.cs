@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using CommSubSystem;
-using CommSubSystem.Commands;
-using CommSubSystem.Receive;
 using Messages;
 using SharedObjects;
 using System.Net;
@@ -21,11 +19,11 @@ namespace LobbyApp
 {
     public partial class ClientForm : Form
     {
-        private readonly SendInvoker _SendingInvoker = new SendInvoker();
-        private readonly ReceiveInvoker _ReceivingInvoker = new ReceiveInvoker();
-
         public Thread _receivingThread;
+        public LobbyReceive _ReceivingProcess;
 
+        private static readonly object MyLock = new object();
+        
 
         private Lobby _lobby = new Lobby();
 
@@ -34,15 +32,11 @@ namespace LobbyApp
             InitializeComponent();
 
             UDPClient.UDPInstance.SetupAndRun(1025);
-            CommandFactory.Instance.SendInvoker = _SendingInvoker;
-            ReceivingFactory.Instance.ReceiveInvoker = _ReceivingInvoker;
-
-
-            _SendingInvoker.Start();
-            _ReceivingInvoker.Start();
-
-            ReceivingFactory.Instance.Start();
+            _ReceivingProcess = new LobbyReceive();
+            _ReceivingProcess.Start();
         }
+
+        
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
@@ -50,9 +44,7 @@ namespace LobbyApp
 
         private void LobbyForm_FormClosed(object sender, EventArgs e)
         {
-            _SendingInvoker.Stop();
-            _ReceivingInvoker.Stop();
-            ReceivingFactory.Instance.Stop();
+            _ReceivingProcess.Stop();
         }
 
         //where we would put the createGame stuff
@@ -83,7 +75,6 @@ namespace LobbyApp
         private void SendButton_Click(object sender, EventArgs e)
         {
             //gets the address, port, and message to be sent from the textfields
-            CommandFactory.Instance.CreateAndExecute("send", AddressTextBox.Text, textBox2.Text);
         }
     }
 }

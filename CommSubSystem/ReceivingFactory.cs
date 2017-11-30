@@ -5,69 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Threading;
-
-using Messages;
 using SharedObjects;
-using CommSubSystem.Commands;
-using CommSubSystem.ConversationClass;
+using System.Net;
 
-namespace CommSubSystem.Receive
+namespace CommSubSystem
 {
-    public class ReceivingFactory
+    public abstract class Receiver
     {
-        private static ReceivingFactory _Instance;
+        private static Receiver _Instance;
         private static readonly object MyLock = new object();
-        private ReceivingFactory() { }
+        protected Receiver() { }
 
         //threading:
         private Thread _worker;
-        private bool _keepReceiving;
+        protected bool _keepReceiving;
 
-        public static ReceivingFactory Instance
-        {
-            get 
-            {
-                lock(MyLock)
-                {
-                    if(_Instance == null)
-                    {
-                        _Instance = new ReceivingFactory();
-                    }
-                }
-                return _Instance;
-            }
-        }
-        
-        public ReceiveInvoker ReceiveInvoker { get; set; }
-
-        public void Start()
-        {
-            _keepReceiving = true;
-            _worker = new Thread(Receive);
-            _worker.Start();
-        }
-
-        public void Stop()
-        {
-            _keepReceiving = false;
-        }
-
-        private void Receive()
+        public void Receiving()
         {
             byte[] bytes;
             Envelope env = null;
-            while(_keepReceiving)
+            IPEndPoint remoteEp;
+            while (_keepReceiving)
             {
-                bytes = UDPClient.UDPInstance.Receive();
+                remoteEp = new IPEndPoint(IPAddress.Any, 0);
+                bytes = UDPClient.UDPInstance.Receive(ref remoteEp);
                 env = Decipher(bytes);
 
-                if(env != null)
+                if (env != null)
                 {
                     MessageId convId = env.MessageToBeSent.ConvId;
                     ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
-                    if(queue == null)
+                    if (queue == null)
                     {
-                        ExecuteBasedOnType(env);
+                        ExecuteBasedOnType(env, remoteEp);
                     }
                     else
                     {
@@ -77,31 +47,21 @@ namespace CommSubSystem.Receive
             }
         }
 
-        public Conversation.ActionHandler beforeConv { get; set; }
+        protected abstract void ExecuteBasedOnType(Envelope env, IPEndPoint refEp);
 
-        private void ExecuteBasedOnType(Envelope env)
+        public void Start()
         {
-            Envelope.TypeOfMessage msgType = env.MessageTypeInEnvelope;
-            Conversation conv;
-            switch (msgType)
-            {
-                case Envelope.TypeOfMessage.CreateGame:
-                    conv = ConversationFactory.Instance.CreateFromMessage(env, beforeConv, null) as CreateGameConv;
-                    
-                    break;
-
-                default:
-                    conv = null;
-                    break;
-            }
-            if (conv != null)
-            {
-                Thread thrd = new Thread(conv.Execute);
-                thrd.Start();
-            }
+            _keepReceiving = true;
+            _worker = new Thread(Receiving);
+            _worker.Start();
         }
 
-        private Envelope Decipher(byte[] bytes)
+        public void Stop()
+        {
+            _keepReceiving = false;
+        }
+
+        protected Envelope Decipher(byte[] bytes)
         {
             Envelope env = null;
             if (bytes != null)
@@ -110,32 +70,6 @@ namespace CommSubSystem.Receive
             }
 
             return env;
-        }
-
-        private void CommandSelection(Envelope envelope)
-        {
-            Command command = null;
-            if(envelope != null)
-            {
-                switch (envelope.MessageTypeInEnvelope)
-                {
-                    //remove this case later
-                    case Envelope.TypeOfMessage.CreateGame:
-                        CreateGame msg = envelope.MessageToBeSent as CreateGame;//Message that was received
-                        //CommandFactory.Instance.CreateAndExecute("resp");
-
-                        command = new RespCommand();
-                        break;
-
-                    case Envelope.TypeOfMessage.Ack:
-                        
-                        break;
-                }
-                if(command != null)
-                {
-                    ReceiveInvoker.EnqueueCommandForExecution(command);
-                }
-            }
         }
     }
 }

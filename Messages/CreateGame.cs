@@ -10,6 +10,7 @@ namespace Messages
     {
         public int MinPlayers { get; set; }
         public int MaxPlayers { get; set; }
+        public string GameName { get; set; }
     }
 
     [Serializable]
