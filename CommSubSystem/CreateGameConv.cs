@@ -17,51 +17,54 @@ namespace CommSubSystem.ConversationClass
         //for response
         public int _GameId { get; set; }
 
+        public CreateGameConv()
+        {
+            allowedMessageTypes = new List<TypeOfMessage>
+            {
+                TypeOfMessage.CreateGame,
+                TypeOfMessage.CreateGameReply,
+                TypeOfMessage.Ack
+            };
+        }
+
         public override void ResponderConversation(object context)
         {
-            CreateGameReply msg = new CreateGameReply() { GameId = _GameId };
-            msg.ConvId = ConvId;
-            msg.MsgId = MessageId.Create();
-
-            Envelope env = new Envelope()
-            {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
-                MessageToBeSent = msg,
-                MessageTypeInEnvelope = Envelope.TypeOfMessage.CreateGameReply
+            CreateGameReply msg = new CreateGameReply() {
+                GameId = _GameId,
+                ConvId = ConvId,
+                MsgId = MessageId.Create(),
+                MessageType = TypeOfMessage.CreateGameReply
             };
 
-            ReliableSend(env);
+            ReliableSend(msg);
         }
 
         public override void InitatorConversation(object context)
         {
-            Envelope env = CreateFirstMessage();
-            ReliableSend(env);
+            Message msg = CreateFirstMessage();
+            ReliableSend(msg);
 
-            if (incomingEnvelope != null)
-            {
-                //can parse message received
-                CreateGameReply msg = incomingEnvelope.MessageToBeSent as CreateGameReply;
-                //whatever logic will help in the post action
+            if (Error != null) return;
+            
+            //can parse message received
+            CreateGameReply reply = Message.Decode<CreateGameReply>(incomingMsg);
+            //whatever logic will help in the post action
 
-                Send(CreateAwk());
-            }
+            Send(CreateAck());
         }
 
-        public override Envelope CreateFirstMessage()
+        public override Message CreateFirstMessage()
         {
-            CreateGame msg = new CreateGame() { MinPlayers = _MinPlayers, MaxPlayers = _MaxPlayers };
-            msg.ConvId = ConvId;
-            msg.MsgId = ConvId;
-
-
-            Envelope env = new Envelope()
+            CreateGame msg = new CreateGame()
             {
-                EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
-                MessageToBeSent = msg,
-                MessageTypeInEnvelope = Envelope.TypeOfMessage.CreateGame
+                MinPlayers = _MinPlayers,
+                MaxPlayers = _MaxPlayers,
+                ConvId = ConvId,
+                MsgId = ConvId,
+                MessageType = TypeOfMessage.CreateGame
             };
-            return env;
+            
+            return msg;
         }
     }
 }

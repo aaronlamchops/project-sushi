@@ -12,13 +12,13 @@ namespace CommSubSystem
 {
     public class ConversationQueue
     {
-        private readonly ConcurrentQueue<Envelope> _Queue = new ConcurrentQueue<Envelope>();    //queue to hold all concurrent and thread safe Envelopes
+        private readonly ConcurrentQueue<byte[]> _Queue = new ConcurrentQueue<byte[]>();    //queue to hold all concurrent and thread safe Envelopes
         private readonly ManualResetEvent _EnqueueOccurred = new ManualResetEvent(false);       //allows us to know when a conversation is pushed onto the queue and react
 
         public MessageId QueueID { get; set; }
         public int Count => _Queue.Count;
 
-        public void Enqueue(Envelope envelope)      //Push something onto the queue and notify that something is enqueued
+        public void Enqueue(byte[] envelope)      //Push something onto the queue and notify that something is enqueued
         {
             if(envelope != null)
             {
@@ -27,9 +27,9 @@ namespace CommSubSystem
             }
         }
 
-        public Envelope Dequeue(int timeout)        //Dequeue an envelope read to be processed
+        public byte[] Dequeue(int timeout)        //Dequeue an envelope read to be processed
         {
-            Envelope result = null;
+            byte[] result = null;
             int remainingTime = timeout;
 
             while(result == null && remainingTime > 0)
