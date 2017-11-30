@@ -13,7 +13,7 @@ namespace CommSubSystem.ConversationClass
         private static ConversationFactory _Instance;
         private static readonly object MyLock = new object();
         private ConversationFactory() { }
-        public int DefaultTimeout = 300;
+        public int DefaultTimeout = 500;
         public int DefaultMaxRetries = 3;
 
         public static ConversationFactory Instance
@@ -89,7 +89,9 @@ namespace CommSubSystem.ConversationClass
                 case Envelope.TypeOfMessage.CreateGame:
                     convType = typeof(CreateGameConv);
                     break;
-                
+                case Envelope.TypeOfMessage.LobbyHeartbeat:
+                    convType = typeof(LobbyHeartbeatConv);
+                    break;
                 default:
                     convType = null;
                     break;

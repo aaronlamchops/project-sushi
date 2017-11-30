@@ -17,7 +17,7 @@ namespace CommSubSystem.ConversationClass
 
         public override void ResponderConversation(object context)
         {
-            Send(CreateAwk());
+            ReliableSend(CreateAwk());
         }
 
         public override void InitatorConversation(object context)
@@ -27,8 +27,13 @@ namespace CommSubSystem.ConversationClass
 
             if (incomingEnvelope != null)
             {
-                Send(CreateAwk());
+                //Send(CreateAwk());
+                //Got Ack no need to time out
             }
+            else{
+                //Hearbeat timeout
+            }
+
         }
 
         public override Envelope CreateFirstMessage()

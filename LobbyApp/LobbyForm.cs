@@ -14,6 +14,7 @@ using Messages;
 using SharedObjects;
 using System.Net;
 using CommSubSystem.ConversationClass;
+using System.Diagnostics;
 
 namespace LobbyApp
 {
@@ -30,7 +31,7 @@ namespace LobbyApp
         public ClientForm()
         {
             InitializeComponent();
-
+            Debug.WriteLine("LOBBY");
             UDPClient.UDPInstance.SetupAndRun(1025);
             _ReceivingProcess = new LobbyReceive();
             _ReceivingProcess.Start();
@@ -75,6 +76,14 @@ namespace LobbyApp
         private void SendButton_Click(object sender, EventArgs e)
         {
             //gets the address, port, and message to be sent from the textfields
+            IPEndPoint playerIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1024);
+            LobbyHeartbeatConv conv =
+                ConversationFactory.Instance
+                .CreateFromConversationType<LobbyHeartbeatConv>
+                (playerIP, null, null);
+            conv._NumberOfPlayers = 3;
+            Thread convThread = new Thread(conv.Execute);
+            convThread.Start();
         }
     }
 }

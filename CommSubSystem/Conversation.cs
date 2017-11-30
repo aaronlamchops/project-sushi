@@ -65,6 +65,7 @@ namespace CommSubSystem.ConversationClass
         {
             byte[] bytes = env.Encode();
             UDPClient.UDPInstance.SetServerIP(EndIP);
+            UDPClient.UDPInstance.Send(bytes);
         }
 
         protected Envelope CreateAwk()

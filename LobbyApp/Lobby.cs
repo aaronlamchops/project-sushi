@@ -60,11 +60,11 @@ namespace SharedObjects
             gameList.TryRemove(gameID, out g);
         }
 
-        public void SendHeartbeats()//run as thread
+        public void SendHeartbeats()//run as seperate thread
         {
             while(isRunning)
             {
-                //TODO hearbeat to all players that have joined games
+                //hearbeat to all players that have joined games
                 foreach(var keypair in gameList)
                 {
                     Game g = keypair.Value;

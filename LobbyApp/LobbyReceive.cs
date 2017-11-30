@@ -12,6 +12,8 @@ using log4net;
 using CommSubSystem;
 using System.Net;
 
+using System.Diagnostics;
+
 namespace LobbyApp
 {
     public class LobbyReceive : Receiver
@@ -40,6 +42,9 @@ namespace LobbyApp
             {
                 case Envelope.TypeOfMessage.CreateGame:
                     conv = CreateGameResponse(env, refEp);
+                    break;
+                case Envelope.TypeOfMessage.Ack:
+                    Debug.WriteLine("ACK");
                     break;
                 default:
                     conv = null;
