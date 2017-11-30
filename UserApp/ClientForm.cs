@@ -38,10 +38,10 @@ namespace UserApp
             _ReceivingProcess.Start();
 
             //get pid
-            while(LocalProcessInfo.Instance.ProcessId == 0)
-            {
-                GetPid();
-            }
+            //while(LocalProcessInfo.Instance.ProcessId == 0)
+            //{
+            //    GetPid();
+            //}
         }
 
         private void ClientForm_Load(object sender, EventArgs e)
