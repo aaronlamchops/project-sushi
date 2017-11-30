@@ -6,13 +6,14 @@ using System.Threading;
 using System.Collections.Concurrent;
 using System.Net;
 using CommSubSystem.ConversationClass;
+using SharedObjects;
 
 
-namespace SharedObjects
+namespace LobbyApp
 {
     public class Lobby
     {
-        ConcurrentDictionary<int,Game> gameList = new ConcurrentDictionary<int, Game>();
+        public ConcurrentDictionary<int,Game> gameList = new ConcurrentDictionary<int, Game>();
         private int IDCounter = 1;//lobby ID is always 1
         public volatile bool isRunning = true;
 

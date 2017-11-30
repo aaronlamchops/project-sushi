@@ -22,22 +22,6 @@ namespace LobbyApp
         private int _GameID { get; set; }
         private Lobby GamesOnLobby;
 
-        public LobbyReceive()
-        {
-            _GameID = 1;
-
-            GamesOnLobby.GameList = new List<Game>()
-            {
-                new Game()
-                {
-                    GameName = "Initial Game",
-                    MinPlayers = 1,
-                    MaxPlayers = 2,
-                    gameId = 0
-                }
-            };
-        }
-
         private int ManageGameID()
         {
             lock (MyLock)
@@ -83,7 +67,7 @@ namespace LobbyApp
         private Conversation RequestGameListResponse(Envelope env, IPEndPoint refEp)
         {
             RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage(env, refEp, null, null) as RequestGameListConv;
-            conv.GameList = GamesOnLobby;
+            conv._LobbyGameList = GamesOnLobby.gameList;
             return conv;
         }
     }    

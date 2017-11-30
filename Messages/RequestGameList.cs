@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
+
+using SharedObjects;
 
 namespace Messages
 {
@@ -14,6 +16,6 @@ namespace Messages
     [Serializable]
     public class RequestGameListReply : Message
     {
-        public Lobby LobbyGameList;
+        //public ConcurrentDictionary<int, Game> LobbyGameList = new ConcurrentDictionary<int, Game>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace CommSubSystem.ConversationClass
 {
     public class RequestGameListConv : Conversation
     {
-        public Lobby GameList { get; set; }
+        public ConcurrentDictionary<int, Game> _LobbyGameList = new ConcurrentDictionary<int, Game>();
 
         public override Envelope CreateFirstMessage()
         {
@@ -42,7 +43,7 @@ namespace CommSubSystem.ConversationClass
 
         public override void ResponderConversation(object context)
         {
-            RequestGameListReply msg = new RequestGameListReply() { LobbyGameList = GameList };
+            SendGameList msg = new SendGameList() { gameList = _LobbyGameList };
             msg.ConvId = ConvId;
             msg.MsgId = MessageId.Create();
 
@@ -50,7 +51,7 @@ namespace CommSubSystem.ConversationClass
             {
                 EndPoint = UDPClient.UDPInstance.GetPublicEndPoint(),
                 MessageToBeSent = msg,
-                MessageTypeInEnvelope = Envelope.TypeOfMessage.CreateGameReply
+                MessageTypeInEnvelope = Envelope.TypeOfMessage.SendGameList
             };
 
             ReliableSend(env);

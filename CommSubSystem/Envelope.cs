@@ -31,7 +31,7 @@ namespace CommSubSystem
             Ack,
             UserInfo,
             RequestGameList,
-            RequestGameListReply
+            RequestGameListReply,
             SendGameList,
             RequestGameId,
             SendGameId,

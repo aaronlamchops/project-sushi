@@ -1,14 +1,13 @@
 ﻿<Properties StartupConfiguration="{0142A149-1E08-4054-B8AC-E361356E810C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="CommSubSystem/LobbyHeartbeatConv.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UserApp/ClientForm.cs">
     <Files>
-      <File FileName="LobbyApp/LobbyForm.cs" Line="1" Column="1" />
-      <File FileName="LobbyApp/Lobby.cs" Line="66" Column="14" />
-      <File FileName="UserApp/ClientForm.cs" Line="23" Column="9" />
-      <File FileName="UserApp/ClientReceive.cs" Line="15" Column="18" />
-      <File FileName="CommSubSystem/CreateGameConv.cs" Line="68" Column="1" />
-      <File FileName="CommSubSystem/LobbyHeartbeatConv.cs" Line="20" Column="13" />
-      <File FileName="Messages/LobbyHeartbeat.cs" Line="5" Column="32" />
-      <File FileName="CommSubSystem/Envelope.cs" Line="36" Column="24" />
+      <File FileName="LobbyApp/Lobby.cs" Line="15" Column="6" />
+      <File FileName="LobbyApp/LobbyForm.cs" Line="18" Column="19" />
+      <File FileName="LobbyApp/LobbyReceive.cs" Line="70" Column="15" />
+      <File FileName="UserApp/ClientForm.cs" Line="115" Column="58" />
+      <File FileName="UserApp/ClientReceive.cs" Line="32" Column="33" />
+      <File FileName="CommSubSystem/CreateGameConv.cs" Line="7" Column="21" />
+      <File FileName="CommSubSystem/RequestGameListConv.cs" Line="54" Column="76" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
