@@ -9,14 +9,14 @@ using Messages;
 using SharedObjects;
 using CommSubSystem;
 using CommSubSystem.ConversationClass;
-//using log4net;
+using log4net;
 using System.Net;
 
 namespace UserApp
 {
     public class ClientReceive : Receiver
     {
-        //private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
 
         protected override void ExecuteBasedOnType(byte[] bytes, TypeOfMessage type, IPEndPoint refEp)
         {
@@ -27,6 +27,10 @@ namespace UserApp
                     conv = null;
                     break;
 
+                case TypeOfMessage.LobbyHeartbeat:
+                    conv = LobbyHeartBeatResponse(bytes, refEp);
+                    break;
+                    
                 default:
                     conv = null;
                     break;
@@ -36,6 +40,11 @@ namespace UserApp
                 Thread thrd = new Thread(conv.Execute);
                 thrd.Start();
             }
+        }
+        private Conversation LobbyHeartBeatResponse(byte[] bytes, IPEndPoint refEp)
+        {
+            LobbyHeartbeatConv conv = ConversationFactory.Instance.CreateFromMessage<LobbyHeartbeatConv>(bytes, refEp, null, null);
+            return conv;
         }
     }
 

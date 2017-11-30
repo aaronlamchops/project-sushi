@@ -10,6 +10,8 @@ using CommSubSystem;
 using System.Net;
 using Messages;
 
+using System.Diagnostics;
+
 namespace LobbyApp
 {
     public class LobbyReceive : Receiver
