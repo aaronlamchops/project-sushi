@@ -9,14 +9,14 @@ using Messages;
 using SharedObjects;
 using CommSubSystem;
 using CommSubSystem.ConversationClass;
-using log4net;
+//using log4net;
 using System.Net;
 
 namespace UserApp
 {
     public class ClientReceive : Receiver
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
+        //private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
 
         protected override void ExecuteBasedOnType(Envelope env, IPEndPoint refEp)
         {
