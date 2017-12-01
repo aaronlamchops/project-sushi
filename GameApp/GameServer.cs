@@ -11,6 +11,7 @@ using CommSubSystem;
 using System.Threading;
 using CommSubSystem.ConversationClass;
 using System.Net;
+using SharedObjects;
 
 namespace GameApp
 {

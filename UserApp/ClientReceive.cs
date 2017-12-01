@@ -42,7 +42,17 @@ namespace UserApp
             //connect to server
             ConnectMsg msg = Message.Decode<ConnectMsg>(bytes);
             gameServer = msg.GameServer;
-            //Send message to prep conversation
+            //open tcp connection
+            TCPClient tcp = new TCPClient();
+            int gamePort = 500;
+            tcp.SetupConnection(gamePort);
+            //send message with info on which port
+            ConnectGameServer connectConv = ConversationFactory.Instance
+                .CreateFromMessage<ConnectGameServer>
+                (bytes, gameServer, null, null, null);
+            //connectConv._GameId = ;
+            //connectConv._NumPlayers = ;
+            connectConv._Port = gamePort;
         }
         private void LobbyHeartBeatResponse(byte[] bytes, IPEndPoint refEp)
         {

@@ -56,7 +56,6 @@
     <Compile Include="CreateGame.cs" />
     <Compile Include="JoinGame.cs" />
     <Compile Include="RegistrationMsg.cs" />
-    <Compile Include="StartGame.cs" />
     <Compile Include="ExitGame.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="UpdateState.cs" />

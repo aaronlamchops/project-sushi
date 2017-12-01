@@ -11,6 +11,10 @@ namespace CommSubSystem.Conversations
 {
     public class ConnectGameServer : Conversation
     {
+        public int _GameId { get; set; }
+        public int _NumPlayers { get; set; }
+        public int _Port { get; set; }
+
         public ConnectGameServer()
         {
             allowedMessageTypes = new List<TypeOfMessage>()
@@ -22,11 +26,14 @@ namespace CommSubSystem.Conversations
 
         public override Message CreateFirstMessage()
         {
-            Message msg = new Message()
+            ConnectGSMsg msg = new ConnectGSMsg()
             {
                 ConvId = ConvId,
                 MsgId = MessageId.Create(),
-                MessageType = TypeOfMessage.ConnectGameServerMsg
+                MessageType = TypeOfMessage.ConnectGameServerMsg,
+                GameId = _GameId,
+                Players = _NumPlayers,
+                Port = _Port
             };
             return msg;
         }

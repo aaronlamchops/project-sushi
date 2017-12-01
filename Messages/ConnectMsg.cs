@@ -19,4 +19,11 @@ namespace Messages
         public int GameId { get; set; }
     }
 
+    [Serializable]
+    public class ConnectGSMsg : Message
+    {
+        public int GameId { get; set; }
+        public int Players { get; set; }
+        public int Port { get; set; }
+    }
 }
