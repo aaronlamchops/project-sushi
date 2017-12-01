@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using CommSubSystem.ConversationClass;
+using CommSubSystem.Conversations;
 using log4net;
 using CommSubSystem;
 using System.Net;
@@ -22,6 +23,8 @@ namespace LobbyApp
         private int _GameID { get; set; }
         private Lobby GamesOnLobby;
         private short _Pid { get; set; }
+
+        IPAddress gameServer { get; set; }
 
         public LobbyReceive()
         {
@@ -52,54 +55,62 @@ namespace LobbyApp
 
         protected override void ExecuteBasedOnType(byte[] bytes, TypeOfMessage type, IPEndPoint refEp)
         {
-            Conversation conv = null;
             switch (type)
             {
                 case TypeOfMessage.CreateGame:
-                    conv = CreateGameResponse(bytes, refEp);
+                    CreateGameResponse(bytes, refEp);
                     break;
                 case TypeOfMessage.Registration:
-                    conv = RegistrationResponse(bytes, refEp);
+                    RegistrationResponse(bytes, refEp);
                     break;
 
                 case TypeOfMessage.RequestGameList:
-                    conv = RequestGameListResponse(bytes, refEp);
+                    RequestGameListResponse(bytes, refEp);
                     break;
 
                 case TypeOfMessage.RequestGameListReply:
-                    conv = RequestGameListResponse(bytes, refEp);
+                    RequestGameListResponse(bytes, refEp);
                     break;
-
-                default:
-                    conv = null;
+                case TypeOfMessage.StartGame:
+                    StartGameResponse(bytes, refEp);
                     break;
-            }
-            if (conv != null)
-            {
-                Thread thrd = new Thread(conv.Execute);
-                thrd.Start();
             }
         }
 
-        private CreateGameConv CreateGameResponse(byte[] bytes, IPEndPoint refEp)
+        private void StartGameResponse(byte[] bytes, IPEndPoint refEp)
         {
-            CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage<CreateGameConv>(bytes, refEp, null, null, null);
+            //awknowlege request
+            StartGame conv = ConversationFactory.Instance
+                .CreateFromMessage<StartGame>(bytes, refEp, null, null, null);
+            conv.Start();
+            //send server location to all players
+            StartGameMsg startMsg = Message.Decode<StartGameMsg>(bytes);
+            int GameId = startMsg.GameId;
+            GamesOnLobby.StartGame(GameId);
+        }
+
+        private void CreateGameResponse(byte[] bytes, IPEndPoint refEp)
+        {
+            CreateGameConv conv = ConversationFactory.Instance
+                .CreateFromMessage<CreateGameConv>(bytes, refEp, null, null, null);
             conv._GameId = ManageGameID();
-            return conv;
+            conv.Start();
         }
 
-        private Registration RegistrationResponse(byte[] bytes, IPEndPoint refEp)
+        private void RegistrationResponse(byte[] bytes, IPEndPoint refEp)
         {
-            Registration conv = ConversationFactory.Instance.CreateFromMessage<Registration>(bytes, refEp, null, null, null);
+            Registration conv = ConversationFactory.Instance
+                .CreateFromMessage<Registration>(bytes, refEp, null, null, null);
             conv._processId = ManageProcessID();
-            return conv;
+            conv.Start();
         }
 
-        private RequestGameListConv RequestGameListResponse(byte[] bytes, IPEndPoint refEp)
+        private void RequestGameListResponse(byte[] bytes, IPEndPoint refEp)
         {
-            RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage<RequestGameListConv>(bytes, refEp, null, null, null);
+            RequestGameListConv conv = ConversationFactory.Instance
+                .CreateFromMessage<RequestGameListConv>(bytes, refEp, null, null, null);
             conv._LobbyGameList = GamesOnLobby.gameList;
-            return conv;
+            conv.Start();
         }
     }    
 }

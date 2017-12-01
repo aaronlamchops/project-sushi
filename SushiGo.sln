@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubSystemTests", "SubSystem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LobbyApp", "LobbyApp\LobbyApp.csproj", "{0142A149-1E08-4054-B8AC-E361356E810C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameApp", "GameApp\GameApp.csproj", "{459A6D14-E707-4EE8-86A0-EC6BAC819AC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{0142A149-1E08-4054-B8AC-E361356E810C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0142A149-1E08-4054-B8AC-E361356E810C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0142A149-1E08-4054-B8AC-E361356E810C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459A6D14-E707-4EE8-86A0-EC6BAC819AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459A6D14-E707-4EE8-86A0-EC6BAC819AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459A6D14-E707-4EE8-86A0-EC6BAC819AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459A6D14-E707-4EE8-86A0-EC6BAC819AC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
