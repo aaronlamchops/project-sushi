@@ -18,11 +18,12 @@ namespace UserApp
 
         public int PlayerCount { get; set; }
 
-        public WaitingRoom()
+        public WaitingRoom(int minPlayers, int maxPlayers, string gameName)
         {
-            GameNameLabel.Text = GameName;
-            MinPlayerCountLabel.Text = MinPlayers.ToString();
-            MaxPlayerCountLabel.Text = MaxPlayers.ToString();
+            GameNameLabel.Text = gameName;
+            MinPlayerCountLabel.Text = minPlayers.ToString();
+            MaxPlayerCountLabel.Text = maxPlayers.ToString();
+            PlayerCount = 1;
             PlayerCountLabel.Text = PlayerCount.ToString();
             InitializeComponent();
         }
