@@ -16,6 +16,7 @@ namespace SharedObjects
         public string name;
         public int score;
         public int puddingCount;
+        public int gameId;
         //list cardsplayed
 
         public IPEndPoint GetIP()

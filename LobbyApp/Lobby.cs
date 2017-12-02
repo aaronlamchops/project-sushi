@@ -6,6 +6,7 @@ using System.Threading;
 using System.Collections.Concurrent;
 using System.Net;
 using CommSubSystem.ConversationClass;
+using CommSubSystem.Conversations;
 using SharedObjects;
 
 
@@ -50,13 +51,12 @@ namespace LobbyApp
             {
                 //Send gameserver info to each player
                 IPEndPoint playerIP = p.GetIP();
-                //StartGameConv conv =
-                //    ConversationFactory.Instance
-                //    .CreateFromConversationType<StartGameConv>
-                //    (playerIP, null, null);
-                //conv._gameServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1026);
-                //Thread convThread = new Thread(conv.Execute);
-                //convThread.Start();
+                ConnectInfo conv =
+                    ConversationFactory.Instance
+                    .CreateFromConversationType<ConnectInfo>
+                    (playerIP, null, null, null);
+                conv._gameServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1026);
+                conv.Start();
             }
             gameList.TryRemove(gameID, out g);
         }

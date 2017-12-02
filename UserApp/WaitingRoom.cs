@@ -36,7 +36,7 @@ namespace UserApp
             set { PlayerCountLabel.Text = value.ToString(); }
         }
 
-        public WaitingRoom()
+        public WaitingRoom(int minPlayers, int maxPlayers, string gameName)
         {
             InitializeComponent();
         }

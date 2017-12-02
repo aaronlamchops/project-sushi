@@ -16,6 +16,7 @@ namespace CommSubSystem
         private static Receiver _Instance;
         private static readonly object MyLock = new object();
         protected Receiver() { }
+        protected List<TCPClient> tcpClients = new List<TCPClient>();
 
         //threading:
         private Thread _worker;
@@ -24,7 +25,6 @@ namespace CommSubSystem
         public void Receiving()
         {
             byte[] bytes;
-            Message msg = null;
             IPEndPoint remoteEp;
             while (_keepReceiving)
             {
@@ -33,18 +33,34 @@ namespace CommSubSystem
 
                 if (bytes != null)
                 {
-                    msg = Message.Decode<Message>(bytes);
-                    MessageId convId = msg.ConvId;
-                    ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
-                    if (queue == null)
+                    RespondToMessage(bytes, remoteEp);
+                    bytes = null;
+                }
+
+                foreach(TCPClient tcp in tcpClients )
+                {
+                    bytes = tcp.Receive();
+                    if (bytes != null)
                     {
-                        ExecuteBasedOnType(bytes, msg.MessageType, remoteEp);
-                    }
-                    else
-                    {
-                        queue.Enqueue(bytes);
+                        RespondToMessage(bytes, remoteEp);
+                        bytes = null;
                     }
                 }
+            }
+        }
+
+        public void RespondToMessage(byte[] bytes, IPEndPoint remoteEp)
+        {
+            Message msg = Message.Decode<Message>(bytes);
+            MessageId convId = msg.ConvId;
+            ConversationQueue queue = ConversationDictionary.Instance.Lookup(convId);
+            if (queue == null)
+            {
+                ExecuteBasedOnType(bytes, msg.MessageType, remoteEp);
+            }
+            else
+            {
+                queue.Enqueue(bytes);
             }
         }
 

@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conversations\ConnectInfo.cs" />
+    <Compile Include="Conversations\ConnectGameServer.cs" />
     <Compile Include="Conversations\Registration.cs" />
+    <Compile Include="Conversations\StartGame.cs" />
     <Compile Include="TCPClient.cs" />
     <Compile Include="ConversationDictionary.cs" />
     <Compile Include="ConversationQueue.cs" />

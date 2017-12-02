@@ -15,6 +15,7 @@ using CommSubSystem;
 using SharedObjects;
 using System.Net;
 using CommSubSystem.ConversationClass;
+using CommSubSystem.Conversations;
 
 namespace UserApp
 {
@@ -22,7 +23,8 @@ namespace UserApp
     {
         private static readonly object MyLock = new object();
 
-        IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);
+        private IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);
+        private IPEndPoint gameServer;
         public ClientReceive _ReceivingProcess;
         public Thread _receivingThread;
 
@@ -32,6 +34,8 @@ namespace UserApp
 
         public List<ListViewItem> GameItems = new List<ListViewItem>();
         public bool NeedsRefresh = false;
+
+        public Player player = new Player();
 
         public ClientForm()
         {
@@ -51,6 +55,15 @@ namespace UserApp
         private void ClientForm_Load(object sender, EventArgs e)
         {
             RefreshTimer.Start();
+        }
+
+        //call this when the host player wants to start
+        private void StartGame()
+        {
+            StartGame conv = ConversationFactory.Instance
+                .CreateFromConversationType<StartGame>
+                (server, null, null, null);
+            conv.Start();
         }
 
         private void ClientForm_FormClosed(object sender, EventArgs e)
@@ -163,7 +176,8 @@ namespace UserApp
         {
             //change player screeen
             //player.inWaitingRoom = true
-            string[] parameters = ((IEnumerable)context).Cast<object>().Select(x => x.ToString()).ToArray();
+            string[] parameters = ((IEnumerable)context)
+                .Cast<object>().Select(x => x.ToString()).ToArray();
 
             var waitingRoomWindow = new WaitingRoom()
             {
