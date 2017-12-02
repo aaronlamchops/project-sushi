@@ -70,6 +70,7 @@ namespace UserApp
             if(NeedsRefresh)
             {
                 ReceivingListView.Items.Clear();
+
                 foreach(ListViewItem item in GameItems)
                 {
                     ReceivingListView.Items.Add(item);
@@ -93,16 +94,6 @@ namespace UserApp
                 //MessageBox.Show("Total Players = " + CreateGameForm.TotalPlayerCount.ToString() + "\nGame Name: " + CreateGameForm.GameName);
 
                 CreateGame(CreateGameForm.MinPlayerCount, CreateGameForm.TotalPlayerCount, CreateGameForm.GameName);
-            }
-        }
-
-        public void GetPid()
-        {
-            Registration conv = ConversationFactory.Instance
-                .CreateFromConversationType<Registration>
-                (server, null, null, null);
-            conv.Start();
-            while(conv.Done != true) {
             }
         }
 
@@ -152,6 +143,17 @@ namespace UserApp
             //}
         }
 
+        public void GetPid()
+        {
+            Registration conv = ConversationFactory.Instance
+                .CreateFromConversationType<Registration>
+                (server, null, null, null);
+            conv.Start();
+            while (conv.Done != true)
+            {
+            }
+        }
+
         public void CreateGamePreExecute(object context)
         {
 
@@ -186,8 +188,9 @@ namespace UserApp
         public void RefreshPostExecute(object context)
         {
             var gameList = (ConcurrentDictionary<int, Game>)context;
+            GameItems = new List<ListViewItem>();
 
-            foreach(KeyValuePair<int, Game> index in gameList)
+            foreach (KeyValuePair<int, Game> index in gameList)
             {
                 string[] row = {
                     index.Value.gameId.ToString(),
@@ -198,9 +201,8 @@ namespace UserApp
 
                 var ListViewItem = new ListViewItem(row);
                 GameItems.Add(ListViewItem);
-                //ReceivingListView.Items.Add(ListViewItem); //Cant have another thread edit a form item
-                NeedsRefresh = true;
             }
+            NeedsRefresh = true;
         }
         
     }
