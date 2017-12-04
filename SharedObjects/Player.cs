@@ -10,10 +10,10 @@ namespace SharedObjects
     [Serializable]
     public class Player
     {
-        public int id;
+        public int id { get; set; }
         public IPEndPoint playerIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1024);
         //hand
-        public string name;
+        public string name { get; set; }
         public int score;
         public int puddingCount;
         public int gameId;
