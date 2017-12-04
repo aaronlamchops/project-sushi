@@ -43,9 +43,7 @@ namespace CommunicationSubsystemTest
             };
             byte[] msgEnc = msg.Encode();
             Message expectedMsgDec = Message.Decode<Message>(msgEnc);
-            Debug.WriteLine("pre-setup");
             tc1.SetupConnection(1025);
-            Debug.WriteLine("post-setup");
             Thread.Sleep(1000);
             tc2.ConnectToServer(tc1Address);
 
