@@ -46,7 +46,6 @@ namespace CommSubSystem
             sslStream.ReadTimeout = 5000;
             sslStream.WriteTimeout = 5000;
             Debug.WriteLine("Listen done");
-            //stream = client.GetStream();
         }
 
         public static bool ValidateServerCertificate(
@@ -62,6 +61,7 @@ namespace CommSubSystem
 
             // return false to not allow this client to communicate with unauthenticated servers.
             //return false;
+
             // return true to use a self-signed certificate
             return true;
         }
@@ -93,55 +93,42 @@ namespace CommSubSystem
                 client.Close();
                 return;
             }
-            //sslStream.ReadTimeout = 5000;
-            //sslStream.WriteTimeout = 5000;
+            sslStream.ReadTimeout = 500;
+            sslStream.WriteTimeout = 5000;
 
-
-            //stream = client.GetStream();
         }
 
         public void Send(byte[] envelope)
         {
-            //stream.Write(envelope, 0, envelope.Length);
             sslStream.Write(envelope, 0, envelope.Length);
             sslStream.Flush();
         }
     
-        //need to check for errors
         public byte[] Receive()
         {
-            var buffer = new byte[505];//byte[256];
+            var buffer = new byte[2048];
             MemoryStream ms = new MemoryStream();
             StringBuilder messageData = new StringBuilder();
             int bytes = -1;
-            //int b = sslStream.ReadByte();
-            //bytes = sslStream.Read(buffer, 0, buffer.Length);
+
             do
             {
-                //try
-                //{
+                try
+                {
                     bytes = sslStream.Read(buffer, 0, buffer.Length);
-                    ms.Write(buffer, 0, buffer.Length);
+                    ms.Write(buffer, 0, bytes);
                     Decoder decoder = Encoding.UTF8.GetDecoder();
                     char[] chars = new char[decoder.GetCharCount(buffer, 0, bytes)];
                     decoder.GetChars(buffer, 0, bytes, chars, 0);
                     messageData.Append(chars);
-                    // Check for EOF.
-                    if (messageData.ToString().IndexOf("<EOF>") != -1)
-                    {
-                        break;
-                    }
-                //}
-                //catch
-                //{
-                //    break;
-                //}
-            } while (bytes != 0);
+                }
+                catch
+                {
+                    break;//End of message
+                }
+        } while (bytes != 0);
 
-
-
-            //int bytesRead = sslStream.Read(buffer, 0, buffer.Length);//stream.Read(buffer, 0, buffer.Length);
-            return buffer;
+            return ms.ToArray();
         }
     }
 }

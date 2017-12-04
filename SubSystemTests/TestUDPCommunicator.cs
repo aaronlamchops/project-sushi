@@ -29,6 +29,7 @@ namespace CommunicationSubsystemTest
         [TestMethod]
         public void UdpCommunicator_TestTCPConnect()
         {
+
             TCPClient tc1 = new TCPClient();
             TCPClient tc2 = new TCPClient();
             IPEndPoint tc1Address = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);//IPAddress.Any IPAddress.Parse("127.0.0.1")
@@ -40,6 +41,8 @@ namespace CommunicationSubsystemTest
                 ConvId = msgid,
                 MessageType = TypeOfMessage.Ack
             };
+            byte[] msgEnc = msg.Encode();
+            Message expectedMsgDec = Message.Decode<Message>(msgEnc);
             Debug.WriteLine("pre-setup");
             tc1.SetupConnection(1025);
             Debug.WriteLine("post-setup");
@@ -49,10 +52,11 @@ namespace CommunicationSubsystemTest
             tc1.Send(msg.Encode());
             Thread.Sleep(100);
             byte[] msgbytes = tc2.Receive();
-            byte[] msgEnc = msg.Encode();
-            Message expectedMsgDec = Message.Decode<Message>(msgEnc);
-            //Message actualMsgDec = Message.Decode<Message>(msgbytes);
-            Assert.AreEqual(msg.Encode(), msgbytes);
+            Message actualMsgDec = Message.Decode<Message>(msgbytes);
+            Assert.AreEqual(expectedMsgDec.MessageType, actualMsgDec.MessageType);
+            Assert.AreEqual(expectedMsgDec.MsgId, actualMsgDec.MsgId);
+            Assert.AreEqual(expectedMsgDec.ConvId, actualMsgDec.ConvId);
+
         }
         
     }

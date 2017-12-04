@@ -23,8 +23,7 @@ namespace Messages
             IFormatter formatter = new BinaryFormatter();
             MemoryStream stream = new MemoryStream();
             formatter.Serialize(stream, this);
-            byte[] endOfmesssage = Encoding.UTF8.GetBytes("<EOF>");
-            stream.Write(endOfmesssage, 0, endOfmesssage.Length);
+
             return stream.ToArray();
         }
 
@@ -36,7 +35,6 @@ namespace Messages
             {
                 IFormatter formatter = new BinaryFormatter();
                 Stream stream = new MemoryStream(message);
-                stream.SetLength(stream.Length - 5);
 
                 result = (T)formatter.Deserialize(stream);
             }
