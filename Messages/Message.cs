@@ -51,6 +51,7 @@ namespace Messages
         ExitGame,
         HeartBeat,
         JoinGame,
+        JoinGameReply,
         PassCard,
         SelectCard,
         StartGame,

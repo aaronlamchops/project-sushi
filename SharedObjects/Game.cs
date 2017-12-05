@@ -8,13 +8,15 @@ namespace SharedObjects
     public class Game
     {
         public int gameId;
+        public string GameName;
         public List<Player> playerList = new List<Player>();
         public int MinPlayers;
         public int MaxPlayers;
         public Player host;
 
-        public Game(int gameId, Player host, int minPlayer, int maxPlayer)
+        public Game(int gameId, Player host, int minPlayer, int maxPlayer, string name)
         {
+            this.GameName = name;
             this.gameId = gameId;
             this.host = host;
             this.MinPlayers = minPlayer;

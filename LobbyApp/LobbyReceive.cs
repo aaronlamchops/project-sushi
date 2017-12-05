@@ -29,9 +29,9 @@ namespace LobbyApp
             GamesOnLobby = new Lobby();
             GamesOnLobby.HandleCreateGame(new SharedObjects.Player()
             {
-                id = 1468,
-                name = "Initial"
-            }, 1, 5);
+                Id = 1468,
+                Name = "Initial"
+            }, 1, 5, "Initial Game", -1);
         }
 
         private short ManageProcessID()
@@ -73,6 +73,10 @@ namespace LobbyApp
                 default:
                     conv = null;
                     break;
+
+                case TypeOfMessage.JoinGame:
+                    JoinGameResponse(bytes, refEp);
+                    break;
             }
             if (conv != null)
             {
@@ -85,7 +89,12 @@ namespace LobbyApp
         {
             CreateGameConv conv = ConversationFactory.Instance.CreateFromMessage<CreateGameConv>(bytes, refEp, null, null, null);
             conv._GameId = ManageGameID();
-            return conv;
+
+            //add this game to the lobby list of games
+            GamesOnLobby.HandleCreateGame(new SharedObjects.Player()
+            { Id = conv._Player.Id }, conv._MinPlayers, conv._MaxPlayers, conv._GameName, conv._GameId);
+
+            conv.Start();
         }
 
         private Registration RegistrationResponse(byte[] bytes, IPEndPoint refEp)
@@ -100,6 +109,13 @@ namespace LobbyApp
             RequestGameListConv conv = ConversationFactory.Instance.CreateFromMessage<RequestGameListConv>(bytes, refEp, null, null, null);
             conv._LobbyGameList = GamesOnLobby.gameList;
             return conv;
+        }
+
+        private void JoinGameResponse(byte[] bytes, IPEndPoint refEP)
+        {
+            JoinGameConv conv = ConversationFactory.Instance.CreateFromMessage<JoinGameConv>(bytes, refEP, null, null, null);
+            GamesOnLobby.HandleJoinGame(conv._Player, conv._GameId);
+            conv.Start();
         }
     }    
 }

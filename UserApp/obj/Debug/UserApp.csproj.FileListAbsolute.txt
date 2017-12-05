@@ -83,3 +83,7 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/UserApp/bin/Debug/SharedObjects.dll.
 /Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/obj/Debug/UserApp.WaitingRoom.resources
 /Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/log4net.dll
 /Users/Kyle/Documents/School/CS5200/project-sushi/UserApp/bin/Debug/log4net.xml
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/UserApp/bin/Debug/log4net.dll
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/UserApp/bin/Debug/log4net.xml
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/UserApp/obj/Debug/UserApp.CreateGameForm.resources
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/UserApp/obj/Debug/UserApp.WaitingRoom.resources

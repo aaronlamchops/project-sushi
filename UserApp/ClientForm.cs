@@ -27,8 +27,8 @@ namespace UserApp
         public Thread _receivingThread;
 
         //Hold and populate list from server
-        public List<Game> GameList = new List<Game>();
-        public Game SelectedGame;
+        //public List<Game> GameList = new List<Game>();
+        public ListViewItem SelectedGame;
 
         public List<ListViewItem> GameItems = new List<ListViewItem>();
         public bool NeedsRefresh = false;
@@ -90,8 +90,6 @@ namespace UserApp
 
             if(CreateGameForm.ShowDialog() == DialogResult.OK)
             {
-                //MessageBox.Show("Total Players = " + CreateGameForm.TotalPlayerCount.ToString() + "\nGame Name: " + CreateGameForm.GameName);
-
                 CreateGame(CreateGameForm.MinPlayerCount, CreateGameForm.TotalPlayerCount, CreateGameForm.GameName);
             }
         }
@@ -118,6 +116,7 @@ namespace UserApp
             conv._GameName = name;
             conv._MinPlayers = min;
             conv._MaxPlayers = max;
+            conv._Player = player;
 
             conv.Start();
         }
@@ -125,6 +124,7 @@ namespace UserApp
         private void JoinButton_Click(object sender, EventArgs e)
         {
             if (SelectedGame == null) return;
+
 
             //send and connect to lobby using selected lobby information
         }
@@ -142,14 +142,14 @@ namespace UserApp
 
         private void ReceivingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if(ReceivingListView.SelectedIndices.Count == 1)
-            //{
-            //    SelectedGame = GameList[ReceivingListView.SelectedIndices[0]];
-            //}
-            //else
-            //{
-            //    SelectedGame = null;
-            //}
+            if(ReceivingListView.SelectedIndices.Count == 1)
+            {
+                SelectedGame = GameItems[ReceivingListView.SelectedIndices[0]];
+            }
+            else
+            {
+                SelectedGame = null;
+            }
         }
 
         public void CreateGamePreExecute(object context)
@@ -189,7 +189,7 @@ namespace UserApp
             foreach(KeyValuePair<int, Game> index in gameList)
             {
                 string[] row = {
-                    index.Value.gameId.ToString(),
+                    index.Value.GameName,
                     index.Value.gameId.ToString(),
                     index.Value.playerList.Count.ToString(),
                     index.Value.MaxPlayers.ToString()

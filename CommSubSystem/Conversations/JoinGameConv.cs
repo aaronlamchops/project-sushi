@@ -8,30 +8,26 @@ using SharedObjects;
 
 namespace CommSubSystem.ConversationClass
 {
-    public class CreateGameConv : Conversation
+    public class JoinGameConv : Conversation
     {
-        //for initiator
-        public string _GameName { get; set; }
-        public int _MinPlayers{ get; set;}
-        public int _MaxPlayers{ get; set;}
-        public Player _Player { get; set; }
-        //for response
         public int _GameId { get; set; }
+        public Player _Player { get; set; }
 
-        public CreateGameConv()
+        public JoinGameConv()
         {
             allowedMessageTypes = new List<TypeOfMessage>
             {
-                TypeOfMessage.CreateGame,
-                TypeOfMessage.CreateGameReply,
+                TypeOfMessage.JoinGame,
+                TypeOfMessage.JoinGameReply,
                 TypeOfMessage.Ack
             };
         }
 
         public override void ResponderConversation(ref object context)
         {
-            CreateGameReply msg = new CreateGameReply() {
-                GameId = _GameId,
+            JoinGameReply msg = new JoinGameReply()
+            {
+                GameID = _GameId,
                 ConvId = ConvId,
                 MsgId = MessageId.Create(),
                 MessageType = TypeOfMessage.CreateGameReply
@@ -46,30 +42,23 @@ namespace CommSubSystem.ConversationClass
             ReliableSend(msg);
 
             if (Error != null) return;
-            
-            //can parse message received
-            CreateGameReply reply = Message.Decode<CreateGameReply>(incomingMsg);
-            //whatever logic will help in the post action
 
-            var parameters = new string[] { _GameName, _MinPlayers.ToString(), _MaxPlayers.ToString() };
-
-            context = parameters;
+            //do something if needed with context;
 
             Send(CreateAck());
         }
 
         public override Message CreateFirstMessage()
         {
-            CreateGame msg = new CreateGame()
+            JoinGame msg = new JoinGame()
             {
-                PlayerId = _Player,
-                MinPlayers = _MinPlayers,
-                MaxPlayers = _MaxPlayers,
+                GameID = _GameId,
+                Player = _Player,
                 ConvId = ConvId,
                 MsgId = ConvId,
-                MessageType = TypeOfMessage.CreateGame
+                MessageType = TypeOfMessage.JoinGame
             };
-            
+
             return msg;
         }
     }

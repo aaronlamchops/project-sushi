@@ -44,7 +44,7 @@ namespace UserApp
             this.SendButton = new System.Windows.Forms.Button();
             this.ReceivingListView = new System.Windows.Forms.ListView();
             this.Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Address = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.GameId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AvailablePlayers = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TotalPlayers = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.GameLabel = new System.Windows.Forms.Label();
@@ -102,13 +102,14 @@ namespace UserApp
             // 
             this.ReceivingListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Name,
-            this.Address,
+            this.GameId,
             this.AvailablePlayers,
             this.TotalPlayers});
             this.ReceivingListView.Location = new System.Drawing.Point(12, 107);
             this.ReceivingListView.Name = "ReceivingListView";
             this.ReceivingListView.Size = new System.Drawing.Size(465, 342);
             this.ReceivingListView.TabIndex = 5;
+            this.ReceivingListView.FullRowSelect = true;
             this.ReceivingListView.UseCompatibleStateImageBehavior = false;
             this.ReceivingListView.View = System.Windows.Forms.View.Details;
             this.ReceivingListView.SelectedIndexChanged += new System.EventHandler(this.ReceivingListView_SelectedIndexChanged);
@@ -124,9 +125,9 @@ namespace UserApp
             // 
             // Address
             // 
-            this.Address.Text = "Address";
-            this.Address.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Address.Width = 100;
+            this.GameId.Text = "Game ID";
+            this.GameId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GameId.Width = 100;
             // 
             // AvailablePlayers
             // 
@@ -216,7 +217,7 @@ namespace UserApp
         private System.Windows.Forms.Label GameLabel;
         private System.Windows.Forms.Button CreateGameButton;
         private System.Windows.Forms.ColumnHeader Name;
-        private System.Windows.Forms.ColumnHeader Address;
+        private System.Windows.Forms.ColumnHeader GameId;
         private System.Windows.Forms.ColumnHeader AvailablePlayers;
         private System.Windows.Forms.ColumnHeader TotalPlayers;
         private System.Windows.Forms.Button JoinButton;

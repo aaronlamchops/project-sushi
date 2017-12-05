@@ -30,10 +30,10 @@ namespace LobbyApp
 
         }
 
-        public void HandleCreateGame(Player host, int minPlayer, int maxPlayer)//before response 
+        public void HandleCreateGame(Player host, int minPlayer, int maxPlayer, string name, int gameID)//before response 
         {
-            int gameID = -1;//TODO Send RequestGameID to gameServer to get valid ID
-            Game g = new Game(gameID, host, minPlayer, maxPlayer);
+            //int gameID = -1;//TODO Send RequestGameID to gameServer to get valid ID
+            Game g = new Game(gameID, host, minPlayer, maxPlayer, name);
             gameList[gameID] = g;
         }
 
