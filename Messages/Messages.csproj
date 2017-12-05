@@ -46,6 +46,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectMsg.cs" />
     <Compile Include="SendGameId.cs" />
     <Compile Include="RequestGameId.cs" />
     <Compile Include="SendGameList.cs" />
@@ -55,7 +56,6 @@
     <Compile Include="CreateGame.cs" />
     <Compile Include="JoinGame.cs" />
     <Compile Include="RegistrationMsg.cs" />
-    <Compile Include="StartGame.cs" />
     <Compile Include="ExitGame.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="UpdateState.cs" />

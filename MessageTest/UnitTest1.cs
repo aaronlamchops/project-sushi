@@ -92,14 +92,14 @@ namespace MessageTest
         {
             MessageId msgId = new MessageId();
             MessageId convId = new MessageId();
-            StartGame msg1 = new StartGame() { MsgId = msgId, ConvId = convId, GameID = 7};
+            StartGameMsg msg1 = new StartGameMsg()
+            { MsgId = msgId, ConvId = convId};
             byte[] bytes = msg1.Encode();
 
-            StartGame msg2 = Message.Decode<StartGame>(bytes);
+            StartGameMsg msg2 = Message.Decode<StartGameMsg>(bytes);
             Assert.IsNotNull(msg2);
             Assert.AreEqual(msg1.MsgId, msg2.MsgId);
             Assert.AreEqual(msg1.ConvId, msg2.ConvId);
-            Assert.AreEqual(msg1.GameID, msg2.GameID);
         }
 
         [TestMethod]

@@ -51,7 +51,7 @@ namespace CommSubSystem.ConversationClass
             CreateGameReply reply = Message.Decode<CreateGameReply>(incomingMsg);
             //whatever logic will help in the post action
 
-            var parameters = new string[] { _GameName, _MinPlayers.ToString(), _MaxPlayers.ToString() };
+            var parameters = new string[] { _GameName, _MinPlayers.ToString(), _MaxPlayers.ToString(), reply.GameId.ToString() };
 
             context = parameters;
 

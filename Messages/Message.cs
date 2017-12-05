@@ -64,6 +64,8 @@ namespace Messages
         RegistrationReply,
         LobbyHeartbeat,
         RequestGameList,
-        RequestGameListReply
+        RequestGameListReply,
+        ConnectInfoMsg,
+        ConnectGameServerMsg
     };
 }
