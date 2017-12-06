@@ -35,6 +35,7 @@ namespace LobbyApp
         {
             //int gameID = -1;//TODO Send RequestGameID to gameServer to get valid ID
             Game g = new Game(gameID, host, minPlayer, maxPlayer, name);
+            g.AddPlayer(host); // need at least one player in the game always
             gameList[gameID] = g;
         }
 

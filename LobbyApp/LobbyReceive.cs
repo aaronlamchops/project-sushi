@@ -99,8 +99,10 @@ namespace LobbyApp
                 .CreateFromMessage<CreateGameConv>(bytes, refEp, null, null, null);
             conv._GameId = ManageGameID();
 
+            CreateGame result = Message.Decode<CreateGame>(bytes);
+
             //add this game to the lobby list of games
-            GamesOnLobby.HandleCreateGame(conv._Player, conv._MinPlayers, conv._MaxPlayers, conv._GameName, conv._GameId);
+            GamesOnLobby.HandleCreateGame(result.PlayerId, result.MinPlayers, result.MaxPlayers, result.GameName, conv._GameId);
 
             conv.Start();
         }

@@ -37,6 +37,7 @@ namespace UserApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientForm));
             this.AddressLabel = new System.Windows.Forms.Label();
             this.AddressTextBox = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -52,6 +53,9 @@ namespace UserApp
             this.JoinButton = new System.Windows.Forms.Button();
             this.RefreshButton = new System.Windows.Forms.Button();
             this.RefreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.WelcomeLabel = new System.Windows.Forms.Label();
+            this.PlayerNameLabel = new System.Windows.Forms.Label();
+            this.SettingsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddressLabel
@@ -105,11 +109,11 @@ namespace UserApp
             this.GameId,
             this.AvailablePlayers,
             this.TotalPlayers});
+            this.ReceivingListView.FullRowSelect = true;
             this.ReceivingListView.Location = new System.Drawing.Point(12, 107);
             this.ReceivingListView.Name = "ReceivingListView";
             this.ReceivingListView.Size = new System.Drawing.Size(465, 342);
             this.ReceivingListView.TabIndex = 5;
-            this.ReceivingListView.FullRowSelect = true;
             this.ReceivingListView.UseCompatibleStateImageBehavior = false;
             this.ReceivingListView.View = System.Windows.Forms.View.Details;
             this.ReceivingListView.SelectedIndexChanged += new System.EventHandler(this.ReceivingListView_SelectedIndexChanged);
@@ -118,22 +122,18 @@ namespace UserApp
             // 
             this.Name.Tag = "";
             this.Name.Text = "Name";
-            //
-            // RefreshTimer
-            //
-            this.RefreshTimer.Tick += new System.EventHandler(this.RefreshTimer_Tick);
+            this.Name.Width = 120;
             // 
-            // Address
+            // GameId
             // 
             this.GameId.Text = "Game ID";
             this.GameId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.GameId.Width = 100;
             // 
             // AvailablePlayers
             // 
             this.AvailablePlayers.Text = "Available Players";
             this.AvailablePlayers.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.AvailablePlayers.Width = 150;
+            this.AvailablePlayers.Width = 130;
             // 
             // TotalPlayers
             // 
@@ -180,11 +180,47 @@ namespace UserApp
             this.RefreshButton.UseVisualStyleBackColor = true;
             this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
+            // RefreshTimer
+            // 
+            this.RefreshTimer.Tick += new System.EventHandler(this.RefreshTimer_Tick);
+            // 
+            // WelcomeLabel
+            // 
+            this.WelcomeLabel.AutoSize = true;
+            this.WelcomeLabel.Location = new System.Drawing.Point(15, 45);
+            this.WelcomeLabel.Name = "WelcomeLabel";
+            this.WelcomeLabel.Size = new System.Drawing.Size(58, 13);
+            this.WelcomeLabel.TabIndex = 10;
+            this.WelcomeLabel.Text = "Welcome, ";
+            // 
+            // PlayerNameLabel
+            // 
+            this.PlayerNameLabel.AutoSize = true;
+            this.PlayerNameLabel.Location = new System.Drawing.Point(66, 45);
+            this.PlayerNameLabel.Name = "PlayerNameLabel";
+            this.PlayerNameLabel.Size = new System.Drawing.Size(104, 13);
+            this.PlayerNameLabel.TabIndex = 11;
+            this.PlayerNameLabel.Text = "<insert player name>";
+            // 
+            // SettingsButton
+            // 
+            this.SettingsButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("SettingsButton.BackgroundImage")));
+            this.SettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SettingsButton.Location = new System.Drawing.Point(439, 34);
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Size = new System.Drawing.Size(38, 38);
+            this.SettingsButton.TabIndex = 12;
+            this.SettingsButton.UseVisualStyleBackColor = true;
+            this.SettingsButton.Click += new System.EventHandler(this.Settings_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(489, 461);
+            this.Controls.Add(this.SettingsButton);
+            this.Controls.Add(this.PlayerNameLabel);
+            this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.JoinButton);
             this.Controls.Add(this.CreateGameButton);
@@ -223,6 +259,9 @@ namespace UserApp
         private System.Windows.Forms.Button JoinButton;
         private System.Windows.Forms.Button RefreshButton;
         private System.Windows.Forms.Timer RefreshTimer;
+        private System.Windows.Forms.Label WelcomeLabel;
+        private System.Windows.Forms.Label PlayerNameLabel;
+        private System.Windows.Forms.Button SettingsButton;
     }
 }
 

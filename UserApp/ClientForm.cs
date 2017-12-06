@@ -54,6 +54,7 @@ namespace UserApp
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
+            PlayerNameLabel.Text = Player.Name;
             RefreshTimer.Start();
         }
 
@@ -181,8 +182,8 @@ namespace UserApp
 
             var waitingRoomWindow = new WaitingRoom()
             {
-                MaxPlayers = Convert.ToInt32(parameters[0]),
-                MinPlayers = Convert.ToInt32(parameters[1]),
+                MinPlayers = Convert.ToInt32(parameters[0]),
+                MaxPlayers = Convert.ToInt32(parameters[1]),
                 GameName = parameters[2],
             };
 
@@ -218,6 +219,18 @@ namespace UserApp
             }
             NeedsRefresh = true;
         }
-        
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            PlayerOptions options = new PlayerOptions()
+            {
+                PlayerName = Player.Name
+            };
+            if(options.ShowDialog() == DialogResult.OK)
+            {
+                Player.Name = options.PlayerName;
+                PlayerNameLabel.Text = Player.Name;
+            }
+        }
     }
 }

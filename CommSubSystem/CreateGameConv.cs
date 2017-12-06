@@ -63,6 +63,7 @@ namespace CommSubSystem.ConversationClass
         {
             CreateGame msg = new CreateGame()
             {
+                GameName = _GameName,
                 PlayerId = _Player,
                 MinPlayers = _MinPlayers,
                 MaxPlayers = _MaxPlayers,
