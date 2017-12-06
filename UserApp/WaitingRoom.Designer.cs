@@ -118,6 +118,7 @@
             this.MinPlayerCountLabel.Size = new System.Drawing.Size(16, 17);
             this.MinPlayerCountLabel.TabIndex = 7;
             this.MinPlayerCountLabel.Text = "#";
+
             // 
             // MaxPlayerCountLabel
             // 
