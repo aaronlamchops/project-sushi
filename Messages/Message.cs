@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-
 using SharedObjects;
 
 namespace Messages
@@ -23,6 +22,7 @@ namespace Messages
             IFormatter formatter = new BinaryFormatter();
             MemoryStream stream = new MemoryStream();
             formatter.Serialize(stream, this);
+
             return stream.ToArray();
         }
 
