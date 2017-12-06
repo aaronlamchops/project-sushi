@@ -182,7 +182,7 @@ namespace UserApp
                 Convert.ToInt32(parameters[1]),
                 parameters[2]);
             
-            player.gameId = Convert.ToInt32(parameters[3]);
+            player.GameId = Convert.ToInt32(parameters[3]);
             waitingRoomWindow.ShowDialog();
         }
 
