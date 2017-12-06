@@ -100,8 +100,7 @@ namespace LobbyApp
             conv._GameId = ManageGameID();
 
             //add this game to the lobby list of games
-            GamesOnLobby.HandleCreateGame(new SharedObjects.Player()
-            { Id = conv._Player.Id }, conv._MinPlayers, conv._MaxPlayers, conv._GameName, conv._GameId);
+            GamesOnLobby.HandleCreateGame(conv._Player, conv._MinPlayers, conv._MaxPlayers, conv._GameName, conv._GameId);
 
             conv.Start();
         }

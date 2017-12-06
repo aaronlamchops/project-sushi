@@ -31,6 +31,7 @@ namespace CommSubSystem.ConversationClass
         public override void ResponderConversation(ref object context)
         {
             CreateGameReply msg = new CreateGameReply() {
+                Player = _Player,
                 GameId = _GameId,
                 ConvId = ConvId,
                 MsgId = MessageId.Create(),

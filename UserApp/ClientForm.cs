@@ -35,7 +35,7 @@ namespace UserApp
         public List<ListViewItem> GameItems = new List<ListViewItem>();
         public bool NeedsRefresh = false;
 
-        public Player player = new Player();
+        public Player Player = new Player();
 
         public ClientForm()
         {
@@ -129,7 +129,7 @@ namespace UserApp
             conv._GameName = name;
             conv._MinPlayers = min;
             conv._MaxPlayers = max;
-            conv._Player = player;
+            conv._Player = Player;
 
             conv.Start();
         }
@@ -182,7 +182,7 @@ namespace UserApp
                 Convert.ToInt32(parameters[1]),
                 parameters[2]);
             
-            player.GameId = Convert.ToInt32(parameters[3]);
+            Player.GameId = Convert.ToInt32(parameters[3]);
             waitingRoomWindow.ShowDialog();
         }
 

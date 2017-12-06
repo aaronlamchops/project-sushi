@@ -18,6 +18,7 @@ namespace Messages
     [Serializable]
     public class CreateGameReply : Message
     {
+        public Player Player { get; set; }
         public int GameId { get; set; }
     }
 }
