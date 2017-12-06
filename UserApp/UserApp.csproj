@@ -60,6 +60,13 @@
     <Compile Include="CreateGameForm.Designer.cs">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="HandleStartup.cs" />
+    <Compile Include="PlayerOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayerOptions.Designer.cs">
+      <DependentUpon>PlayerOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ClientReceive.cs" />
@@ -74,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateGameForm.resx">
       <DependentUpon>CreateGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayerOptions.resx">
+      <DependentUpon>PlayerOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -14,6 +14,7 @@ namespace CommSubSystem.ConversationClass
         public string _GameName { get; set; }
         public int _MinPlayers{ get; set;}
         public int _MaxPlayers{ get; set;}
+        public Player _Player { get; set; }
         //for response
         public int _GameId { get; set; }
 
@@ -30,6 +31,7 @@ namespace CommSubSystem.ConversationClass
         public override void ResponderConversation(ref object context)
         {
             CreateGameReply msg = new CreateGameReply() {
+                Player = _Player,
                 GameId = _GameId,
                 ConvId = ConvId,
                 MsgId = MessageId.Create(),
@@ -61,6 +63,8 @@ namespace CommSubSystem.ConversationClass
         {
             CreateGame msg = new CreateGame()
             {
+                GameName = _GameName,
+                PlayerId = _Player,
                 MinPlayers = _MinPlayers,
                 MaxPlayers = _MaxPlayers,
                 ConvId = ConvId,

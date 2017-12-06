@@ -58,6 +58,7 @@
     <Compile Include="ReceivingFactory.cs" />
     <Compile Include="RequestGameListConv.cs" />
     <Compile Include="LobbyHeartbeatConv.cs" />
+    <Compile Include="Conversations\JoinGameConv.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApp1\Utils.csproj">

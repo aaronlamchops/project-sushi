@@ -1,12 +1,10 @@
 ﻿using System;
-using SharedObjects;
-
 namespace Messages
 {
     [Serializable]
-    public class JoinGame : Message
+    public class JoinGameReply : Message
     {
         public int GameID { get; set; }
-        public Player Player { get; set; }
+        //public int PlayerID { get; set; }
     }
 }

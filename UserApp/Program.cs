@@ -20,7 +20,20 @@ namespace UserApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ClientForm());
+
+            HandleStartup Handler = new HandleStartup();
+            Handler.Startup();
+            if(Handler.LaunchUserApp)
+            {
+                Application.Run(new ClientForm()
+                {
+                    Player = new SharedObjects.Player()
+                    {
+                        Name = Handler.Name,
+                        Id = 0
+                    }
+                });
+            }
         }
     }
 }

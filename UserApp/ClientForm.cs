@@ -29,13 +29,13 @@ namespace UserApp
         public Thread _receivingThread;
 
         //Hold and populate list from server
-        public List<Game> GameList = new List<Game>();
-        public Game SelectedGame;
+        //public List<Game> GameList = new List<Game>();
+        public ListViewItem SelectedGame;
 
         public List<ListViewItem> GameItems = new List<ListViewItem>();
         public bool NeedsRefresh = false;
 
-        public Player player = new Player();
+        public Player Player = new Player();
 
         public ClientForm()
         {
@@ -54,6 +54,7 @@ namespace UserApp
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
+            PlayerNameLabel.Text = Player.Name;
             RefreshTimer.Start();
         }
 
@@ -104,8 +105,6 @@ namespace UserApp
 
             if(CreateGameForm.ShowDialog() == DialogResult.OK)
             {
-                //MessageBox.Show("Total Players = " + CreateGameForm.TotalPlayerCount.ToString() + "\nGame Name: " + CreateGameForm.GameName);
-
                 CreateGame(CreateGameForm.MinPlayerCount, CreateGameForm.TotalPlayerCount, CreateGameForm.GameName);
             }
         }
@@ -122,6 +121,7 @@ namespace UserApp
             conv._GameName = name;
             conv._MinPlayers = min;
             conv._MaxPlayers = max;
+            conv._Player = Player;
 
             conv.Start();
         }
@@ -129,6 +129,7 @@ namespace UserApp
         private void JoinButton_Click(object sender, EventArgs e)
         {
             if (SelectedGame == null) return;
+
 
             //send and connect to lobby using selected lobby information
         }
@@ -146,14 +147,14 @@ namespace UserApp
 
         private void ReceivingListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if(ReceivingListView.SelectedIndices.Count == 1)
-            //{
-            //    SelectedGame = GameList[ReceivingListView.SelectedIndices[0]];
-            //}
-            //else
-            //{
-            //    SelectedGame = null;
-            //}
+            if(ReceivingListView.SelectedIndices.Count == 1)
+            {
+                SelectedGame = GameItems[ReceivingListView.SelectedIndices[0]];
+            }
+            else
+            {
+                SelectedGame = null;
+            }
         }
 
         public void GetPid()
@@ -181,8 +182,8 @@ namespace UserApp
 
             var waitingRoomWindow = new WaitingRoom()
             {
-                MaxPlayers = Convert.ToInt32(parameters[0]),
-                MinPlayers = Convert.ToInt32(parameters[1]),
+                MinPlayers = Convert.ToInt32(parameters[0]),
+                MaxPlayers = Convert.ToInt32(parameters[1]),
                 GameName = parameters[2],
             };
 
@@ -207,7 +208,7 @@ namespace UserApp
             foreach (KeyValuePair<int, Game> index in gameList)
             {
                 string[] row = {
-                    index.Value.gameId.ToString(),
+                    index.Value.GameName,
                     index.Value.gameId.ToString(),
                     index.Value.playerList.Count.ToString(),
                     index.Value.MaxPlayers.ToString()
@@ -218,6 +219,18 @@ namespace UserApp
             }
             NeedsRefresh = true;
         }
-        
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            PlayerOptions options = new PlayerOptions()
+            {
+                PlayerName = Player.Name
+            };
+            if(options.ShowDialog() == DialogResult.OK)
+            {
+                Player.Name = options.PlayerName;
+                PlayerNameLabel.Text = Player.Name;
+            }
+        }
     }
 }

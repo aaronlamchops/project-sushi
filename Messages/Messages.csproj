@@ -66,6 +66,7 @@
     <Compile Include="Ack.cs" />
     <Compile Include="RequestPID.cs" />
     <Compile Include="LobbyHeartbeat.cs" />
+    <Compile Include="JoinGameReply.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

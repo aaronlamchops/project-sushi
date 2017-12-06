@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SharedObjects;
 
 namespace Messages
 {
@@ -11,11 +12,13 @@ namespace Messages
         public int MinPlayers { get; set; }
         public int MaxPlayers { get; set; }
         public string GameName { get; set; }
+        public Player PlayerId { get; set; }
     }
 
     [Serializable]
     public class CreateGameReply : Message
     {
+        public Player Player { get; set; }
         public int GameId { get; set; }
     }
 }

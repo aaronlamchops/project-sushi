@@ -57,7 +57,7 @@ namespace LobbyApp
             CreateGameConv conv =
                 ConversationFactory.Instance
                 .CreateFromConversationType<CreateGameConv>
-                (server, null, GameCreated, null);
+                (server, null, null, null);
             Thread convThread = new Thread(conv.Execute);
             convThread.Start();
         }

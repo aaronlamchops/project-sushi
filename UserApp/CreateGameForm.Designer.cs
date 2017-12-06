@@ -62,7 +62,7 @@
             "3",
             "4",
             "5"});
-            this.TotalPlayerComboBox.Location = new System.Drawing.Point(144, 38);
+            this.TotalPlayerComboBox.Location = new System.Drawing.Point(144, 70);
             this.TotalPlayerComboBox.Name = "TotalPlayerComboBox";
             this.TotalPlayerComboBox.Size = new System.Drawing.Size(146, 21);
             this.TotalPlayerComboBox.TabIndex = 2;
@@ -71,7 +71,7 @@
             // TotalPlayersLabel
             // 
             this.TotalPlayersLabel.AutoSize = true;
-            this.TotalPlayersLabel.Location = new System.Drawing.Point(12, 41);
+            this.TotalPlayersLabel.Location = new System.Drawing.Point(12, 73);
             this.TotalPlayersLabel.Name = "TotalPlayersLabel";
             this.TotalPlayersLabel.Size = new System.Drawing.Size(126, 13);
             this.TotalPlayersLabel.TabIndex = 3;
@@ -105,7 +105,7 @@
             "3",
             "4",
             "5"});
-            this.MinPlayerComboBox.Location = new System.Drawing.Point(144, 66);
+            this.MinPlayerComboBox.Location = new System.Drawing.Point(144, 42);
             this.MinPlayerComboBox.Name = "MinPlayerComboBox";
             this.MinPlayerComboBox.Size = new System.Drawing.Size(146, 21);
             this.MinPlayerComboBox.TabIndex = 6;
@@ -114,7 +114,7 @@
             // MinPlayerLabel
             // 
             this.MinPlayerLabel.AutoSize = true;
-            this.MinPlayerLabel.Location = new System.Drawing.Point(12, 69);
+            this.MinPlayerLabel.Location = new System.Drawing.Point(12, 45);
             this.MinPlayerLabel.Name = "MinPlayerLabel";
             this.MinPlayerLabel.Size = new System.Drawing.Size(123, 13);
             this.MinPlayerLabel.TabIndex = 7;

@@ -45,3 +45,5 @@ C:/Users/Aaron/Desktop/CS5200/project-sushi/CommSubSystem/bin/Debug/SharedObject
 C:/Users/Aaron/Desktop/CS5200/project-sushi/CommSubSystem/bin/Debug/SharedObjects.dll.config
 /Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/log4net.dll
 /Users/Kyle/Documents/School/CS5200/project-sushi/CommSubSystem/bin/Debug/log4net.xml
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommSubSystem/bin/Debug/log4net.dll
+/Users/aaron.lam/Google Drive/CODE/CS5200/project-sushi/CommSubSystem/bin/Debug/log4net.xml
