@@ -83,6 +83,7 @@ namespace UserApp
             if(NeedsRefresh)
             {
                 ReceivingListView.Items.Clear();
+
                 foreach(ListViewItem item in GameItems)
                 {
                     ReceivingListView.Items.Add(item);
@@ -104,16 +105,6 @@ namespace UserApp
             if(CreateGameForm.ShowDialog() == DialogResult.OK)
             {
                 CreateGame(CreateGameForm.MinPlayerCount, CreateGameForm.TotalPlayerCount, CreateGameForm.GameName);
-            }
-        }
-
-        public void GetPid()
-        {
-            Registration conv = ConversationFactory.Instance
-                .CreateFromConversationType<Registration>
-                (server, null, null, null);
-            conv.Start();
-            while(conv.Done != true) {
             }
         }
 
@@ -165,6 +156,17 @@ namespace UserApp
             }
         }
 
+        public void GetPid()
+        {
+            Registration conv = ConversationFactory.Instance
+                .CreateFromConversationType<Registration>
+                (server, null, null, null);
+            conv.Start();
+            while (conv.Done != true)
+            {
+            }
+        }
+
         public void CreateGamePreExecute(object context)
         {
 
@@ -177,12 +179,13 @@ namespace UserApp
             string[] parameters = ((IEnumerable)context)
                 .Cast<object>().Select(x => x.ToString()).ToArray();
 
-            var waitingRoomWindow = new WaitingRoom(
-                Convert.ToInt32(parameters[0]),
-                Convert.ToInt32(parameters[1]),
-                parameters[2]);
-            
-            Player.GameId = Convert.ToInt32(parameters[3]);
+            var waitingRoomWindow = new WaitingRoom()
+            {
+                MaxPlayers = Convert.ToInt32(parameters[0]),
+                MinPlayers = Convert.ToInt32(parameters[1]),
+                GameName = parameters[2],
+            };
+
             waitingRoomWindow.ShowDialog();
         }
 
@@ -199,8 +202,9 @@ namespace UserApp
         public void RefreshPostExecute(object context)
         {
             var gameList = (ConcurrentDictionary<int, Game>)context;
+            GameItems = new List<ListViewItem>();
 
-            foreach(KeyValuePair<int, Game> index in gameList)
+            foreach (KeyValuePair<int, Game> index in gameList)
             {
                 string[] row = {
                     index.Value.GameName,
@@ -211,9 +215,8 @@ namespace UserApp
 
                 var ListViewItem = new ListViewItem(row);
                 GameItems.Add(ListViewItem);
-                //ReceivingListView.Items.Add(ListViewItem); //Cant have another thread edit a form item
-                NeedsRefresh = true;
             }
+            NeedsRefresh = true;
         }
         
     }
