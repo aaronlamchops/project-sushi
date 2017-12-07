@@ -17,6 +17,8 @@ namespace SharedObjects
         public int Score { get; set; }
         public int PuddingCount { get; set; }
         public int GameId { get; set; }
+        public bool IsHost { get; set; }
+        public bool InWaitingRoom { get; set; }
         //list cardsplayed
 
         public IPEndPoint GetIP()

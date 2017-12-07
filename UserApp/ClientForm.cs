@@ -96,7 +96,40 @@ namespace UserApp
 
         private void SendButton_Click(object sender, EventArgs e)
         {
+            /*
+             * TESTING:
+             * 
+             * This button is just testing how the GameUI will look and be created
+             * 
+             * This can be removed later when we have working implementations
+             */
+            GameUI ui = new GameUI();
+            ui.PlayerList.Add(Player);  //add the user
 
+            //Add temporary filler players
+            ui.PlayerList.Add(new Player()
+            {
+                Name = "Other Player",
+                Id = 1
+            });
+            ui.PlayerList.Add(new Player()
+            {
+                Name = "That Player",
+                Id = 2
+            });
+            ui.PlayerList.Add(new Player()
+            {
+                Name = "A Player",
+                Id = 3
+            });
+            ui.PlayerList.Add(new Player()
+            {
+                Name = "Those Player",
+                Id = 4
+            });
+
+            //display
+            ui.ShowDialog();
         }
 
         private void CreateGameButton_Click(object sender, EventArgs e)
@@ -111,12 +144,12 @@ namespace UserApp
 
         public void CreateGame(int min, int max, string name)
         {
-            var parameters = new string[]{ min.ToString(), max.ToString(), name };
+            //var parameters = new string[]{ min.ToString(), max.ToString(), name };
 
             CreateGameConv conv =
                 ConversationFactory.Instance
                 .CreateFromConversationType<CreateGameConv>
-                (server, null, param => CreateGamePostExecute(parameters), null); //using lambda operator to pass parameters as object
+                (server, null, CreateGamePostExecute, null); //using lambda operator to pass parameters as object
 
             conv._GameName = name;
             conv._MinPlayers = min;
@@ -133,12 +166,13 @@ namespace UserApp
             JoinGameConv conv = 
                 ConversationFactory
                     .Instance.CreateFromConversationType<JoinGameConv>
-                    (server, null, null, null);
+                    (server, null, JoinGamePostExecute, null);
 
             Thread convThread = new Thread(conv.Execute);
 
             //Add values to conversation from selected game
             conv._GameId = Int32.Parse(SelectedGame.SubItems[1].Text);
+            conv._Player = Player;
 
             convThread.Start();
         }
@@ -189,6 +223,11 @@ namespace UserApp
             string[] parameters = ((IEnumerable)context)
                 .Cast<object>().Select(x => x.ToString()).ToArray();
 
+
+            Player.IsHost = true;
+            Player.InWaitingRoom = true;
+            Player.GameId = Int32.Parse(parameters[3]);
+
             var waitingRoomWindow = new WaitingRoom()
             {
                 MinPlayers = Convert.ToInt32(parameters[0]),
@@ -206,7 +245,20 @@ namespace UserApp
 
         public void JoinGamePostExecute(object context)
         {
+            Game parameter = (Game)context;
 
+            Player.GameId = parameter.gameId;
+            Player.IsHost = false;
+            Player.InWaitingRoom = true;
+
+            var waitingRoomWindow = new WaitingRoom()
+            {
+                MinPlayers = parameter.MinPlayers,
+                MaxPlayers = parameter.MaxPlayers,
+                GameName = parameter.GameName,
+            };
+
+            waitingRoomWindow.ShowDialog();
         }
 
         public void RefreshPostExecute(object context)
@@ -235,7 +287,7 @@ namespace UserApp
             {
                 PlayerName = Player.Name
             };
-            if(options.ShowDialog() == DialogResult.OK)
+            if (options.ShowDialog() == DialogResult.OK)
             {
                 Player.Name = options.PlayerName;
                 PlayerNameLabel.Text = Player.Name;
