@@ -130,8 +130,17 @@ namespace UserApp
         {
             if (SelectedGame == null) return;
 
+            JoinGameConv conv = 
+                ConversationFactory
+                    .Instance.CreateFromConversationType<JoinGameConv>
+                    (server, null, null, null);
 
-            //send and connect to lobby using selected lobby information
+            Thread convThread = new Thread(conv.Execute);
+
+            //Add values to conversation from selected game
+            conv._GameId = Int32.Parse(SelectedGame.SubItems[1].Text);
+
+            convThread.Start();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
