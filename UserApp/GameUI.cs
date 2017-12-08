@@ -12,7 +12,7 @@ using SharedObjects;
 
 namespace UserApp
 {
-    public partial class GameUI : Form
+    public partial class GameUI : ClientObserver
     {
         public Dictionary<int, GroupBox> PlayerContainers = new Dictionary<int, GroupBox>();
         public List<Player> PlayerList = new List<Player>();
@@ -36,6 +36,7 @@ namespace UserApp
                     FlatStyle = FlatStyle.Standard
                 };
 
+                //FlowLayoutPanel inside of the playerseat groupbox
                 FlowLayoutPanel groupBoxFlowLayout = new FlowLayoutPanel
                 {
                     Size = new Size(125, 230)   //Adjust size of the flowlayout inside each groupbox
@@ -52,7 +53,10 @@ namespace UserApp
                 playerSeat.Size = new Size(135, 260);
                 playerSeat.Text = player.Name;
 
-                PlayerContainers[player.Id] = (playerSeat);
+                //store in dictionary
+                PlayerContainers[player.Id] = playerSeat;
+
+                //add to the GameUI form
                 PlayersFlowLayoutPanel.Controls.Add(playerSeat);
             }
         }
@@ -62,6 +66,10 @@ namespace UserApp
             /*
              * This huge whole creation of labels can maybe be solved by a
              * Factory Pattern 
+             * 
+             * OR
+             * 
+             * Store in the player shared object
              */
             
             Label PuddingLabel = new Label();
@@ -116,6 +124,15 @@ namespace UserApp
             gp.Controls.Add(WasabiLabel);
         }
 
+        //implemented from client observer base class
+        public override void RefreshDisplay()
+        {
+            //if(MainContext.GetType() == typeof())
+            //{
+
+            //}
+        }
+
         private void SendMessageButton_Click(object sender, EventArgs e)
         {
 
@@ -129,6 +146,10 @@ namespace UserApp
              */
             UpdateLabel(0, "Tempura", 100);
             AddCardToHand("tempura");
+            AddCardToHand("pudding");
+            AddCardToHand("sashimi");
+            AddCardToHand("chopsticks");
+            AddCardToHand("dumpling");
         }
 
         public void UpdateLabel(int playerId, string tag, int value)
@@ -156,20 +177,8 @@ namespace UserApp
              * 
              * Must be altered later
              */
-            var location = string.Format("../../../Assets/{0}.jpg", cardType);
-
-            PictureBox card = new PictureBox
-            {
-                Name = cardType,
-                Size = new Size(135, 200),
-                //Location = new Point(CardHandFlowLayoutPanel.Location.X + 10, CardHandFlowLayoutPanel.Location.Y + 25),
-                Image = Image.FromFile(location),
-                SizeMode = PictureBoxSizeMode.StretchImage
-            };
-
+            Card card = new Card(cardType);
             CardHandFlowLayoutPanel.Controls.Add(card);
         }
-
-        
     }
 }

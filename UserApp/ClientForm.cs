@@ -19,7 +19,7 @@ using CommSubSystem.Conversations;
 
 namespace UserApp
 {
-    public partial class ClientForm : Form
+    public partial class ClientForm : Subject
     {
         private static readonly object MyLock = new object();
 
@@ -89,6 +89,8 @@ namespace UserApp
                 {
                     ReceivingListView.Items.Add(item);
                 }
+
+
             }
 
             NeedsRefresh = false;
@@ -230,10 +232,13 @@ namespace UserApp
 
             var waitingRoomWindow = new WaitingRoom()
             {
+                ID = Player.GameId,
                 MinPlayers = Convert.ToInt32(parameters[0]),
                 MaxPlayers = Convert.ToInt32(parameters[1]),
                 GameName = parameters[2],
             };
+
+            Subscribe(waitingRoomWindow);   //newly made waiting room will subscribe to the client
 
             waitingRoomWindow.ShowDialog();
         }
@@ -253,10 +258,13 @@ namespace UserApp
 
             var waitingRoomWindow = new WaitingRoom()
             {
+                ID = parameter.gameId,
                 MinPlayers = parameter.MinPlayers,
                 MaxPlayers = parameter.MaxPlayers,
                 GameName = parameter.GameName,
             };
+
+            Subscribe(waitingRoomWindow);   //newly made waiting room will subscribe to the client
 
             waitingRoomWindow.ShowDialog();
         }

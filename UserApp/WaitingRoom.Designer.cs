@@ -41,13 +41,13 @@
             // 
             // GameNameLabel
             // 
-            this.GameNameLabel.AutoSize = true;
-            this.GameNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GameNameLabel.Location = new System.Drawing.Point(62, 9);
+            this.GameNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GameNameLabel.Location = new System.Drawing.Point(12, 9);
             this.GameNameLabel.Name = "GameNameLabel";
-            this.GameNameLabel.Size = new System.Drawing.Size(177, 29);
+            this.GameNameLabel.Size = new System.Drawing.Size(288, 29);
             this.GameNameLabel.TabIndex = 0;
             this.GameNameLabel.Text = "<Game Name>";
+            this.GameNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PlayersInRoomLabel
             // 
@@ -118,7 +118,6 @@
             this.MinPlayerCountLabel.Size = new System.Drawing.Size(16, 17);
             this.MinPlayerCountLabel.TabIndex = 7;
             this.MinPlayerCountLabel.Text = "#";
-
             // 
             // MaxPlayerCountLabel
             // 
@@ -146,6 +145,7 @@
             this.Controls.Add(this.GameNameLabel);
             this.Name = "WaitingRoom";
             this.Text = "WaitingRoom";
+            this.Load += new System.EventHandler(this.WaitingRoom_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
