@@ -16,7 +16,6 @@ namespace CommSubSystem
         private static Receiver _Instance;
         private static readonly object MyLock = new object();
         protected Receiver() { }
-        protected List<TCPClient> tcpClients = new List<TCPClient>();
 
         //threading:
         private Thread _worker;
@@ -37,17 +36,11 @@ namespace CommSubSystem
                     bytes = null;
                 }
 
-                foreach(TCPClient tcp in tcpClients )
-                {
-                    bytes = tcp.Receive();
-                    if (bytes != null)
-                    {
-                        RespondToMessage(bytes, remoteEp);
-                        bytes = null;
-                    }
-                }
+                TCPReceive();
             }
         }
+
+        public abstract void TCPReceive();
 
         public void RespondToMessage(byte[] bytes, IPEndPoint remoteEp)
         {

@@ -129,5 +129,10 @@ namespace LobbyApp
             GamesOnLobby.HandleJoinGame(conv._Player, conv._GameId);
             conv.Start();
         }
+
+        public override void TCPReceive()
+        {
+            //does not use TCP
+        }
     }    
 }

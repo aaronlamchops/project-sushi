@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conversations\ChooseCard.cs" />
     <Compile Include="Conversations\ConnectInfo.cs" />
     <Compile Include="Conversations\ConnectGameServer.cs" />
     <Compile Include="Conversations\PassCards.cs" />

@@ -14,7 +14,9 @@ namespace CommSubSystem.Conversations
         public List<CardTypes> _Hand { get; set; }
         public PassCards()
         {
-            allowedMessageTypes = new List<TypeOfMessage>{ };
+            allowedMessageTypes = new List<TypeOfMessage>{
+                TypeOfMessage.PassCard
+            };
         }
 
         public override Message CreateFirstMessage()
@@ -28,12 +30,19 @@ namespace CommSubSystem.Conversations
 
         public override void InitatorConversation(ref object context)
         {
-            TCPSend(CreateFirstMessage);
+            //TCP is automatically reliable - as long as heartbeat is working we can trust the send is reliable
+            TCPSend(CreateFirstMessage());
         }
 
         public override void ResponderConversation(ref object context)
         {
-            //TCP does not require response to be reliable
+            //TCP does not require ack for response to be reliable
+            incomingMsg = MyQueue.Dequeue(Timeout);
+
+            PassCard msg = Message.Decode<PassCard>(incomingMsg);
+
+            List<CardTypes> hand = msg.Hand;
+
         }
     }
 }

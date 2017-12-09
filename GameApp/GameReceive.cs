@@ -14,6 +14,7 @@ namespace GameApp
 {
     public class GameReceive : Receiver
     {
+        protected Dictionary<int, TCPClient> tcpClients = new Dictionary<int, TCPClient>();
         private List<Game> gameList = new List<Game>();
 
         protected override void ExecuteBasedOnType
@@ -24,7 +25,9 @@ namespace GameApp
                 case TypeOfMessage.ConnectGameServerMsg:
                     ConnectGameServerResponse(bytes, refEp);
                     break;
-                case TypeOfMessage.
+                case TypeOfMessage.SelectCard:
+                    SelectCardResponse(bytes);
+                    break;
             }
         }
 
@@ -39,7 +42,28 @@ namespace GameApp
             IPEndPoint clientTcp = refEp;
             clientTcp.Port = convMessage.Port;
             client.ConnectToServer(clientTcp);
+            int playerId = convMessage.PlayerId;
             //need to store client tcp somewhere
+            tcpClients.Add(playerId, client);
+        }
+
+        public void SelectCardResponse(byte[] bytes)
+        {
+            //no response is required in this tcp conversation
+        }
+
+        public override void TCPReceive()
+        {
+            byte[] bytes;
+            foreach (TCPClient tcp in tcpClients.Values)
+            {
+                bytes = tcp.Receive();
+                if (bytes != null)
+                {
+                    RespondToMessage(bytes, null);
+                    bytes = null;
+                }
+            }
         }
     }
 }

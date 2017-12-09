@@ -19,6 +19,7 @@ namespace UserApp
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(ClientReceive));
         private IPEndPoint gameServer;
+        protected List<TCPClient> tcpClients = new List<TCPClient>();
 
         protected override void ExecuteBasedOnType(byte[] bytes, TypeOfMessage type, IPEndPoint refEp)
         {
@@ -46,6 +47,7 @@ namespace UserApp
             TCPClient tcp = new TCPClient();
             int gamePort = 500;
             tcp.SetupConnection(gamePort);
+            tcpClients.Add(tcp);
             //send message with info on which port
             ConnectGameServer connectConv = ConversationFactory.Instance
                 .CreateFromMessage<ConnectGameServer>
@@ -59,6 +61,20 @@ namespace UserApp
             LobbyHeartbeatConv conv = ConversationFactory.Instance
                 .CreateFromMessage<LobbyHeartbeatConv>(bytes, refEp, null, null, null);
             conv.Start();
+        }
+
+        public override void TCPReceive()
+        {
+            byte[] bytes;
+            foreach (TCPClient tcp in tcpClients)
+            {
+                bytes = tcp.Receive();
+                if (bytes != null)
+                {
+                    RespondToMessage(bytes, null);
+                    bytes = null;
+                }
+            }
         }
     }
 
