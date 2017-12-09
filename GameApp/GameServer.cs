@@ -25,7 +25,7 @@ namespace GameApp
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(1024);
+            UDPClient.UDPInstance.SetupAndRun(1026);
             _ReceivingProcess = new GameReceive();
             _ReceivingProcess.Start();
 

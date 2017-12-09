@@ -11,7 +11,7 @@ namespace CommSubSystem.Conversations
 {
     public class StartGame : Conversation
     {
-        int _GameId;
+        public int _GameId { get; set; }
         public StartGame()
         {
             allowedMessageTypes = new List<TypeOfMessage>

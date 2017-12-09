@@ -22,6 +22,7 @@ namespace Messages
     [Serializable]
     public class ConnectGSMsg : Message
     {
+        public int PlayerId { get; set; }
         public int GameId { get; set; }
         public int Players { get; set; }
         public int Port { get; set; }

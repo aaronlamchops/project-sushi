@@ -22,6 +22,8 @@ namespace CommSubSystem.ConversationClass
         public byte[] incomingMsg;
         protected List<MessageId> MessageLog = new List<MessageId>();
 
+        public TCPClient tcpClient;
+
         public delegate void ActionHandler(object context = null);
         public ActionHandler PreExecuteAction { get; set; }
         public ActionHandler PostExecuteAction { get; set; }
@@ -69,6 +71,11 @@ namespace CommSubSystem.ConversationClass
                     Text = $"Did not receive message"
                 };
             }
+        }
+
+        public void TCPSend(Message msg)
+        {
+            tcpClient.Send(msg.Encode());
         }
 
     // Send with retries

@@ -135,5 +135,10 @@ namespace LobbyApp
 
             conv.Start();
         }
+
+        public override void TCPReceive()
+        {
+            //does not use TCP
+        }
     }    
 }

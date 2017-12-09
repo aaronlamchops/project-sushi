@@ -12,7 +12,7 @@ namespace CommSubSystem.ConversationClass
     {
         public int _GameId { get; set; }
         public Player _Player { get; set; }
-        public Game _Game { get; set; }
+        public GameInfo _Game { get; set; }
 
         public JoinGameConv()
         {
