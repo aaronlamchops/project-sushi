@@ -250,7 +250,7 @@ namespace UserApp
 
         public void JoinGamePostExecute(object context)
         {
-            Game parameter = (Game)context;
+            GameInfo parameter = (GameInfo)context;
 
             Player.GameId = parameter.gameId;
             Player.IsHost = false;
