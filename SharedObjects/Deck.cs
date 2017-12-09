@@ -51,7 +51,7 @@ namespace SharedObjects
 
                 for (int y = 0; y < max; y++)
                 {
-                    Cards.Add(new Card() { CardId = (int)card, CardName = card.ToString() });
+                    Cards.Add(new Card(card.ToString()) { CardId = (int)card });
                 }
             }
         }

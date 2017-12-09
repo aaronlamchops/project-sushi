@@ -10,8 +10,10 @@ using System.Windows.Forms;
 
 namespace UserApp
 {
-    public partial class WaitingRoom : Form
+    public partial class WaitingRoom : ClientObserver
     {
+        public int ID { get; set; }
+
         public string GameName 
         { 
             get { return GameNameLabel.Text; } 
@@ -39,6 +41,17 @@ namespace UserApp
         public WaitingRoom()
         {
             InitializeComponent();
+        }
+
+        private void WaitingRoom_Load(object sender, EventArgs e)
+        {
+            StartRefreshTimer();
+        }
+
+        //implemented from client observer base class
+        public override void RefreshDisplay()
+        {
+            
         }
 
         private void StartGameButton_Click(object sender, EventArgs e)

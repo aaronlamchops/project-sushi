@@ -12,6 +12,7 @@ namespace CommSubSystem.ConversationClass
     {
         public int _GameId { get; set; }
         public Player _Player { get; set; }
+        public Game _Game { get; set; }
 
         public JoinGameConv()
         {
@@ -27,7 +28,7 @@ namespace CommSubSystem.ConversationClass
         {
             JoinGameReply msg = new JoinGameReply()
             {
-                GameID = _GameId,
+                Game = _Game,
                 ConvId = ConvId,
                 MsgId = MessageId.Create(),
                 MessageType = TypeOfMessage.CreateGameReply
@@ -43,7 +44,10 @@ namespace CommSubSystem.ConversationClass
 
             if (Error != null) return;
 
+            JoinGameReply reply = Message.Decode<JoinGameReply>(incomingMsg);
+            _Game = reply.Game;
             //do something if needed with context;
+            context = _Game;
 
             Send(CreateAck());
         }
