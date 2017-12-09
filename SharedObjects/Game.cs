@@ -15,10 +15,11 @@ namespace SharedObjects
         private int direction = 0;
         private Deck _Deck = new Deck();
 
-        public Game(int gameId, int playerCount)
+        public Game(int gameId, int playerCount, SendHandler sendFunct)
         {
             this.gameId = gameId;
             this.playerCount = playerCount;
+            SendCardToPlayer = sendFunct;
 
             switch (playerCount)
             {
@@ -157,9 +158,15 @@ namespace SharedObjects
             SendCardInfo();
         }
 
+        public delegate void SendHandler(int playerId, List<CardTypes> Hand);
+        public SendHandler SendCardToPlayer { get; set; }
+
         private void SendCardInfo()
         {
-
+            foreach(Player player in playerList)
+            {
+                SendCardToPlayer(player.Id, player.Hand);
+            }
         }
     }
 

@@ -37,12 +37,6 @@ namespace CommSubSystem.Conversations
         public override void ResponderConversation(ref object context)
         {
             //TCP does not require ack for response to be reliable
-            incomingMsg = MyQueue.Dequeue(Timeout);
-
-            PassCard msg = Message.Decode<PassCard>(incomingMsg);
-
-            List<CardTypes> hand = msg.Hand;
-
         }
     }
 }

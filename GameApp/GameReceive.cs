@@ -56,9 +56,18 @@ namespace GameApp
             }
             else
             {
-                game = new Game(convMessage.GameId, convMessage.Players);
+                game = new Game(convMessage.GameId, convMessage.Players, SendCard);
             }
             game.AddPlayer(playerId);
+        }
+
+        public void SendCard(int playerId, List<CardTypes> hand)
+        {
+            PassCards conv = ConversationFactory.Instance.CreateFromConversationType<PassCards>
+                (null, null, null, null);
+            conv.tcpClient = tcpClients[playerId];
+            conv._Hand = hand;
+            conv.Start();
         }
 
         public void SelectCardResponse(byte[] bytes)
