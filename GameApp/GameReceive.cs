@@ -24,6 +24,7 @@ namespace GameApp
                 case TypeOfMessage.ConnectGameServerMsg:
                     ConnectGameServerResponse(bytes, refEp);
                     break;
+                case TypeOfMessage.
             }
         }
 

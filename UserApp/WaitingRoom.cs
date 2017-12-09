@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CommSubSystem.Conversations;
+using CommSubSystem.ConversationClass;
 
 namespace UserApp
 {
@@ -43,7 +45,10 @@ namespace UserApp
 
         private void StartGameButton_Click(object sender, EventArgs e)
         {
-
+            StartGame conv = ConversationFactory.Instance
+                .CreateFromConversationType<StartGame>(server, null, null, null);
+            conv._GameId = gameId;
+            conv.Start();
         }
 
         private void ExitButton_Click(object sender, EventArgs e)

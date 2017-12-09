@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Conversations\ConnectInfo.cs" />
     <Compile Include="Conversations\ConnectGameServer.cs" />
+    <Compile Include="Conversations\PassCards.cs" />
     <Compile Include="Conversations\Registration.cs" />
     <Compile Include="Conversations\StartGame.cs" />
     <Compile Include="TCPClient.cs" />
