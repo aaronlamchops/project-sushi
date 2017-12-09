@@ -19,6 +19,9 @@ namespace SharedObjects
         public List<CardTypes> Hand;
         public List<CardTypes> PlayedCards = new List<CardTypes>();
 
+        public bool IsHost { get; set; }
+        public bool InWaitingRoom { get; set; }
+
         public int ScoreCards()
         {
             //(TODO) scoring rules here

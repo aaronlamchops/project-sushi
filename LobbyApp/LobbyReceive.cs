@@ -126,7 +126,13 @@ namespace LobbyApp
         private void JoinGameResponse(byte[] bytes, IPEndPoint refEP)
         {
             JoinGameConv conv = ConversationFactory.Instance.CreateFromMessage<JoinGameConv>(bytes, refEP, null, null, null);
-            GamesOnLobby.HandleJoinGame(conv._Player, conv._GameId);
+
+            JoinGame result = Message.Decode<JoinGame>(bytes);
+
+            GamesOnLobby.HandleJoinGame(result.Player, result.GameID);
+
+            conv._Game = GamesOnLobby.gameList[result.GameID];
+
             conv.Start();
         }
 
