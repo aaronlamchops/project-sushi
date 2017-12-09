@@ -10,6 +10,6 @@ namespace Messages
     [Serializable]
     public class SendGameList : Message
     {
-        public ConcurrentDictionary<int, Game> gameList { get; set; } 
+        public ConcurrentDictionary<int, GameInfo> gameList { get; set; } 
     }
 }

@@ -38,6 +38,7 @@ namespace GameApp
             conv.Start();
 
             ConnectGSMsg convMessage = Message.Decode<ConnectGSMsg>(bytes);
+            //generate TCP client
             TCPClient client = new TCPClient();
             IPEndPoint clientTcp = refEp;
             clientTcp.Port = convMessage.Port;
@@ -45,11 +46,28 @@ namespace GameApp
             int playerId = convMessage.PlayerId;
             //need to store client tcp somewhere
             tcpClients.Add(playerId, client);
+
+            //add player to game
+            Game game;
+            //find game in list
+            if(gameList.Exists(x => x.gameId == convMessage.GameId))
+            {
+                game = gameList.Find(x => x.gameId == convMessage.GameId);
+            }
+            else
+            {
+                game = new Game(convMessage.GameId, convMessage.Players);
+            }
+            game.AddPlayer(playerId);
         }
 
         public void SelectCardResponse(byte[] bytes)
         {
-            //no response is required in this tcp conversation
+            //no response is required so conversation is finished
+            SelectCard msg = Message.Decode<SelectCard>(bytes);
+
+            Game game = gameList.Find(x => x.gameId == msg.GameId);
+            game.SelectCard(msg.PlayerID, msg.CardID);
         }
 
         public override void TCPReceive()

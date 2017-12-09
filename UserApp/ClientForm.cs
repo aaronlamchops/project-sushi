@@ -202,10 +202,10 @@ namespace UserApp
 
         public void RefreshPostExecute(object context)
         {
-            var gameList = (ConcurrentDictionary<int, Game>)context;
+            var gameList = (ConcurrentDictionary<int, GameInfo>)context;
             GameItems = new List<ListViewItem>();
 
-            foreach (KeyValuePair<int, Game> index in gameList)
+            foreach (KeyValuePair<int, GameInfo> index in gameList)
             {
                 string[] row = {
                     index.Value.GameName,

@@ -11,7 +11,7 @@ namespace CommSubSystem.ConversationClass
 {
     public class RequestGameListConv : Conversation
     {
-        public ConcurrentDictionary<int, Game> _LobbyGameList = new ConcurrentDictionary<int, Game>();
+        public ConcurrentDictionary<int, GameInfo> _LobbyGameList = new ConcurrentDictionary<int, GameInfo>();
 
         public RequestGameListConv()
         {

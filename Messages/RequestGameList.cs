@@ -16,6 +16,6 @@ namespace Messages
     [Serializable]
     public class RequestGameListReply : Message
     {
-        public ConcurrentDictionary<int, Game> LobbyGameList = new ConcurrentDictionary<int, Game>();
+        public ConcurrentDictionary<int, GameInfo> LobbyGameList = new ConcurrentDictionary<int, GameInfo>();
     }
 }

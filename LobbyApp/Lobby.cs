@@ -14,7 +14,7 @@ namespace LobbyApp
 {
     public class Lobby
     {
-        public ConcurrentDictionary<int,Game> gameList = new ConcurrentDictionary<int, Game>();
+        public ConcurrentDictionary<int,GameInfo> gameList = new ConcurrentDictionary<int, GameInfo>();
         private int IDCounter = 1;//lobby ID is always 1
         public volatile bool isRunning = true;
 
@@ -34,20 +34,20 @@ namespace LobbyApp
         public void HandleCreateGame(Player host, int minPlayer, int maxPlayer, string name, int gameID)//before response 
         {
             //int gameID = -1;//TODO Send RequestGameID to gameServer to get valid ID
-            Game g = new Game(gameID, host, minPlayer, maxPlayer, name);
+            GameInfo g = new GameInfo(gameID, host, minPlayer, maxPlayer, name);
             g.AddPlayer(host); // need at least one player in the game always
             gameList[gameID] = g;
         }
 
         public void HandleJoinGame(Player p, int gameID) {//before response
-            Game g = gameList[gameID];
+            GameInfo g = gameList[gameID];
             g.AddPlayer(p);
             gameList[gameID] = g;
         }
 
         public void StartGame(int gameID)//before response
         {
-            Game g = gameList[gameID];
+            GameInfo g = gameList[gameID];
             foreach(Player p in g.playerList)
             {
                 //Send gameserver info to each player
@@ -69,7 +69,7 @@ namespace LobbyApp
                 //hearbeat to all players that have joined games
                 foreach(var keypair in gameList)
                 {
-                    Game g = keypair.Value;
+                    GameInfo g = keypair.Value;
                     int numberOfPlayers = g.playerList.Count;
                     foreach (Player p in g.playerList)
                     {
