@@ -62,10 +62,24 @@ namespace SharedObjects
             //remove card from hand and add to played cards
             Player player = playerList.Find(x => x.Id == playerId);
             player.ChooseCard(card);
+            numChosenCards++;
             //if all players have chosen a card, pass cards
             if (numChosenCards == playerCount)
             {
+                //reset
+                numChosenCards = 0;
+                round--;
+
                 //if last card, score round
+                if (round == 0)
+                {
+                    foreach(Player currPlayer in playerList)
+                    {
+                        currPlayer.ScoreCards();
+                        currPlayer.Hand = _Deck.DealHand(numRounds);
+                    }
+                }
+                
                 PassCards();
             }
         }
