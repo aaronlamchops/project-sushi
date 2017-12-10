@@ -24,8 +24,29 @@ namespace SharedObjects
 
         public int ScoreCards()
         {
-            //(TODO) scoring rules here
-            return 0;
+            int wasabi = PlayedCards.FindAll(x => x == CardTypes.Wasabi).Count;
+            int egg = PlayedCards.FindAll(x => x == CardTypes.EggNigiri).Count;
+            int salmon = PlayedCards.FindAll(x => x == CardTypes.SalmonNigiri).Count;
+            int squid = PlayedCards.FindAll(x => x == CardTypes.SquidNigiri).Count;
+            int sashimi = PlayedCards.FindAll(x => x == CardTypes.Sashimi).Count;
+            int tempura = PlayedCards.FindAll(x => x == CardTypes.Tempura).Count;
+            int dumpling = PlayedCards.FindAll(x => x == CardTypes.Dumpling).Count;
+            int makiroll = PlayedCards.FindAll(x => x == CardTypes.MakiRoll).Count;
+            int pudding = PlayedCards.FindAll(x => x == CardTypes.Pudding).Count;
+            int Chopsticks = PlayedCards.FindAll(x => x == CardTypes.Chopsticks).Count;
+
+            Score += egg;
+            Score += salmon * 2;
+            Score += squid * 3;
+            Score += (sashimi / 3) * 10;
+            Score += (tempura / 2) * 5;
+            if (dumpling == 1) Score += 1;
+            if (dumpling == 2) Score += 3;
+            if (dumpling == 3) Score += 5;
+            if (dumpling == 4) Score += 10;
+            if (dumpling >= 5) Score += 15;
+
+            return Score;
         }
 
         public Player() { }
