@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using SharedObjects;
+using System.Diagnostics;
 
 namespace Messages
 {
@@ -29,13 +30,14 @@ namespace Messages
         public static T Decode<T>(byte[] message) where T : Message, new()
         {
             T result = null;
-
+            Debug.WriteLine(message);
             if (message != null)
             {
                 IFormatter formatter = new BinaryFormatter();
                 Stream stream = new MemoryStream(message);
                 stream.Position = 0;
                 result = (T)formatter.Deserialize(stream);
+                stream.Flush();
             }
             return result;
         }

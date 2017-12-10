@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace CommSubSystem
 {
@@ -94,13 +95,14 @@ namespace CommSubSystem
                 client.Close();
                 return;
             }
-            sslStream.ReadTimeout = 500;
+            sslStream.ReadTimeout = 1000;
             sslStream.WriteTimeout = 5000;
 
         }
 
         public void Send(byte[] envelope)
         {
+            Debug.WriteLine(envelope);
             sslStream.Write(envelope, 0, envelope.Length);
             sslStream.Flush();
         }
@@ -111,6 +113,7 @@ namespace CommSubSystem
             MemoryStream ms = new MemoryStream();
             StringBuilder messageData = new StringBuilder();
             int bytes = -1;
+            bool isEnd = false;
 
             do
             {
@@ -122,14 +125,26 @@ namespace CommSubSystem
                     char[] chars = new char[decoder.GetCharCount(buffer, 0, bytes)];
                     decoder.GetChars(buffer, 0, bytes, chars, 0);
                     messageData.Append(chars);
+                    if (buffer.Contains(Convert.ToByte(11)))
+                    {
+                        isEnd = true;
+                        break;
+                    }
                 }
                 catch
                 {
                     break;//End of message
                 }
         } while (bytes != 0);
-
-            return ms.ToArray();
+            if (bytes != -1 && isEnd)
+            {
+                return ms.ToArray();
+            }
+            else
+            {
+           
+                return null;
+            }
         }
     }
 }

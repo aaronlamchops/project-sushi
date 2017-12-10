@@ -23,7 +23,9 @@ namespace CommSubSystem.Conversations
         {
             PassCard msg = new PassCard()
             {
-                Hand = _Hand
+                ConvId = ConvId,
+                Hand = _Hand,
+                MsgId = ConvId
             };
             return msg;
         }
