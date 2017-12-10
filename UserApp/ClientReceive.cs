@@ -13,6 +13,7 @@ using CommSubSystem.Conversations;
 using log4net;
 using System.Net;
 using System.Net.Sockets;
+using System.Diagnostics;
 
 namespace UserApp
 {
@@ -24,6 +25,7 @@ namespace UserApp
 
         protected override void ExecuteBasedOnType(byte[] bytes, TypeOfMessage type, IPEndPoint refEp)
         {
+            Debug.WriteLine("TYPE:" + type);
             switch (type)
             {
                 case TypeOfMessage.LobbyHeartbeat:

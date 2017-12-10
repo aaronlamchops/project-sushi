@@ -32,7 +32,7 @@ namespace CommunicationSubsystemTest
 
             TCPClient tc1 = new TCPClient();
             TCPClient tc2 = new TCPClient();
-            IPEndPoint tc1Address = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 0);//IPAddress.Any IPAddress.Parse("127.0.0.1")
+            IPEndPoint tc1Address = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1027);//IPAddress.Any IPAddress.Parse("127.0.0.1")
 
             MessageId msgid = new MessageId() { Pid = 45, Seq = 1};
             Message msg = new Message()
