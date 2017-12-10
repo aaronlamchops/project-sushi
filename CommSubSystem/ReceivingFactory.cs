@@ -30,7 +30,7 @@ namespace CommSubSystem
                 remoteEp = new IPEndPoint(IPAddress.Any, 0);
                 bytes = UDPClient.UDPInstance.Receive(ref remoteEp);
 
-                if (bytes != null)
+                if (bytes != null && bytes.Length > 0)
                 {
                     RespondToMessage(bytes, remoteEp);
                     bytes = null;

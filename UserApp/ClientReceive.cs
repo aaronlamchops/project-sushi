@@ -71,8 +71,8 @@ namespace UserApp
             ConnectGameServer connectConv = ConversationFactory.Instance
                 .CreateFromConversationType<ConnectGameServer>
                 (gameServer, null, null, null);
-            //connectConv._GameId = ;
-            //connectConv._NumPlayers = ;
+            connectConv._GameId = 1;
+            connectConv._NumPlayers = 1;
             connectConv._Port = gamePort;
             connectConv.Start();
         }
