@@ -12,6 +12,7 @@ using System.Net;
 using Messages;
 
 using System.Diagnostics;
+using SharedObjects;
 
 namespace LobbyApp
 {
@@ -101,8 +102,11 @@ namespace LobbyApp
 
             CreateGame result = Message.Decode<CreateGame>(bytes);
 
+            Player player = result.PlayerId;
+            player.SetIP(refEp);
+
             //add this game to the lobby list of games
-            GamesOnLobby.HandleCreateGame(result.PlayerId, result.MinPlayers, result.MaxPlayers, result.GameName, conv._GameId);
+            GamesOnLobby.HandleCreateGame(player, result.MinPlayers, result.MaxPlayers, result.GameName, conv._GameId);
 
             conv.Start();
         }
@@ -128,6 +132,9 @@ namespace LobbyApp
             JoinGameConv conv = ConversationFactory.Instance.CreateFromMessage<JoinGameConv>(bytes, refEP, null, null, null);
 
             JoinGame result = Message.Decode<JoinGame>(bytes);
+
+            Player player = result.Player;
+            player.SetIP(refEP);
 
             GamesOnLobby.HandleJoinGame(result.Player, result.GameID);
 

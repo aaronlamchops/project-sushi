@@ -28,6 +28,8 @@ namespace GameApp
                 case TypeOfMessage.SelectCard:
                     SelectCardResponse(bytes);
                     break;
+                default:
+                    break;
             }
         }
 

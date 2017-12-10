@@ -19,13 +19,12 @@ namespace GameApp
     {
         IPEndPoint server = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);
         public GameReceive _ReceivingProcess;
-        public Thread _receivingThread;
 
         public GameServer()
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(1026);
+            UDPClient.UDPInstance.SetupAndRun(1040);
             _ReceivingProcess = new GameReceive();
             _ReceivingProcess.Start();
 
@@ -45,6 +44,11 @@ namespace GameApp
             while (conv.Done != true)
             {
             }
+        }
+
+        private void ClientForm_FormClosed(object sender, EventArgs e)
+        {
+            _ReceivingProcess.Stop();
         }
     }
 }
