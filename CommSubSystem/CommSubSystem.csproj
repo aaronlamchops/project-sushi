@@ -48,6 +48,7 @@
     <Compile Include="Conversations\ConnectGameServer.cs" />
     <Compile Include="Conversations\PassCards.cs" />
     <Compile Include="Conversations\Registration.cs" />
+    <Compile Include="Conversations\SelectCardConv.cs" />
     <Compile Include="Conversations\StartGame.cs" />
     <Compile Include="TCPClient.cs" />
     <Compile Include="ConversationDictionary.cs" />

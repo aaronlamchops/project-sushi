@@ -42,7 +42,10 @@ namespace UserApp
             InitializeComponent();
 
             UDPClient.UDPInstance.SetupAndRun(1024);
-            _ReceivingProcess = new ClientReceive();
+            _ReceivingProcess = new ClientReceive()
+            {
+                PassCardsToGame = UpdatePlayerHand      //assign the delegate
+            };
             _ReceivingProcess.Start();
 
             //get pid
@@ -67,6 +70,12 @@ namespace UserApp
             conv.Start();
         }
 
+        //Delegate to update GameGui
+        private void UpdatePlayerHand(List<CardTypes> passedHand)
+        {
+            Notify(passedHand);
+        }
+
         private void ClientForm_FormClosed(object sender, EventArgs e)
         {
             _ReceivingProcess.Stop();
@@ -89,11 +98,21 @@ namespace UserApp
                 {
                     ReceivingListView.Items.Add(item);
                 }
-
-
             }
 
             NeedsRefresh = false;
+        }
+
+        //call this when the player selects a card
+        public void SelectCard(int playerId, CardTypes card)
+        {
+            SelectCardConv conv = ConversationFactory.Instance
+                .CreateFromConversationType<SelectCardConv>
+                (server, null, null, null);
+            conv._PlayerId = playerId;
+            conv._CardID = card;
+            conv._GameId = Player.GameId;
+            conv.Start();
         }
 
         private void SendButton_Click(object sender, EventArgs e)
@@ -105,7 +124,11 @@ namespace UserApp
              * 
              * This can be removed later when we have working implementations
              */
-            GameUI ui = new GameUI();
+            GameUI ui = new GameUI()
+            {
+                Player = Player,            //Assign the GameUI player to the ClientApp player
+                SelectCard = SelectCard     //Delegate passed for selecting card
+            };
             ui.PlayerList.Add(Player);  //add the user
 
             //Add temporary filler players

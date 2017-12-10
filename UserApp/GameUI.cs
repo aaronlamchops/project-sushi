@@ -14,8 +14,14 @@ namespace UserApp
 {
     public partial class GameUI : ClientObserver
     {
+        public Player Player { get; set; }
         public Dictionary<int, GroupBox> PlayerContainers = new Dictionary<int, GroupBox>();
         public List<Player> PlayerList = new List<Player>();
+
+        public List<Card> Hand = new List<Card>();
+        public List<CardTypes> CardTypesInHand = new List<CardTypes>();
+
+        public CardTypes SelectedCard { get; set; }
 
         public GameUI()
         {
@@ -29,7 +35,7 @@ namespace UserApp
 
         private void InitializePlayerSeats()
         {
-            foreach(var player in PlayerList)
+            foreach (var player in PlayerList)
             {
                 GroupBox playerSeat = new GroupBox
                 {
@@ -44,7 +50,7 @@ namespace UserApp
                 groupBoxFlowLayout.Location = new Point(groupBoxFlowLayout.Location.X + 5, groupBoxFlowLayout.Location.Y + 25);
 
                 //Add the flowlayout to the groupbox
-                playerSeat.Controls.Add(groupBoxFlowLayout);    
+                playerSeat.Controls.Add(groupBoxFlowLayout);
 
                 //add the labels to see totals for each player
                 AddCardLabels(groupBoxFlowLayout);
@@ -71,7 +77,7 @@ namespace UserApp
              * 
              * Store in the player shared object
              */
-            
+
             Label PuddingLabel = new Label();
             PuddingLabel.Text = "Puddings = ";
             PuddingLabel.Tag = "Pudding";
@@ -127,10 +133,16 @@ namespace UserApp
         //implemented from client observer base class
         public override void RefreshDisplay()
         {
-            //if(MainContext.GetType() == typeof())
-            //{
+            //Update the current hand to the incoming hand
+            if (MainContext.GetType() == typeof(List<CardTypes>))
+            {
+                var incomingHand = (List<CardTypes>)MainContext;
 
-            //}
+                foreach(CardTypes card in incomingHand)
+                {
+                    AddCardToHand(card);
+                }
+            }
         }
 
         private void SendMessageButton_Click(object sender, EventArgs e)
@@ -145,11 +157,11 @@ namespace UserApp
              * Will implement sending when necessary
              */
             UpdateLabel(0, "Tempura", 100);
-            AddCardToHand("tempura");
-            AddCardToHand("pudding");
-            AddCardToHand("sashimi");
-            AddCardToHand("chopsticks");
-            AddCardToHand("dumpling");
+            AddCardToHand(CardTypes.Chopsticks);
+            AddCardToHand(CardTypes.Pudding);
+            AddCardToHand(CardTypes.Sashimi);
+            AddCardToHand(CardTypes.Chopsticks);
+            AddCardToHand(CardTypes.Dumpling);
         }
 
         public void UpdateLabel(int playerId, string tag, int value)
@@ -168,17 +180,42 @@ namespace UserApp
             }
         }
 
-        public void AddCardToHand(string cardType)
+        //add cards to the flowlayoutpanel
+        public void AddCardToHand(CardTypes cardType)
         {
-            /*
-             * TESTING:
-             * 
-             * This is testing the ability to add cards to the hand
-             * 
-             * Must be altered later
-             */
-            Card card = new Card(cardType);
+            Card card = new Card(cardType)
+            {
+                ChangeToSelectedCard = ChangeSelectedCard      //Delegate passed
+            };
+            Hand.Add(card);
+            CardTypesInHand.Add(card.Type);
             CardHandFlowLayoutPanel.Controls.Add(card);
+        }
+
+        public delegate void SelectCardHandler(int playerId, CardTypes card);
+        public SelectCardHandler SelectCard { get; set; }
+
+        private void PassCardButton_Click(object sender, EventArgs e)
+        {
+            //Selected card is selected
+            SelectCard(Player.Id, SelectedCard);
+
+            //clears the visual representation of the hand
+            foreach(Control control in CardHandFlowLayoutPanel.Controls)
+            {
+                CardHandFlowLayoutPanel.Controls.Remove(control);
+                control.Dispose();
+            }
+
+            //empty the hand before receving a new hand
+            CardTypesInHand.Clear();
+            Hand.Clear();
+        }
+
+        //Pass as delegate to the Card shared object to select
+        public void ChangeSelectedCard(CardTypes card)
+        {
+            SelectedCard = card;
         }
     }
 }
