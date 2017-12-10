@@ -42,6 +42,10 @@ namespace CommSubSystem.Conversations
 
         public override void ResponderConversation(ref object context)
         {
+            incomingMsg = MyQueue.Dequeue(Timeout);
+
+            if (incomingMsg == null) return;
+
             Send(CreateAck());
 
             ConnectMsg msg = Message.Decode<ConnectMsg>(incomingMsg);

@@ -41,7 +41,7 @@ namespace UserApp
         {
             InitializeComponent();
 
-            UDPClient.UDPInstance.SetupAndRun(1024);
+            UDPClient.UDPInstance.SetupAndRun(0);
             _ReceivingProcess = new ClientReceive()
             {
                 PassCardsToGame = UpdatePlayerHand      //assign the delegate
@@ -67,6 +67,7 @@ namespace UserApp
             StartGame conv = ConversationFactory.Instance
                 .CreateFromConversationType<StartGame>
                 (server, null, null, null);
+            conv._GameId = Player.GameId;
             conv.Start();
         }
 
@@ -259,6 +260,7 @@ namespace UserApp
                 MinPlayers = Convert.ToInt32(parameters[0]),
                 MaxPlayers = Convert.ToInt32(parameters[1]),
                 GameName = parameters[2],
+                StartGame = StartGame
             };
 
             Subscribe(waitingRoomWindow);   //newly made waiting room will subscribe to the client
@@ -285,6 +287,7 @@ namespace UserApp
                 MinPlayers = parameter.MinPlayers,
                 MaxPlayers = parameter.MaxPlayers,
                 GameName = parameter.GameName,
+                StartGame = StartGame
             };
 
             Subscribe(waitingRoomWindow);   //newly made waiting room will subscribe to the client

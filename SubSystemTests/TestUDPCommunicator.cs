@@ -32,7 +32,7 @@ namespace CommunicationSubsystemTest
 
             TCPClient tc1 = new TCPClient();
             TCPClient tc2 = new TCPClient();
-            IPEndPoint tc1Address = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1025);//IPAddress.Any IPAddress.Parse("127.0.0.1")
+            IPEndPoint tc1Address = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 0);//IPAddress.Any IPAddress.Parse("127.0.0.1")
 
             MessageId msgid = new MessageId() { Pid = 45, Seq = 1};
             Message msg = new Message()
@@ -43,7 +43,7 @@ namespace CommunicationSubsystemTest
             };
             byte[] msgEnc = msg.Encode();
             Message expectedMsgDec = Message.Decode<Message>(msgEnc);
-            tc1.SetupConnection(1025);
+            tc1.SetupConnection();
             Thread.Sleep(1000);
             tc2.ConnectToServer(tc1Address);
 
