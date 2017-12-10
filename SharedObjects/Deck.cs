@@ -22,7 +22,7 @@ namespace SharedObjects
 
     public class Deck
     {
-        private List<CardTypes> Cards;
+        public List<CardTypes> Cards;
         private static Random rng = new Random();
 
         public Deck()
