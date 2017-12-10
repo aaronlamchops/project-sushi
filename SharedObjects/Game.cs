@@ -58,7 +58,7 @@ namespace SharedObjects
             }
         }
 
-        public void SelectCard(int playerId, SharedObjects.CardTypes card)
+        public void SelectCard(int playerId, CardTypes card)
         {
             //remove card from hand and add to played cards
             Player player = playerList.Find(x => x.Id == playerId);

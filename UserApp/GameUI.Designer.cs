@@ -33,6 +33,7 @@
             this.ChatMessageTextBox = new System.Windows.Forms.TextBox();
             this.SendMessageButton = new System.Windows.Forms.Button();
             this.PlayersFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.PassCardButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CardHandFlowLayoutPanel
@@ -71,14 +72,25 @@
             // 
             this.PlayersFlowLayoutPanel.Location = new System.Drawing.Point(12, 12);
             this.PlayersFlowLayoutPanel.Name = "PlayersFlowLayoutPanel";
-            this.PlayersFlowLayoutPanel.Size = new System.Drawing.Size(710, 431);
+            this.PlayersFlowLayoutPanel.Size = new System.Drawing.Size(710, 375);
             this.PlayersFlowLayoutPanel.TabIndex = 0;
+            // 
+            // PassCardButton
+            // 
+            this.PassCardButton.Location = new System.Drawing.Point(647, 420);
+            this.PassCardButton.Name = "PassCardButton";
+            this.PassCardButton.Size = new System.Drawing.Size(75, 23);
+            this.PassCardButton.TabIndex = 4;
+            this.PassCardButton.Text = "Pass Card";
+            this.PassCardButton.UseVisualStyleBackColor = true;
+            this.PassCardButton.Click += new System.EventHandler(this.PassCardButton_Click);
             // 
             // GameUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(967, 670);
+            this.Controls.Add(this.PassCardButton);
             this.Controls.Add(this.PlayersFlowLayoutPanel);
             this.Controls.Add(this.SendMessageButton);
             this.Controls.Add(this.ChatMessageTextBox);
@@ -99,5 +111,6 @@
         private System.Windows.Forms.TextBox ChatMessageTextBox;
         private System.Windows.Forms.Button SendMessageButton;
         private System.Windows.Forms.FlowLayoutPanel PlayersFlowLayoutPanel;
+        private System.Windows.Forms.Button PassCardButton;
     }
 }

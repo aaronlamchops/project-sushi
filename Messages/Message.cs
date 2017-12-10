@@ -34,7 +34,7 @@ namespace Messages
             {
                 IFormatter formatter = new BinaryFormatter();
                 Stream stream = new MemoryStream(message);
-
+                stream.Position = 0;
                 result = (T)formatter.Deserialize(stream);
             }
             return result;

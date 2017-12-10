@@ -87,7 +87,7 @@ namespace GameApp
             foreach (TCPClient tcp in tcpClients.Values)
             {
                 bytes = tcp.Receive();
-                if (bytes != null)
+                if (bytes != null && bytes.Length > 0)
                 {
                     RespondToMessage(bytes, null);
                     bytes = null;

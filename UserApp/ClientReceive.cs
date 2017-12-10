@@ -32,6 +32,9 @@ namespace UserApp
                 case TypeOfMessage.ConnectInfoMsg:
                     ConnectInfoResponse(bytes, refEp);
                     break;
+                case TypeOfMessage.PassCard:
+                    PassCardResponse(bytes, refEp);
+                    break;
                 default:
                     EnqueueMessage(bytes);
                     break;
@@ -68,8 +71,8 @@ namespace UserApp
             ConnectGameServer connectConv = ConversationFactory.Instance
                 .CreateFromConversationType<ConnectGameServer>
                 (gameServer, null, null, null);
-            //connectConv._GameId = ;
-            //connectConv._NumPlayers = ;
+            connectConv._GameId = 1;
+            connectConv._NumPlayers = 1;
             connectConv._Port = gamePort;
             connectConv.Start();
         }
@@ -88,6 +91,17 @@ namespace UserApp
             LobbyHeartbeatConv conv = ConversationFactory.Instance
                 .CreateFromMessage<LobbyHeartbeatConv>(bytes, refEp, null, null, null);
             conv.Start();
+        }
+
+        public delegate void PassCardsToGameHandler(List<CardTypes> passedHand);
+        public PassCardsToGameHandler PassCardsToGame { get; set; }
+
+        private void PassCardResponse(byte[] bytes, IPEndPoint refEp)
+        {
+            PassCard msg = Message.Decode<PassCard>(bytes);
+
+            PassCardsToGame(msg.Hand);      //calls the delegate and sends cards to game gui
+            //do something with the cards
         }
 
         public override void TCPReceive()
