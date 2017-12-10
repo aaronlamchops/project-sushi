@@ -16,20 +16,21 @@ namespace CommSubSystem
 {
     public class TCPClient
     {
+        public int port { get; set; }
         private TcpClient client;
         private NetworkStream stream;
         private SslStream sslStream;
         static X509Certificate serverCertificate = null;
         TcpListener server;
 
-        public void SetupConnection(int port)
+        public void SetupConnection()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Any, port);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Any, 0);
             server = new TcpListener(ep);
             server.Start();
             Thread t = new Thread(Listening);
             t.Start();
-
+            port = ((IPEndPoint)server.LocalEndpoint).Port;
         }
 
         public void Listening()

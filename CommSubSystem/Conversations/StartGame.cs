@@ -40,6 +40,10 @@ namespace CommSubSystem.Conversations
 
         public override void ResponderConversation(ref object context)
         {
+            incomingMsg = MyQueue.Dequeue(Timeout);
+
+            if (incomingMsg == null) return;
+
             Send(CreateAck());
 
             StartGameMsg msg = Message.Decode<StartGameMsg>(incomingMsg);

@@ -18,6 +18,8 @@ namespace LobbyApp
         private int IDCounter = 1;//lobby ID is always 1
         public volatile bool isRunning = true;
 
+        IPEndPoint GameServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1040);
+
         public int GetPlayerID()//before response
         {
             //add lock
@@ -47,17 +49,21 @@ namespace LobbyApp
 
         public void StartGame(int gameID)//before response
         {
-            GameInfo g = gameList[gameID];
-            foreach(Player p in g.playerList)
+            GameInfo g = null;
+            gameList.TryGetValue(gameID, out g);
+            if (g != null)
             {
-                //Send gameserver info to each player
-                IPEndPoint playerIP = p.GetIP();
-                ConnectInfo conv =
-                    ConversationFactory.Instance
-                    .CreateFromConversationType<ConnectInfo>
-                    (playerIP, null, null, null);
-                conv._gameServer = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1026);
-                conv.Start();
+                foreach (Player p in g.playerList)
+                {
+                    //Send gameserver info to each player
+                    IPEndPoint playerIP = p.GetIP();
+                    ConnectInfo conv =
+                        ConversationFactory.Instance
+                        .CreateFromConversationType<ConnectInfo>
+                        (playerIP, null, null, null);
+                    conv._gameServer = GameServer;
+                    conv.Start();
+                }
             }
             gameList.TryRemove(gameID, out g);
         }

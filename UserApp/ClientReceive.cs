@@ -12,6 +12,7 @@ using CommSubSystem.ConversationClass;
 using CommSubSystem.Conversations;
 using log4net;
 using System.Net;
+using System.Net.Sockets;
 
 namespace UserApp
 {
@@ -31,6 +32,19 @@ namespace UserApp
                 case TypeOfMessage.ConnectInfoMsg:
                     ConnectInfoResponse(bytes, refEp);
                     break;
+                default:
+                    EnqueueMessage(bytes);
+                    break;
+            }
+        }
+
+        private void EnqueueMessage(byte[] bytes)
+        {
+            Message msg = Message.Decode<Message>(bytes);
+            ConversationQueue queue = ConversationDictionary.Instance.Lookup(msg.ConvId);
+            if (queue != null)
+            {
+                queue.Enqueue(bytes);
             }
         }
 
@@ -45,17 +59,30 @@ namespace UserApp
             gameServer = msg.GameServer;
             //open tcp connection
             TCPClient tcp = new TCPClient();
-            int gamePort = 500;
-            tcp.SetupConnection(gamePort);
+            tcp.SetupConnection();
+
+            int gamePort = tcp.port;
+            
             tcpClients.Add(tcp);
             //send message with info on which port
             ConnectGameServer connectConv = ConversationFactory.Instance
-                .CreateFromMessage<ConnectGameServer>
-                (bytes, gameServer, null, null, null);
+                .CreateFromConversationType<ConnectGameServer>
+                (gameServer, null, null, null);
             //connectConv._GameId = ;
             //connectConv._NumPlayers = ;
             connectConv._Port = gamePort;
+            connectConv.Start();
         }
+
+        private int GetOpenTCPPort()
+        {
+            TcpListener l = new TcpListener(IPAddress.Loopback, 0);
+            l.Start();
+            int port = ((IPEndPoint)l.LocalEndpoint).Port;
+            l.Stop();
+            return port;
+        }
+
         private void LobbyHeartBeatResponse(byte[] bytes, IPEndPoint refEp)
         {
             LobbyHeartbeatConv conv = ConversationFactory.Instance
@@ -69,7 +96,7 @@ namespace UserApp
             foreach (TCPClient tcp in tcpClients)
             {
                 bytes = tcp.Receive();
-                if (bytes != null)
+                if (bytes != null && bytes.Length > 0)
                 {
                     RespondToMessage(bytes, null);
                     bytes = null;

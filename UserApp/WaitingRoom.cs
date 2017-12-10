@@ -15,6 +15,9 @@ namespace UserApp
     public partial class WaitingRoom : ClientObserver
     {
         public int ID { get; set; }
+        public delegate void ActionHandler();
+        public ActionHandler StartGame { get; set; }
+
 
         public string GameName 
         { 
@@ -58,11 +61,7 @@ namespace UserApp
 
         private void StartGameButton_Click(object sender, EventArgs e)
         {
-            //need game info to send
-            /*StartGame conv = ConversationFactory.Instance
-                .CreateFromConversationType<StartGame>(server, null, null, null);
-            conv._GameId = gameId;
-            conv.Start();*/
+            StartGame();
         }
 
         private void ExitButton_Click(object sender, EventArgs e)

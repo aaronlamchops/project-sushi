@@ -39,6 +39,7 @@ namespace CommSubSystem.ConversationClass
             bool initiator = false;
             MessageId ConvId = Message.Decode<Message>(bytes).ConvId;
             ConversationQueue queue = ConversationDictionary.Instance.CreateQueue(ConvId);
+            queue.Enqueue(bytes);
 
             T conversation = new T()
             {

@@ -42,6 +42,11 @@ namespace SharedObjects
             PlayedCards.Add(card);
         }
 
+        public void SetIP(IPEndPoint ip)
+        {
+            playerIP = ip;
+        }
+
         public IPEndPoint GetIP()
         {
             return playerIP;
